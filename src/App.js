@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from "./components/navbar/navbar.component"
+import Product from "./components/product/product.component"
+import Dashboard from "./components/dashboard/dashboard.component"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 export default class App extends Component  {
   render() {
     return (
-      <div className="main">
-        <NavBar>
-        </NavBar>
-      </div>
+      <Router>
+        <div className="main">
+          <NavBar />
+          <br />
+          <Route path="/" exact component={Dashboard} />
+          <Route path="/product" component={Product} />
+        </div>
+      </Router>
     );
   }
 }

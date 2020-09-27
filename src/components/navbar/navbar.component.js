@@ -41,7 +41,7 @@ export default class NavBar extends Component {
           <div className="left-side">
             <button 
               className="my-btn" onClick={this.sideOpen}>
-              <i class="fas fa-bars" style={{ "font-size": "1.5rem" }}></i>
+              <i className="fas fa-bars" style={{ "font-size": "1.5rem" }}></i>
             </button>
 
             <Navbar.Brand>

@@ -1,3 +1,7 @@
+:root {
+    --transition-delay: 160ms;
+}
+
 .navbar {
     background-color: #252525;
     display: flex;
@@ -18,7 +22,7 @@
     line-height: 1.5rem;
     border-radius: 0.25rem;
     transform: rotateZ(0deg);
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out, transform 230ms ease-in-out;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out, transform var(--transition-delay) ease-in-out;
 }
 
 .my-btn:hover {
@@ -27,7 +31,7 @@
 
 .my-btn.open {
     transform: rotateZ(90deg);
-    transition: transform 230ms;
+    transition: transform var(--transition-delay);
 }
 
 
@@ -44,9 +48,9 @@
 .sidebar {
     padding-top: 50px;
     position: fixed;
-    transform: translateX(-12rem);
-    transition: transform 230ms ease-in-out;
-    width: 12rem;
+    transform: translateX(-15rem);
+    transition: transform var(--transition-delay) ease-in-out;
+    width: 15rem;
     height: 100vh;
     background-color: rgb(235, 235, 235);
     box-shadow: 3px 0px 10px 5px rgba(15, 15, 15, 0.2);
@@ -54,7 +58,7 @@
 
 .sidebar.open {
     transform: translateX(0);
-    transition: transform 230ms ease-in-out;
+    transition: transform var(--transition-delay) ease-in-out;
 }
 
 .sidebar-nav {
