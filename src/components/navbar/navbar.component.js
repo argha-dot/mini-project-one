@@ -45,8 +45,8 @@ export default class NavBar extends Component {
             </button>
 
             <Navbar.Brand>
-              <h2 style={{ color: "whitesmoke" }}>
-                SHOP
+              <h2 style={{ color: "blue" }}>
+                SHOP  
             </h2>
             </Navbar.Brand>
 
