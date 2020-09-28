@@ -24,12 +24,51 @@
 }
 
 .product-name {
-	font-size: 2rem;
+	font-size: 3rem;
 	font-weight: 500;
-	/* margin-top: 11px; */
 }
 
 .product-text {
-    margin-top: 15px;
+    margin-top: 50px;
+	color: rgba(187, 187, 187, 0.6);
 }
 
+.order-info {
+    margin-top: 10px;
+}
+
+.product-form {
+    margin-top: 30px;
+}
+
+.product-price {
+    text-decoration: solid;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+
+.add-link {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.buy-link {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.shop-btn {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.add-wishlist {
+    border-radius: 50%;
+    height: 2.5rem;
+    width: 2.5rem;
+    margin-right: 225px;
+    color: rgb(133, 6, 6);
+}
