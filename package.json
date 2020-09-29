@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^1.1.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -12,7 +13,9 @@
     "bootstrap": "^4.5.2",
     "concurrently": "^5.3.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express-session": "^1.17.1",
+    "http-proxy-middleware": "^1.0.5",
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.7",
@@ -34,14 +37,6 @@
     "eject": "react-scripts eject"
   },
   "main": "server/",
-  "proxy": {
-    "/auth/callback": {
-      "target": "http://localhost:5000"
-    },
-    "/api": {
-      "target": "http://localhost:5000"
-    }
-  },
   "now": {
     "alias": "Larsson Tech"
   },

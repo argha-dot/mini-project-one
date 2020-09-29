@@ -1,17 +1,13 @@
-const user_controller = require('express').Router();
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const validate_register = require('../validation/register');
-const validate_login = require('../validation/login');
 const axios = require('axios');
 let User = require('../models/user')
 
-user_controller.get("/", (req, res) => {
-    User.find()
-    .then(users => res.json(users))
-    .catch(err => res.status(400).json('Error: ' + err));
-    console.log("Working");
-  });
+// user_controller.get("/", (req, res) => {
+//     User.find()
+//     .then(users => res.json(users))
+//     .catch(err => res.status(400).json('Error: ' + err));
+//     console.log("Working");
+//   });
+
 module.exports = {
 login(req, res) {
     return axios.post(`https://${process.env.AUTH0_DOMAIN}/oauth/token`, {
