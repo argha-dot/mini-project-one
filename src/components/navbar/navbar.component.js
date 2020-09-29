@@ -42,7 +42,7 @@ export default class NavBar extends Component {
           <div className="left-side">
             <button 
               className="my-bar" onClick={this.sideOpen}>
-              <i className="fas fa-bars" style={{ "font-size": "1.5rem" }}></i>
+              <i className="fas fa-bars" style={{ "fontSize": "1.5rem" }}></i>
             </button>
 
             <Navbar.Brand>
@@ -67,7 +67,7 @@ export default class NavBar extends Component {
         <nav className="sidebar">
           <ul className="sidebar-nav">
             <Link to="/" className="side-item">
-              <i class="fas fa-home"></i>
+              <i className="fas fa-home"></i>
               <span className="link-text">Home</span>
             </Link>
             
@@ -92,13 +92,13 @@ export default class NavBar extends Component {
             </Link>
 
             <Link to="/product" className="side-item">
-              <i class="fas fa-gamepad"></i>
+              <i className="fas fa-gamepad"></i>
               <span className="link-text">For Gamers</span>
             </Link>
 
-            <a href="https://blacklivesmatter.com/" className="side-item">
-              <i class="fas fa-helicopter"></i>
-              <span className="link-text">Kobe</span>
+            <a target="_blanck" href="https://blacklivesmatter.com/" className="side-item">
+              <i className="fas fa-helicopter"></i>
+              <span className="link-text">Support</span>
             </a>
 
             <Link to="/" className="side-item">
