@@ -81,7 +81,7 @@ export default class NavBar extends Component {
               <span className="link-text">Headphones</span>
             </Link>
 
-            <Link to="/" className="side-item">
+            <Link to="/product/mac" className="side-item">
               <i className="fas fa-laptop"></i>
               <span className="link-text">Laptops</span>
             </Link>
@@ -91,7 +91,7 @@ export default class NavBar extends Component {
               <span className="link-text">Keyboards</span>
             </Link>
 
-            <Link to="/product" className="side-item">
+            <Link to="/product/gameboy" className="side-item">
               <i className="fas fa-gamepad"></i>
               <span className="link-text">For Gamers</span>
             </Link>

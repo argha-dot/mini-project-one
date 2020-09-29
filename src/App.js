@@ -14,7 +14,7 @@ export default class App extends Component  {
           <NavBar />
           <br />
           <Route path="/" exact component={Dashboard} />
-          <Route path="/product" component={Product} />
+          <Route path="/product/:id" component={Product} />
         </div>
       </Router>
     );
