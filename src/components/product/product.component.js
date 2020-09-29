@@ -38,17 +38,7 @@ export default class Product extends Component {
         }
     }
 
-    componentDidMount() {
-        this.setState({
-            "id": data[this.props.match.params.id].id,
-            "category": data[this.props.match.params.id].category,
-            "productName": data[this.props.match.params.id].productName,
-            "description": data[this.props.match.params.id].description,
-            "price": data[this.props.match.params.id].price,
-            "imgLinks": data[this.props.match.params.id].imgLinks
-        })
-    }
-
+    
     increment = () => {
         var max = document.getElementsByClassName("input-number")[0].getAttribute("max");
         this.setState({"inputValue": (this.state.inputValue >= max) ? this.state.inputValue : this.state.inputValue+1});
@@ -77,6 +67,7 @@ export default class Product extends Component {
 
         return(
             <div className="product-main">
+                {console.log(this.props.match.params.id)}
                 <Carousel>{
                     this.state.imgLinks.map(function(link) {
                         return <Carousel.Item key={link.toString()}>
@@ -146,5 +137,29 @@ export default class Product extends Component {
                 </div>
             </div>
         )
+    }
+
+    componentDidMount() {
+        this.setState({
+            "id": data[this.props.match.params.id].id,
+            "category": data[this.props.match.params.id].category,
+            "productName": data[this.props.match.params.id].productName,
+            "description": data[this.props.match.params.id].description,
+            "price": data[this.props.match.params.id].price,
+            "imgLinks": data[this.props.match.params.id].imgLinks
+        })
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.id !== prevProps.match.params.id) {
+            this.setState({
+                "id": data[this.props.match.params.id].id,
+                "category": data[this.props.match.params.id].category,
+                "productName": data[this.props.match.params.id].productName,
+                "description": data[this.props.match.params.id].description,
+                "imgLinks": data[this.props.match.params.id].imgLinks,
+                "price": data[this.props.match.params.id].price
+            })
+        }
     }
 }

@@ -98,7 +98,7 @@ export default class NavBar extends Component {
 
             <a target="_blanck" href="https://blacklivesmatter.com/" className="side-item">
               <i className="fas fa-helicopter"></i>
-              <span className="link-text">Support</span>
+              <span className="link-text">Kobe</span>
             </a>
 
             <Link to="/" className="side-item">
