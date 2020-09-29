@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Navbar, Form, FormControl } from "react-bootstrap"
+import { Link } from 'react-router-dom';
 import "./navbar.component.css"
 
 export default class NavBar extends Component {
@@ -14,10 +15,10 @@ export default class NavBar extends Component {
   sideOpen = () => {
     if (this.state.sidebarToggle) {
       document.querySelector(".sidebar").classList.add("open");
-      document.querySelector(".my-btn").classList.add("open");
+      document.querySelector(".my-bar").classList.add("open");
     } else {
       document.querySelector(".sidebar").classList.remove("open");
-      document.querySelector(".my-btn").classList.remove("open");
+      document.querySelector(".my-bar").classList.remove("open");
     }
     this.setState({
       sidebarToggle: !this.state.sidebarToggle,
@@ -40,14 +41,14 @@ export default class NavBar extends Component {
           
           <div className="left-side">
             <button 
-              className="my-btn" onClick={this.sideOpen}>
-              <i className="fas fa-bars" style={{ "font-size": "1.5rem" }}></i>
+              className="my-bar" onClick={this.sideOpen}>
+              <i className="fas fa-bars" style={{ "fontSize": "1.5rem" }}></i>
             </button>
 
             <Navbar.Brand>
               <h2 style={{ color: "whitesmoke" }}>
-                SHOP
-            </h2>
+                <Link to="/" className="nav-link">SHOP</Link>
+              </h2>
             </Navbar.Brand>
 
             <Form inline>
@@ -65,61 +66,46 @@ export default class NavBar extends Component {
         
         <nav className="sidebar">
           <ul className="sidebar-nav">
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i class="fas fa-home"></i>
-                <span className="link-text">Home</span>
-              </a>
-            </li>
+            <Link to="/" className="side-item">
+              <i className="fas fa-home"></i>
+              <span className="link-text">Home</span>
+            </Link>
+            
+            <Link to="/" className="side-item">
+              <i className="fas fa-mobile"></i>
+              <span className="link-text">Mobile</span>
+            </Link>
 
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i className="fas fa-mobile"></i>
-                <span className="link-text">Mobile</span>
-              </a>
-            </li>
+            <Link to="/" className="side-item">
+              <i className="fas fa-headphones"></i>
+              <span className="link-text">Headphones</span>
+            </Link>
 
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i className="fas fa-headphones"></i>
-                <span className="link-text">Headphones</span>
-              </a>
-            </li>
+            <Link to="/" className="side-item">
+              <i className="fas fa-laptop"></i>
+              <span className="link-text">Laptops</span>
+            </Link>
 
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i className="fas fa-laptop"></i>
-                <span className="link-text">Laptops</span>
-              </a>
-            </li>
+            <Link to="/" className="side-item">
+              <i className="fas fa-keyboard"></i>
+              <span className="link-text">Keyboards</span>
+            </Link>
 
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i className="fas fa-keyboard"></i>
-                <span className="link-text">Keyboards</span>
-              </a>
-            </li>
+            <Link to="/product" className="side-item">
+              <i className="fas fa-gamepad"></i>
+              <span className="link-text">For Gamers</span>
+            </Link>
 
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i className="fas fa-coffee"></i>
-                <span className="link-text">Coffee</span>
-              </a>
-            </li>
+            <a target="_blanck" href="https://blacklivesmatter.com/" className="side-item">
+              <i className="fas fa-helicopter"></i>
+              <span className="link-text">Support</span>
+            </a>
 
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i class="fas fa-helicopter"></i>
-                <span className="link-text">Kobe</span>
-              </a>
-            </li>
+            <Link to="/" className="side-item">
+              <i className="fas fa-cogs"></i>
+              <span className="link-text">Settings</span>
+            </Link>
 
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i className="fas fa-cogs"></i>
-                <span className="link-text">Settings</span>
-              </a>
-            </li>
           </ul>
 
         </nav>
