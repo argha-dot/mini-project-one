@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Navbar, Form, FormControl } from "react-bootstrap"
+import { Link } from 'react-router-dom';
 import "./navbar.component.css"
 
 export default class NavBar extends Component {
@@ -45,7 +46,7 @@ export default class NavBar extends Component {
             </button>
 
             <Navbar.Brand>
-              <h2 style={{ color: "blue" }}>
+              <h2 >
                 SHOP  
             </h2>
             </Navbar.Brand>
@@ -65,61 +66,46 @@ export default class NavBar extends Component {
         
         <nav className="sidebar">
           <ul className="sidebar-nav">
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i class="fas fa-home"></i>
-                <span className="link-text">Home</span>
-              </a>
-            </li>
+            <Link to="/" className="side-item">
+              <i className="fas fa-home"></i>
+              <span className="link-text">Home</span>
+            </Link>
+            
+            <Link to="/" className="side-item">
+              <i className="fas fa-mobile"></i>
+              <span className="link-text">Mobile</span>
+            </Link>
 
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i className="fas fa-mobile"></i>
-                <span className="link-text">Mobile</span>
-              </a>
-            </li>
+            <Link to="/" className="side-item">
+              <i className="fas fa-headphones"></i>
+              <span className="link-text">Headphones</span>
+            </Link>
 
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i className="fas fa-headphones"></i>
-                <span className="link-text">Headphones</span>
-              </a>
-            </li>
+            <Link to="/product/mac" className="side-item">
+              <i className="fas fa-laptop"></i>
+              <span className="link-text">Laptops</span>
+            </Link>
 
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i className="fas fa-laptop"></i>
-                <span className="link-text">Laptops</span>
-              </a>
-            </li>
+            <Link to="/" className="side-item">
+              <i className="fas fa-keyboard"></i>
+              <span className="link-text">Keyboards</span>
+            </Link>
 
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i className="fas fa-keyboard"></i>
-                <span className="link-text">Keyboards</span>
-              </a>
-            </li>
+            <Link to="/product/gameboy" className="side-item">
+              <i className="fas fa-gamepad"></i>
+              <span className="link-text">For Gamers</span>
+            </Link>
 
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i className="fas fa-coffee"></i>
-                <span className="link-text">Coffee</span>
-              </a>
-            </li>
+            <a target="_blanck" href="https://blacklivesmatter.com/" className="side-item">
+              <i className="fas fa-helicopter"></i>
+              <span className="link-text">Kobe</span>
+            </a>
 
-            <li className="side-item">
-              <a href="#" className="side-link">
-              <i className="fas fa-angry"></i>
-                <span className="link-text">Kobe</span>
-              </a>
-            </li>
+            <Link to="/" className="side-item">
+              <i className="fas fa-cogs"></i>
+              <span className="link-text">Settings</span>
+            </Link>
 
-            <li className="side-item">
-              <a href="#" className="side-link">
-                <i className="fas fa-cogs"></i>
-                <span className="link-text">Settings</span>
-              </a>
-            </li>
           </ul>
 
         </nav>

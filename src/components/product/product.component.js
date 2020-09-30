@@ -38,19 +38,7 @@ export default class Product extends Component {
         }
     }
 
-    componentDidMount() {
-        var _id = this.props.match.params.id
-        console.log(_id);
-        this.setState({
-            "id": data[String(_id)].id,
-            "category": data[String(_id)].category,
-            "productName": data[String(_id)].productName,
-            "description": data[String(_id)].description,
-            "price": data[String(_id)].price,
-            "imgLinks": data[String(_id)].imgLinks
-        })
-    }
-
+    
     increment = () => {
         var max = document.getElementsByClassName("input-number")[0].getAttribute("max");
         this.setState({"inputValue": (this.state.inputValue >= max) ? this.state.inputValue : this.state.inputValue+1});
@@ -79,9 +67,10 @@ export default class Product extends Component {
 
         return(
             <div className="product-main">
+                {console.log(this.props.match.params.id)}
                 <Carousel>{
                     this.state.imgLinks.map(function(link) {
-                        return <Carousel.Item>
+                        return <Carousel.Item key={link.toString()}>
                             <img
                                 className="d-block w-100"
                                 src={link}
@@ -113,8 +102,9 @@ export default class Product extends Component {
                                 placeholder={this.state.inputValue}
                                 min="1"
                                 max="10"
+                                readOnly="readOnly"
                             ></input>
-                            <span 
+                            <span
                                 className="input-number-increment"
                                 onClick={this.increment}
                             >+</span>
@@ -147,5 +137,29 @@ export default class Product extends Component {
                 </div>
             </div>
         )
+    }
+
+    componentDidMount() {
+        this.setState({
+            "id": data[this.props.match.params.id].id,
+            "category": data[this.props.match.params.id].category,
+            "productName": data[this.props.match.params.id].productName,
+            "description": data[this.props.match.params.id].description,
+            "price": data[this.props.match.params.id].price,
+            "imgLinks": data[this.props.match.params.id].imgLinks
+        })
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.id !== prevProps.match.params.id) {
+            this.setState({
+                "id": data[this.props.match.params.id].id,
+                "category": data[this.props.match.params.id].category,
+                "productName": data[this.props.match.params.id].productName,
+                "description": data[this.props.match.params.id].description,
+                "imgLinks": data[this.props.match.params.id].imgLinks,
+                "price": data[this.props.match.params.id].price
+            })
+        }
     }
 }
