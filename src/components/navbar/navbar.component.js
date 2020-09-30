@@ -45,9 +45,17 @@ export default class NavBar extends Component {
             </button>
 
             <Navbar.Brand>
+<<<<<<< HEAD
               <h2 style={{ color: "blue" }}>
                 SHOP  
             </h2>
+=======
+
+              <h2 style={{ color: "whitesmoke" }}>
+                <Link to="/" className="nav-link">SHOP</Link>
+              </h2>
+
+>>>>>>> 9e5f9d2862fab2fde0d1f6a37be19456f94c4249
             </Navbar.Brand>
 
             <Form inline>
