@@ -5,7 +5,7 @@ export default class Dashboard extends Component {
     render() {
         return (
             <div className="dashboard-main" style={{ color: "whitesmoke" }}>
-                Here there be the Dashboard
+                Welcome "Name", what would you like to buy?
             </div>
         )
     }
