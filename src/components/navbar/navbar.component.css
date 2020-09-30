@@ -5,7 +5,7 @@
 .navbar {
     background-color: #479c9f;
     display: flex;
-    height: 100px;
+    height: 80px;
     align-items: center;
     justify-content: space-between;
 }
@@ -108,7 +108,7 @@
 }
 
 .side-item:hover {
-    background-color: #4b4b4b;
+    background-color: #ffffff;
 }
 
 .side-item:last-child {
