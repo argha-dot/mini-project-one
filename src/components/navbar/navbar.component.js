@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Navbar, Form, FormControl } from "react-bootstrap"
+import { Navbar } from "react-bootstrap"
 import { Link } from 'react-router-dom';
 import "./navbar.component.css"
 
@@ -15,10 +15,10 @@ export default class NavBar extends Component {
   sideOpen = () => {
     if (this.state.sidebarToggle) {
       document.querySelector(".sidebar").classList.add("open");
-      document.querySelector(".my-btn").classList.add("open");
+      document.querySelector(".my-bar").classList.add("open");
     } else {
       document.querySelector(".sidebar").classList.remove("open");
-      document.querySelector(".my-btn").classList.remove("open");
+      document.querySelector(".my-bar").classList.remove("open");
     }
     this.setState({
       sidebarToggle: !this.state.sidebarToggle,
@@ -27,39 +27,29 @@ export default class NavBar extends Component {
 
   render() {
 
-    var cartBtn = {
-      "backgroundColor": "whitesmoke", 
-      "border": "none", 
-      "height": "3.25rem", 
-      "borderRadius": "0px"
-    }
-
-
     return(
       <div className="nav-main">
         <Navbar fixed="top" style={{ "justifyContent": "space-between", "padding": "0.5rem 0.5rem" }}>
-          
+
           <div className="left-side">
-            <button 
-              className="my-btn" onClick={this.sideOpen}>
+            <button
+              className="my-bar" onClick={this.sideOpen}>
               <i class="fas fa-bars" style={{ "font-size": "1.5rem" }}></i>
             </button>
 
-            <Navbar.Brand>
-              <h2 >
-                SHOP  
-            </h2>
-            </Navbar.Brand>
+            <span class="navbar-brand">
+              <Link to="/" className="nav-link">SHOP</Link>
+            </span>
 
-            <Form inline>
-              <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-              <Button variant="outline-dark" style={{ color: "whitesmoke", borderColor: "whitesmoke" }}>Search</Button>
-            </Form>
+            <form class="form-main">
+              <input placeholder="Search" type="text" className="search-form" />
+              <button class="search-btn"><i class="fas fa-search"></i></button>
+            </form>
 
           </div>
 
           <div className="right-side">
-            <Button variant="dark" style={cartBtn}><i className="fas fa-shopping-cart"></i></Button>
+            <button className="cart-btn"><i className="fas fa-shopping-cart fa-lg"></i></button>
             <button className="my-btn">Sign In</button>
           </div>
         </Navbar>
