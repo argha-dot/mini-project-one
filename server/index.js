@@ -17,7 +17,7 @@ const product_controller = require('./controllers/product.controller');
 
 
 // Connection with MongoDB Atlas
-const uri = process.env.ATLAS_URI; //Not working for some reason, when using URI, gives an error. 
+const uri = process.env.ATLAS_URI; 
 mongoose.connect(uri,
  { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}
 );

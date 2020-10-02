@@ -14,29 +14,29 @@ import "./navbar.component.css"
 
 export class NavBar extends Component {
   
-  // constructor(props) {
-  //   super(props) 
-  //   this.state = {
-  //     sidebarToggle: true,
-  //   }
-  // }
+  constructor(props) {
+    super(props) 
+    this.state = {
+      sidebarToggle: true,
+    }
+  }
 
   linkFunc(path) {
     this.props.history.push(path);
 }
 
-  // sideOpen = () => {
-  //   if (this.state.sidebarToggle) {
-  //     document.querySelector(".sidebar").classList.add("open");
-  //     document.querySelector(".my-bar").classList.add("open");
-  //   } else {
-  //     document.querySelector(".sidebar").classList.remove("open");
-  //     document.querySelector(".my-bar").classList.remove("open");
-  //   }
-  //   this.setState({
-  //     sidebarToggle: !this.state.sidebarToggle,
-  //   })
-  // }
+  sideOpen = () => {
+    if (this.state.sidebarToggle) {
+      document.querySelector(".sidebar").classList.add("open");
+      document.querySelector(".my-bar").classList.add("open");
+    } else {
+      document.querySelector(".sidebar").classList.remove("open");
+      document.querySelector(".my-bar").classList.remove("open");
+    }
+    this.setState({
+      sidebarToggle: !this.state.sidebarToggle,
+    })
+  }
 
   login = () => {
     const redirectURI = encodeURIComponent(`${window.location.origin}/auth/callback`);
@@ -68,10 +68,10 @@ export class NavBar extends Component {
         <Navbar fixed="top" style={{ "justifyContent": "space-between", "padding": "0.5rem 0.5rem" }}>
           
           <div className="left-side">
-            {/* <button 
+            <button 
               className="my-bar" onClick={this.sideOpen}>
               <i className="fas fa-bars" style={{ "fontSize": "1.5rem" }}></i>
-            </button> */}
+            </button>
 
             <Navbar.Brand>
               <h2 style={{ color: "whitesmoke" }}>
@@ -159,5 +159,3 @@ const mapStateToProps = state => {
 }
 //Then wrap our Component with the HOC, and the connect double invoked. 
 export default withRouter(connect(mapStateToProps)(NavBar));
-
- 
