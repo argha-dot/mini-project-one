@@ -12,9 +12,7 @@ import { login, logout } from './redux/reducer';
 // Component Imports
 import NavBar from "./components/navbar/navbar.component"
 import Product from "./components/product/product.component"
-import Dashboard from "./components/dashboard/dashboard.component"
-
-// CSS Imports
+import Homepage from "./components/homepage/homepage.component"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; 
 
@@ -37,8 +35,8 @@ export class App extends Component  {
         <div className="main">
           <NavBar />
           <br />
-          <Route path="/" exact component={Dashboard} />
-          <Route path="/product" component={Product} />
+          <Route path="/" exact component={Homepage} />
+          <Route path="/product/:id" component={Product}/>
         </div>
     );
   }
