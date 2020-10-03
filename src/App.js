@@ -1,7 +1,6 @@
 import React, { Component } from 'react'; 
 import axios from 'axios';
-import { withRouter } from 'react-router-dom';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 
 // Redux imports:
 import { connect } from 'react-redux';
@@ -13,6 +12,7 @@ import { login, logout } from './redux/reducer';
 import NavBar from "./components/navbar/navbar.component"
 import Product from "./components/product/product.component"
 import Homepage from "./components/homepage/homepage.component"
+import Category from "./components/category/category.component"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; 
 
@@ -37,6 +37,7 @@ export class App extends Component  {
           <br />
           <Route path="/" exact component={Homepage} />
           <Route path="/product/:id" component={Product}/>
+          <Route path="/category" component={Category} />
         </div>
     );
   }

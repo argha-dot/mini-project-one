@@ -67,7 +67,6 @@ export default class Product extends Component {
 
         return(
             <div className="product-main">
-                {console.log(this.props.match.params.id)}
                 <Carousel>{
                     this.state.imgLinks.map(function(link) {
                         return <Carousel.Item key={link.toString()}>
