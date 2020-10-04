@@ -11,6 +11,45 @@ export default class Homepage extends Component {
         return (
             <div className="homepage-main" style={{ color: "whitesmoke" }}>
 
+              
+<Carousel>
+      <Carousel.Item>
+        
+          <Image src="desktop1.js/100px250" fluid />
+         
+        <Carousel.Caption>
+          <h3>Lenovo IdeaCentre AIO 330 19.5-inch All-in-One Desktop </h3>
+          <p>₹ 25,000</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src="holder.js/800x400?text=Second slide&bg=282c34"
+          alt="Second slide"
+        />
+
+        <Carousel.Caption>
+          <h3>Second slide label</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src="holder.js/800x400?text=Third slide&bg=20232a"
+          alt="Third slide"
+        />
+
+        <Carousel.Caption>
+          <h3>Third slide label</h3>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          </p>
+        </Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
+    
 <CardDeck>
   <Card>
     <Card.Img variant="top" src="holder.js/100px160" />
@@ -53,45 +92,7 @@ export default class Homepage extends Component {
     </Card.Footer>
   </Card>
 </CardDeck>  
-              
-                <Carousel>
-      <Carousel.Item>
-        
-          <Image src="desktop1.js/100px250" fluid />
-         
-        <Carousel.Caption>
-          <h3>Lenovo IdeaCentre AIO 330 19.5-inch All-in-One Desktop </h3>
-          <p>₹ 25,000</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="holder.js/800x400?text=Second slide&bg=282c34"
-          alt="Second slide"
-        />
-
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="holder.js/800x400?text=Third slide&bg=20232a"
-          alt="Third slide"
-        />
-
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
-            </div>
+</div>
         )
     }
 }
