@@ -91,7 +91,7 @@ export default class Homepage extends Component {
       <small className="text-muted">Last updated 3 mins ago</small>
     </Card.Footer>
   </Card>
-</CardDeck>  
+</CardDeck>
 </div>
         )
     }

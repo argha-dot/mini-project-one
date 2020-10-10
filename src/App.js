@@ -13,6 +13,7 @@ import NavBar from "./components/navbar/navbar.component"
 import Product from "./components/product/product.component"
 import Homepage from "./components/homepage/homepage.component"
 import Category from "./components/category/category.component"
+import Footer from "./components/footer/footer.component"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; 
 
@@ -38,6 +39,7 @@ export class App extends Component  {
           <Route path="/" exact component={Homepage} />
           <Route path="/product/:id" component={Product}/>
           <Route path="/category" component={Category} />
+          <Footer />
         </div>
     );
   }
