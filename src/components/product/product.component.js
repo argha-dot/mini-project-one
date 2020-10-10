@@ -121,7 +121,7 @@ export default class Product extends Component {
                                 </Button>
                                 
                                 <Button variant="dark" style={buy}>
-                                    <a className="buy-link"
+                                    <a className="buy-link" 
                                         style={{ textDecoration: "none" }}
                                         href="https://itch.io/">
                                         Buy Now

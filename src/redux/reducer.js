@@ -18,7 +18,7 @@ export default (state = initial_state, action) => {
 
         case ADD_TO_CART: 
         return {
-            ...state, user: {
+            ...state, user: { 
                 ...state.user,
                 cart: action.payload
             }

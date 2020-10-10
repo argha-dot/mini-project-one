@@ -1,6 +1,5 @@
 const axios = require('axios');
 const { useImperativeHandle } = require('react');
-const user = require('../models/user');
 let User = require('../models/user')
 
 // user_controller.get("/", (req, res) => {
@@ -17,7 +16,7 @@ add_to_cart(req, res) {
 
         let duplicate = false;
         userInfo.cart.forEach((cartInfo) => {
-            if (cartInfo.id === req.query.productId) {
+            if (cartInfo.id === req.query.productId) { 
                 duplicate = false;
             }
         })
@@ -60,6 +59,7 @@ remove_from_cart(req, res) {
 },
 
 read_user_data(req, res) {
+    console.log(req.session.user);
     if (req.session.user) {
         return res.status(200).json({success: true, user: req.session.user});
     }
