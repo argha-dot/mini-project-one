@@ -1,9 +1,23 @@
 :root {
+    font-size: 16px;
     --transition-delay: 160ms;
     --primary-color: #76f3e4;
     --secondary-color: #000000;
     --hover-color: #807b7bf8;
 }
+
+.sidebar::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #999999;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+}
+
 
 .navbar {
     background-color: var(--primary-color);
@@ -44,7 +58,6 @@
 .my-btn:hover {
     color: var(--hover-color);
 }
-
 
 .my-bar {
     margin-top: 15px;
