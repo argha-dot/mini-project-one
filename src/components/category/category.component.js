@@ -22,7 +22,7 @@ const data = {
 }
 
 export default class Category extends Component {
-
+    
     render() {
 
         return(
@@ -38,7 +38,7 @@ export default class Category extends Component {
                         </Link>
                         <div className="cat-img">
                             <img src={data.gameboy.imgLinks[0]} width={"250px"}
-                                 alt="Something"/>
+                                alt="Something"/>
                         </div>
                         
                         <div className="cat-description">
