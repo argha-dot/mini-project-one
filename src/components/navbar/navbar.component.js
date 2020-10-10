@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 // CSS Imports: 
-import { Button, Navbar} from "react-bootstrap"
+import { Navbar} from "react-bootstrap"
 import "./navbar.component.css"
 
 
@@ -76,7 +76,7 @@ export class NavBar extends Component {
           </div>
 
           <div className="right-side">
-            <Button variant="dark"><i className="fas fa-shopping-cart"></i></Button>
+            <button className="cart-btn"><i className="fas fa-shopping-cart fa-lg"></i></button>
             <button 
               className="my-btn"
               onClick={() => this.props.user ? this.logout() : this.login()}>
