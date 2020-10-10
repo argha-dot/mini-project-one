@@ -1,4 +1,6 @@
 const axios = require('axios');
+const { useImperativeHandle } = require('react');
+const user = require('../models/user');
 let User = require('../models/user')
 
 // user_controller.get("/", (req, res) => {
@@ -9,9 +11,59 @@ let User = require('../models/user')
 //   });
 
 module.exports = {
+add_to_cart(req, res) {
+    console.log("Id:", req.session.user._id);
+    User.find({_id: req.session.user._id},(err, userInfo) => {
+
+        let duplicate = false;
+        userInfo.cart.forEach((cartInfo) => {
+            if (cartInfo.id === req.query.productId) {
+                duplicate = false;
+            }
+        })
+
+        if (duplicate) {
+            User.findOneAndUpdate(
+                { _id: req.session.user._id, "cart.id": req.query.productId },
+                { $inc: {"cart.$.quantity": 1} },
+                { new: true}, 
+                () => {
+                    if(err) return res.json({success: false, err});
+                    return res.json(userInfo.cart);
+                }
+            ) 
+        } else {
+            User.findOneAndUpdate(
+                { _id: req.session.user._id },
+                {
+                    $push: {
+                        cart: {
+                            id: req.query.productId,
+                            quantity: 1,
+                            date: Date.now()
+                        }
+                    }
+                },
+                { new: true },
+                (err, userInfo) => {
+                    if (err) return res.json({ success: false, err });
+                    res.status(200).json(userInfo.cart)
+                }
+            )
+        }
+    }) 
+
+},
+
+remove_from_cart(req, res) {
+
+},
 
 read_user_data(req, res) {
-    res.status(200).json({user: req.session.user});
+    if (req.session.user) {
+        return res.status(200).json({success: true, user: req.session.user});
+    }
+    
 }, 
 
 login(req, res) {

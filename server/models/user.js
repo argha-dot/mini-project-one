@@ -7,7 +7,8 @@ const user = new Schema ({
     username: {type: String, required: true},
     auth0_id: {type: String, required: true},
     auth0_id: {type: String, required: true},
-    profile_picture: {type: String}
+    profile_picture: {type: String},
+    cart: {type: Array, default: []} 
 });
 
 module.exports = mongoose.model('User', user)
