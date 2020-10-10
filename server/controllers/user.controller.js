@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { useImperativeHandle } = require('react');
 let User = require('../models/user')
+let Product = require('../models/product')
 
 // user_controller.get("/", (req, res) => {
 //     User.find()
@@ -10,6 +11,33 @@ let User = require('../models/user')
 //   });
 
 module.exports = {
+
+remove_from_cart(req, res) {
+    User.findOneAndUpdate(
+        { _id: req.session.user._id },
+        {
+            "$pull":
+                { "cart": { "id": req.query._id } }
+        },
+        { new: true },
+        (err, userInfo) => {
+            let cart = userInfo.cart;
+            let array = cart.map(item => {
+                return item.id
+            })
+
+            Product.find({ '_id': { $in: array } })
+                .populate('writer')
+                .exec((err, cartDetail) => {
+                    return res.status(200).json({
+                        cartDetail,
+                        cart
+                    })
+                })
+        }
+    )
+},
+
 add_to_cart(req, res) {
     console.log("Id:", req.session.user._id);
     User.find({_id: req.session.user._id},(err, userInfo) => {
@@ -54,17 +82,15 @@ add_to_cart(req, res) {
 
 },
 
-remove_from_cart(req, res) {
-
-},
 
 read_user_data(req, res) {
-    console.log(req.session.user);
     if (req.session.user) {
         return res.status(200).json({success: true, user: req.session.user});
+    } else {
+
     }
     
-}, 
+},  
 
 login(req, res) {
     return axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`, {

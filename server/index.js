@@ -42,18 +42,17 @@ app.use(session({
 
 // Setting a time limit before endpoints start running
 setTimeout(() => {
-// app.post('/api/user-data/cart', user_controller.addToCart);
-// app.delete('/api/user-data/cart/:id', user_controller.removeFromCart);
-
+app.post('/api/user-data/cart', user_controller.add_to_cart);
+app.delete('/api/user-data/cart/:id', user_controller.remove_from_cart);
 app.get('/api/user-data', user_controller.read_user_data);
 app.post('/api/logout', user_controller.logout);
 app.get('/auth/callback', user_controller.login);
 app.get('/api/products', product_controller.seeProducts);
 app.get('/api/products/:id', product_controller.seeSingleProduct);
-app.get('/api/users', admin_controller.getAdminUsers);
-app.post('/api/products', admin_controller.createProduct);
-app.put('/api/products/:id', admin_controller.updateProduct);
-app.delete('/api/products/:id', admin_controller.deleteProduct);
+// app.get('/api/users', admin_controller.getAdminUsers);
+// app.post('/api/products', admin_controller.createProduct);
+// app.put('/api/products/:id', admin_controller.updateProduct);
+// app.delete('/api/products/:id', admin_controller.deleteProduct);
     }, 200)
  
 
