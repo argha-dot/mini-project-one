@@ -1,18 +1,16 @@
 import React, { useEffect, useState, Component } from 'react'
 import Axios from 'axios';
 import "./homepage/homepage.component.css"
+import { useAuth0 } from "@auth0/auth0-react";
 
-export default class LandingPage extends Component {
-    constructor() {
-        super();
-        this.state ={
-            products: [],
-            user: ''
-            // loading: true
-        }
-    }
 
-    componentDidMount() {
+function LandingPage(props) {
+    const {user, isAuthenticated, isLoading} = useAuth0();
+    console.log(user);
+    const [products, setProducts] = useState([]);
+    // const [user, setUser] = useState('');
+
+    useEffect(() => {
         Axios.get('/api/products')
         .then(response => {
             console.log(response.data.success);
@@ -34,16 +32,18 @@ export default class LandingPage extends Component {
                 alert("User was not fetched");
             }
         }).catch(err => console.log('Read User - Error',  err));
-            
-    }; 
-
-    render() {
-        const {products, user} = this.state;
+    }); 
+    if(isLoading) {
+        return <p>Loading...</p>
+    } else {
         return (
-            <div className="homepage-main" style={{ color: "whitesmoke" }}>
+            (<div className="homepage-main" style={{ color: "whitesmoke" }}>
                 {/* {products.length ? products.map(product => <p>{product._id}</p>) : null} */}
-                {user.length ? <p>user</p> : null}
-            </div>
+                {/* {user.length ? <p>user</p> : null} */}
+                <p style={{color: "red"}}>{isAuthenticated?user.name:"guest"}</p>
+            </div>) 
         )
     }
 }
+
+export default LandingPage;
