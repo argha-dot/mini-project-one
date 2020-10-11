@@ -42,7 +42,7 @@ app.use(session({
 
 // Setting a time limit before endpoints start running
 setTimeout(() => {
-app.get('/api/user-data/cart/:id', user_controller.add_to_cart);
+app.get('/api/cart/:id', user_controller.add_to_cart);
 app.delete('/api/user-data/cart/:id', user_controller.remove_from_cart);
 app.get('/api/user-data', user_controller.read_user_data);
 app.post('/api/logout', user_controller.logout);
