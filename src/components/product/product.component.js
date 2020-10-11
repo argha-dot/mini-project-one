@@ -20,6 +20,14 @@ const data =
         "description": "MacBook Pro elevates the notebook to a whole new level of performance and portability. Wherever your ideas take you, you’ll get there faster than ever with high‑performance processors and memory, advanced graphics, blazing‑fast storage and more — all in a compact 1.4-kilogram package.",
         "price": "₹200000",
         "imgLinks": ["https://illlustrations.co/static/c1d4e46b9c47b80037efe76e41c57128/111-coding.svg", "https://illlustrations.co/static/51910853e26bd8a9c89c36d25498c2c6/118-macbook.svg", "https://illlustrations.co/static/7fdea21037f680a946e430532feed521/112-installing.svg"]
+    },
+    "nintendo64": {
+        "id": "nintendo64",
+        "category": "Vintage Gaming",
+        "productName": "Nintendo 64",
+        "description": "The Nintendo 64 was one of the first gaming consoles to have four controller ports.The most graphically demanding Nintendo 64 games that arrived on larger 32 or 64 MB cartridges are the most advanced and detailed of the 32-bit/64-bit generation. In order to maximize use of the Nintendo 64 hardware developers had to create their own custom microcode. Nintendo 64 games running on custom microcode benefited from much higher polygon counts in tandem with more advanced lighting, animation, physics and AI routines than its 32-bit competition. ",
+        "price": "₹7000",
+        "imgLinks": ["https://core-electronics.com.au/media/catalog/product/8/b/8bitdo-n64-primo.jpg"]
     }
 }
 
@@ -53,11 +61,11 @@ export default class Product extends Component {
 
     render() {
 
-        var add = {
-            borderRadius: "0px", 
-            backgroundColor: "whitesmoke",
-            border: "none"
-        }
+        // var add = {
+        //     borderRadius: "0px", 
+        //     backgroundColor: "whitesmoke",
+        //     border: "none"
+        // }
 
         var buy = {
             borderRadius: "0px",
@@ -111,7 +119,7 @@ export default class Product extends Component {
                         
                         <div className="shop-btn">
                             <ButtonGroup className="add-buy">
-                                <Button style={add}>
+                                <Button>
                                     <a className="add-link"
                                         style={{ textDecoration: "none" }}
                                         href="https://www.youtube.com/">

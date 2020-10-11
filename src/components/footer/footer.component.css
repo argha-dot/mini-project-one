@@ -1,21 +1,24 @@
 :root{
-    font-size: 14px;
+    font-size: 16px;
 }
 
-footer {
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
     width: 100%;
-    height: 6vh;
-    padding-top: 1em;
-    background-color:	#073638;
+    height: 3rem;
+    padding: 1rem 20rem;
+    padding-top: 1rem;
+    background-color:#073638;
     color:#000000;
-    margin-bottom: 30px;
     margin-top: 60px;
+}
 
-    }
 h6 {
     font-weight: 700;
     padding: 1px 100px;
     background-color:#073638;
     color: #ffffff;
     font-size: 0.5rem;
-    }
+}

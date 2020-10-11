@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import "./category.component.css";
-// import Product from "../product/product.component"
-// import Link from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const data =
-{
+const data = {
     "gameboy": {
         "id": "gameboy",
         "category": "Vintage Gaming",
@@ -19,16 +17,77 @@ const data =
         "productName": "Nintendo 64",
         "description": "The Nintendo 64 was one of the first gaming consoles to have four controller ports.The most graphically demanding Nintendo 64 games that arrived on larger 32 or 64 MB cartridges are the most advanced and detailed of the 32-bit/64-bit generation. In order to maximize use of the Nintendo 64 hardware developers had to create their own custom microcode. Nintendo 64 games running on custom microcode benefited from much higher polygon counts in tandem with more advanced lighting, animation, physics and AI routines than its 32-bit competition. ",
         "price": "₹7000",
-        "imgLinks": ["https://lh3.googleusercontent.com/6I2HLiHlVejuvF93SOLnkb9QJ7KovxqcH98w-xfyaDq1_3b3-5LoOG3G90fIBeEOR6DpsAiix15BWe6SCXpRgzty8hvIBu549obE_w=s2048", "https://illlustrations.co/static/51910853e26bd8a9c89c36d25498c2c6/118-macbook.svg", "https://illlustrations.co/static/7fdea21037f680a946e430532feed521/112-installing.svg"]
+        "imgLinks": ["https://core-electronics.com.au/media/catalog/product/8/b/8bitdo-n64-primo.jpg", "https://illlustrations.co/static/7fdea21037f680a946e430532feed521/112-installing.svg"]
     }
 }
 
 export default class Category extends Component {
+    
     render() {
+
         return(
             <div className="category-main">
                 <h3 className="cat-title">FOR GAMERS</h3>
-                <div className="something"></div>
+                <br />
+                <div className="cat-contents">
+                    <div className="cat-item">
+                        <Link to={`/product/${data.gameboy.id}`} 
+                        className="cat-item-title cat-title"
+                        style={{ "color": "#6b6b6b" }}>
+                            {data.gameboy.productName}
+                        </Link>
+                        <div className="cat-img">
+                            <img src={data.gameboy.imgLinks[0]} width={"250px"}
+                                alt="Something"/>
+                        </div>
+                        
+                        <div className="cat-description">
+                            {data.gameboy.description}
+                        </div>
+                        <div className="btns">
+                            <span className="cat-item-price">{data.gameboy.price}</span>
+                            <button className="add-to">
+                                <a className="add-link"
+                                    style={{ textDecoration: "none" }}
+                                    href="https://www.youtube.com/">
+                                    Add To Cart
+                                </a>
+                            </button>
+                            <button className="add-wishlist">
+                                <i className="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="cat-item">
+                        <Link to={`/product/${data.nintendo64.id}`} 
+                        className="cat-item-title cat-title"
+                        style={{ "color": "#6b6b6b" }}>
+                            {data.nintendo64.productName}
+                        </Link>
+                        <div className="cat-img">
+                            <img src={data.nintendo64.imgLinks[0]} width={"250px"}
+                                alt="Something" />
+                        </div>
+                        
+                        <div className="cat-description">
+                            {data.nintendo64.description}
+                        </div>
+                        <div className="btns">
+                            <span className="cat-item-price">{data.nintendo64.price}</span>
+                            <button className="add-to">
+                                <a className="add-link"
+                                    style={{ textDecoration: "none" }}
+                                    href="https://www.youtube.com/">
+                                    Add To Cart
+                                </a>
+                            </button>
+                            <button className="add-wishlist">
+                                <i className="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>  
             </div>
         )
     }
