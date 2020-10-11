@@ -61,7 +61,7 @@ export class NavBar extends Component {
           <div className="left-side">
             <button
               className="my-bar" onClick={this.sideOpen}>
-              <i className="fas fa-bars" style={{ "fontSize": "1.5rem" }}></i>
+              <i class="fas fa-bars" style={{ "font-size": "1.5rem" }}></i>
             </button>
 
             <span className="navbar-brand">
@@ -89,8 +89,7 @@ export class NavBar extends Component {
             </button>
           </div>
         </Navbar>
-        
-        <nav className="sidebar">
+        {/* <nav className="sidebar">
           <ul className="sidebar-nav">
             <Link to="/" className="side-item">
               <i className="fas fa-home"></i>
@@ -158,8 +157,7 @@ export class NavBar extends Component {
             </Link>
 
           </ul>
-
-        </nav>
+        </nav> */}
       </div>
     )
   }

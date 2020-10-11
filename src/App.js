@@ -1,3 +1,6 @@
+// TODO Fix the footer thing. 
+
+
 import React, { Component } from 'react'; 
 import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
@@ -13,6 +16,8 @@ import Homepage from "./components/homepage/homepage.component"
 import Category from "./components/category/category.component"
 import Cart from "./components/cart/cart.component";
 import Wish from "./components/wish/wish.component";
+import Footer from "./components/footer/footer.component"
+import Sidebar from "./components/sidebar/sidebar.component"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; 
 
@@ -40,6 +45,8 @@ export class App extends Component  {
           <Route path="/category" component={Category} />
           <Route path="/cart" component={Cart} />
           <Route path="/wish" component={Wish} />
+          <Footer />
+          <Sidebar />
         </div>
     );
   }
