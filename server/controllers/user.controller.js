@@ -116,9 +116,8 @@ login(req, res) {
                         email: email,
                         username: nickname,
                         profile_picture: picture,
-                        auth0_id: sub
+                        auth0_id: sub,
                     });
-
                     //Assign the user to the session.
                     req.session.user = new_user;
                     //Save the session

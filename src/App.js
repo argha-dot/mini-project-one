@@ -1,13 +1,10 @@
 import React, { Component } from 'react'; 
+import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { withRouter } from 'react-router-dom';
-import { Route } from 'react-router-dom';
 
 // Redux imports:
 import { connect } from 'react-redux';
 import { login, logout } from './redux/reducer';
-
-
 
 // Component Imports
 import NavBar from "./components/navbar/navbar.component"
@@ -17,6 +14,8 @@ import Homepage from "./components/homepage/homepage.component"
 // Aarav edits: 
 import LandingPage from "./components/landing_page"
 
+import Category from "./components/category/category.component"
+import Cart from "./components/cart/cart.component";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; 
 
@@ -41,6 +40,8 @@ export class App extends Component  {
           <br />
           <Route path="/" exact component={LandingPage} />
           <Route path="/product/:id" component={Product}/>
+          <Route path="/category" component={Category} />
+          <Route path="/cart" component={Cart} />
         </div>
     );
   }

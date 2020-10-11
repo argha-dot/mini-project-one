@@ -49,10 +49,10 @@ app.post('/api/logout', user_controller.logout);
 app.get('/auth/callback', user_controller.login);
 app.get('/api/products', product_controller.seeProducts);
 app.get('/api/products/:id', product_controller.seeSingleProduct);
-// app.get('/api/users', admin_controller.getAdminUsers);
-// app.post('/api/products', admin_controller.createProduct);
-// app.put('/api/products/:id', admin_controller.updateProduct);
-// app.delete('/api/products/:id', admin_controller.deleteProduct);
+app.get('/api/users', admin_controller.getAdminUsers);
+app.post('/api/products', admin_controller.createProduct);
+app.put('/api/products/:id', admin_controller.updateProduct);
+app.delete('/api/products/:id', admin_controller.deleteProduct);
     }, 200)
  
 

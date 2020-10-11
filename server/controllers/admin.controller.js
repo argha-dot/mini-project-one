@@ -17,7 +17,9 @@ module.exports = {
           let new_product = new Product({
               name, 
               description, 
-              price
+              price,
+              category,
+              pictures
           });
           new_product.save();
           res.status(200).json({product: new_product});
@@ -25,12 +27,14 @@ module.exports = {
 
       updateProduct(req, res) {
         const {id} = req.params; 
-        const { name, description, price } = req.body;
+        const { name, description, price, category, pictures} = req.body;
         Product.findById(id).exec((err, product) => {
             if(err) {console.log('Error from UpdateProduct Admin', err);}
             product.name = name;
             product.description = description;
             product.price = price;
+            product.category = category;
+            product.pictures = pictures;
             product.save();
             res.status(200).json({product});
            })
