@@ -13,6 +13,10 @@ import { login, logout } from './redux/reducer';
 import NavBar from "./components/navbar/navbar.component"
 import Product from "./components/product/product.component"
 import Homepage from "./components/homepage/homepage.component"
+
+// Aarav edits: 
+import LandingPage from "./components/landing_page"
+
 import Category from "./components/category/category.component"
 import Cart from "./components/cart/cart.component";
 import Wish from "./components/wish/wish.component";
@@ -40,7 +44,7 @@ export class App extends Component  {
         <div className="main">
           <NavBar />
           <br />
-          <Route path="/" exact component={Homepage} />
+          <Route path="/" exact component={LandingPage} />
           <Route path="/product/:id" component={Product}/>
           <Route path="/category" component={Category} />
           <Route path="/cart" component={Cart} />

@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
+import { useDispatch } from 'react-redux';
+import {getCartItems, removeCartItem} from '../../redux/reducer'
 // import { Link } from "react-router-dom";
 
 import CartItem from "./item/item.cart.component";

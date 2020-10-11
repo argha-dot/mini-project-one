@@ -1,7 +1,119 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
+import Axios from 'axios'
 import { Carousel, Form, ButtonGroup, Button } from "react-bootstrap";
+import { addToCart } from '../../redux/reducer';
+import { useDispatch } from 'react-redux';
 import "./product.component.css"
 import "./input.css"
+
+function ProductPage(props) {
+    const dispatch = useDispatch();
+    const productId = props.match.params.productId
+    const [Product, setProduct] = useState([])
+    const [qty, setIncrement] = useState(1)
+
+    useEffect(() => {
+        Axios.get(`/api/products?id=${productId}&type=single`)
+            .then(response => {
+                setProduct(response.data[0])
+            })
+
+    }, [])
+
+    const addToCartHandler = (productId) => {
+        dispatch(addToCart(productId))
+    }
+
+    // const increment = () => {
+    //     var max = document.getElementsByClassName("input-number")[0].getAttribute("max");
+    //     this.setState({"inputValue": (this.state.inputValue >= max) ? this.state.inputValue : this.state.inputValue+1});
+    //     console.log(max);
+    // }
+
+    // const decrement = () => {
+    //     var max = document.getElementsByClassName("input-number")[0].getAttribute("min");
+    //     this.setState({ "inputValue": (this.state.inputValue <= max) ? this.state.inputValue : this.state.inputValue - 1 });
+    //     console.log(this.inputValue);
+    // }
+
+    var buy = {
+            borderRadius: "0px",
+            backgroundColor: "darkgray",
+            border: "none"
+        }
+
+        return(
+            <div className="product-main">
+                <Carousel>{
+                    Product.pictures.map(function(link) {
+                        return <Carousel.Item key={link.toString()}>
+                            <img
+                                className="d-block w-100"
+                                src={link}
+                                alt="First slide" />
+                        </Carousel.Item>
+                    })   
+                }
+                </Carousel>
+                
+                <div className="product-description">
+                    <div className="product-category">{Product.category}</div>
+                    <div className="product-name">{Product.name}</div>
+                    
+                    <div className="product-text">
+                        <p> {Product.description} </p>
+                    </div>
+                    
+                    <div className="order-info">
+                        <div className="product-price"> {Product.price} </div>
+                        
+                        <Form className="product-form">
+                            <span 
+                                className="input-number-decrement" 
+                                onClick={() => setIncrement(qty > 0? qty-1:0)}
+                            >–</span>
+                            <input
+                                className="input-number"
+                                type="text"
+                                placeholder={qty}
+                                min="1"
+                                max="10"
+                                readOnly="readOnly"
+                            ></input>
+                            <span
+                                className="input-number-increment"
+                                onClick={() => setIncrement(qty < 10? qty+1: qty)}
+                            >+</span>
+                        </Form>
+                        
+                        <div className="shop-btn">
+                            <ButtonGroup className="add-buy">
+                                <Button>
+                                    <a className="add-link"
+                                        style={{ textDecoration: "none" }}
+                                        onClick={addToCartHandler}>
+                                        Add To Cart
+                                    </a>
+                                </Button>
+                                
+                                <Button variant="dark" style={buy}>
+                                    <a className="buy-link" 
+                                        style={{ textDecoration: "none" }}
+                                        href="https://itch.io/">
+                                        Buy Now
+                                    </a>
+                                </Button>
+                            </ButtonGroup>
+
+                            <button className="add-wishlist">
+                                <i className="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+}
 
 const data = 
 {
@@ -31,142 +143,31 @@ const data =
     }
 }
 
-export default class Product extends Component {
-    
-    constructor(props) {
-        super(props)
-        this.state = {
-            "inputValue": 1,
-            "id": "",
-            "category": "",
-            "productName": "",
-            "description": "",
-            "price": "",
-            "imgLinks": []
-        }
-    }
 
-    
-    increment = () => {
-        var max = document.getElementsByClassName("input-number")[0].getAttribute("max");
-        this.setState({"inputValue": (this.state.inputValue >= max) ? this.state.inputValue : this.state.inputValue+1});
-        console.log(max);
-    }
 
-    decrement = () => {
-        var max = document.getElementsByClassName("input-number")[0].getAttribute("min");
-        this.setState({ "inputValue": (this.state.inputValue <= max) ? this.state.inputValue : this.state.inputValue - 1 });
-        console.log(this.inputValue);
-    }
+    // componentDidMount() {
+    //     this.setState({
+    //         "id": data[this.props.match.params.id].id,
+    //         "category": data[this.props.match.params.id].category,
+    //         "productName": data[this.props.match.params.id].productName,
+    //         "description": data[this.props.match.params.id].description,
+    //         "price": data[this.props.match.params.id].price,
+    //         "imgLinks": data[this.props.match.params.id].imgLinks
+    //     })
+    // }
 
-    render() {
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.match.params.id !== prevProps.match.params.id) {
+    //         this.setState({
+    //             "id": data[this.props.match.params.id].id,
+    //             "category": data[this.props.match.params.id].category,
+    //             "productName": data[this.props.match.params.id].productName,
+    //             "description": data[this.props.match.params.id].description,
+    //             "imgLinks": data[this.props.match.params.id].imgLinks,
+    //             "price": data[this.props.match.params.id].price
+    //         })
+    //     }
+    // }
+// }
 
-        // var add = {
-        //     borderRadius: "0px", 
-        //     backgroundColor: "whitesmoke",
-        //     border: "none"
-        // }
-
-        var buy = {
-            borderRadius: "0px",
-            backgroundColor: "darkgray",
-            border: "none"
-        }
-
-        return(
-            <div className="product-main">
-                <Carousel>{
-                    this.state.imgLinks.map(function(link) {
-                        return <Carousel.Item key={link.toString()}>
-                            <img
-                                className="d-block w-100"
-                                src={link}
-                                alt="First slide" />
-                        </Carousel.Item>
-                    })   
-                }
-                </Carousel>
-                
-                <div className="product-description">
-                    <div className="product-category">{this.state.category}</div>
-                    <div className="product-name">{this.state.productName}</div>
-                    
-                    <div className="product-text">
-                        <p> {this.state.description} </p>
-                    </div>
-                    
-                    <div className="order-info">
-                        <div className="product-price"> {this.state.price} </div>
-                        
-                        <Form className="product-form">
-                            <span 
-                                className="input-number-decrement" 
-                                onClick={this.decrement}
-                            >–</span>
-                            <input
-                                className="input-number"
-                                type="text"
-                                placeholder={this.state.inputValue}
-                                min="1"
-                                max="10"
-                                readOnly="readOnly"
-                            ></input>
-                            <span
-                                className="input-number-increment"
-                                onClick={this.increment}
-                            >+</span>
-                        </Form>
-                        
-                        <div className="shop-btn">
-                            <ButtonGroup className="add-buy">
-                                <Button>
-                                    <a className="add-link"
-                                        style={{ textDecoration: "none" }}
-                                        href="https://www.youtube.com/">
-                                        Add To Cart
-                                    </a>
-                                </Button>
-                                
-                                <Button variant="dark" style={buy}>
-                                    <a className="buy-link"
-                                        style={{ textDecoration: "none" }}
-                                        href="https://itch.io/">
-                                        Buy Now
-                                    </a>
-                                </Button>
-                            </ButtonGroup>
-
-                            <button className="add-wishlist">
-                                <i className="fas fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
-    componentDidMount() {
-        this.setState({
-            "id": data[this.props.match.params.id].id,
-            "category": data[this.props.match.params.id].category,
-            "productName": data[this.props.match.params.id].productName,
-            "description": data[this.props.match.params.id].description,
-            "price": data[this.props.match.params.id].price,
-            "imgLinks": data[this.props.match.params.id].imgLinks
-        })
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.match.params.id !== prevProps.match.params.id) {
-            this.setState({
-                "id": data[this.props.match.params.id].id,
-                "category": data[this.props.match.params.id].category,
-                "productName": data[this.props.match.params.id].productName,
-                "description": data[this.props.match.params.id].description,
-                "imgLinks": data[this.props.match.params.id].imgLinks,
-                "price": data[this.props.match.params.id].price
-            })
-        }
-    }
-}
+export default ProductPage;
