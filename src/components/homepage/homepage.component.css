@@ -11,4 +11,25 @@
 	text-align: center;
 }
 
+Carousel{
+	width: 100%;
+    height: 6vh;
+    padding-top: 100em;
+    background-color:	#073638;
+    color:#000000;
+    margin-bottom: 100px;
+    margin-top: 60px;
+
+}
+
+Card{
+	width: 100%;
+    height: 6vh;
+    padding-top: 1em;
+    background-color:	#073638;
+    color:#000000;
+    margin-bottom: 30px;
+    margin-top: 60px;
+}
+
 
