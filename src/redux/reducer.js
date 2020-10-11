@@ -62,8 +62,9 @@ export const logout = () => {
 }
 
 export function addToCart(_id) {
-    const request = Axios.get(`api/user-data/addToCart?productId=${_id}`)
-        .then(response => response.data);
+    const request = Axios.get(`http://localhost:5000/api/user-data/cart/${_id}`)
+        .then(response => response.data)
+        .catch(err => console.log("Cart Error: ", err));
 
     return {
         type: ADD_TO_CART,

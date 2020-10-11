@@ -6,7 +6,7 @@ module.exports = {
                 console.log("Error from Prodcut data: ", err);
                 return res.status(400).json({ success: false, err })
             }
-            console.log(products);
+            // console.log(products);
             return res.status(200).json({ success: true, products })
         });
     },
@@ -18,7 +18,7 @@ module.exports = {
                 console.log("Error from Prodcut data: ", err);
                 return res.status(400).json({ success: false, err })
             }
-            console.log(product);
+            // console.log(product);
             return res.status(200).json({ success: true, product });
         })
     }

@@ -31,7 +31,7 @@ export default class Category extends Component {
                 <br />
                 <div className="cat-contents">
                     <div className="cat-item">
-                        <Link to={`/product/${data.gameboy.id}`} 
+                        <Link to={`/product/5f8226bd85da3239dc1f5c25`} 
                         className="cat-item-title cat-title"
                         style={{ "color": "#6b6b6b" }}>
                             {data.gameboy.productName}

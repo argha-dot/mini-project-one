@@ -28,21 +28,21 @@ connection.once('open', () => {
 }) 
 
 app.use(bodyParser.json());
-// app.use(cors());
+app.use(cors());
 // Seting up cookeies usage: 
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false, 
     saveUninitialized: false, 
     cookie: {
-        maxAge: 1000 * 60 * 60
+        maxAge: null
     }
 }));
 
 
 // Setting a time limit before endpoints start running
 setTimeout(() => {
-app.post('/api/user-data/cart', user_controller.add_to_cart);
+app.get('/api/user-data/cart/:id', user_controller.add_to_cart);
 app.delete('/api/user-data/cart/:id', user_controller.remove_from_cart);
 app.get('/api/user-data', user_controller.read_user_data);
 app.post('/api/logout', user_controller.logout);

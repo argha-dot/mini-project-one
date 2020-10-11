@@ -17,7 +17,7 @@ export default class LandingPage extends Component {
         .then(response => {
             console.log(response.data.success);
             if(response.data.success) {
-                console.log(response.data.products)
+                // console.log(response.data.products)
                 this.setState({products: response.data.products});
             } else {
                 alert("Data was not fetched");
@@ -28,7 +28,7 @@ export default class LandingPage extends Component {
         .then(response => {
             console.log(response.data.success); 
             if(response.data.success) {
-                console.log('Frontend User:', response.data.user)
+                // console.log('Frontend User:', response.data.user)
                 this.setState({user: response.data.user});
             } else {
                 alert("User was not fetched");

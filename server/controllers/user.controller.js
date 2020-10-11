@@ -101,7 +101,6 @@ login(req, res) {
         redirect_uri: `http://${req.headers.host}/auth/callback`
     }).then(access_token_response => {
         const access_token = access_token_response.data.access_token // Store token here, collect user info. 
-
         return axios.get(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/userinfo?access_token=${access_token}`).then(user_data_response => {
             //Getting the  data from auth0
             const { name, nickname, email, picture, sub } = user_data_response.data;
@@ -124,9 +123,12 @@ login(req, res) {
                     req.session.save();
                     //Save user to mongodb
                     new_user.save();
+                    console.log("Session Saved- New User!")
+                } else {
+                    req.session.user = user;
+                    req.session.save();
+                    console.log("Session Saved!")
                 }
-                req.session.user = user;
-                req.session.save();
                 res.redirect('/');
             })
  }).catch(err => console.log('Error in getting user info - auth0: ', err));
