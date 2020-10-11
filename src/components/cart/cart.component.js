@@ -13,6 +13,9 @@ export default class Cart extends Component {
                 <div className="cart-contents">
                     <CartItem />
                     <CartItem />
+                    <CartItem />
+                    <CartItem />
+                    <CartItem />
                 </div>
             </div>
         )

@@ -22,8 +22,9 @@
         "image buttons";
     align-items: start;
     justify-items: start;
-    grid-template-columns: 20rem auto;
-    gap: 0.1rem;
+    grid-template-columns: 10rem auto;
+    /* gap: 5rem; */
+    grid-column-gap: 5rem;
 }
 
 .cart-item-img {
@@ -32,7 +33,7 @@
 
 .cart-item-link {
     grid-area: name;
-    font-weight: xx-large;
+    font-size: 2rem;
 }
 
 .cart-item-buttons {

@@ -12,6 +12,7 @@ import Product from "./components/product/product.component"
 import Homepage from "./components/homepage/homepage.component"
 import Category from "./components/category/category.component"
 import Cart from "./components/cart/cart.component";
+import Wish from "./components/wish/wish.component";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; 
 
@@ -38,6 +39,7 @@ export class App extends Component  {
           <Route path="/product/:id" component={Product}/>
           <Route path="/category" component={Category} />
           <Route path="/cart" component={Cart} />
+          <Route path="/wish" component={Wish} />
         </div>
     );
   }

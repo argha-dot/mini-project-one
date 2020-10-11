@@ -76,8 +76,8 @@ export class NavBar extends Component {
           </div>
 
           <div className="right-side">
-            <button className="cart-btn"><i className="fas fa-shopping-cart fa-lg"></i></button>
-            <button 
+            <Link to="/cart" className="cart-btn"><i className="fas fa-shopping-cart fa-lg"></i></Link>
+            <button
               className="my-btn"
               onClick={() => this.props.user ? this.logout() : this.login()}>
             {this.props.user ?

@@ -18,14 +18,15 @@ export default class CartItem extends Component {
     render() {
         return (
             <div className="cart-item">
-                <Link to="/"
+                <Link to={"/product/" + data.gameboy.id}
                     className="cart-item-link"
                     style={ {color: "#6b6b6b"} }>
                     {data.gameboy.productName}
                 </Link>
                 <div className="cart-item-img">
                     <img src={data.gameboy.imgLinks[0]} width={"250px"}
-                        alt="Something" />
+                        alt="Something"
+                        width="160px" />
                 </div>
                 <div className="cart-item-buttons">
                     <button className="cart-item-qty">Qty: 1</button>
