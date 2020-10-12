@@ -1,0 +1,15 @@
+.homepage-main {
+    padding-left: 15rem;
+    padding-top: 5rem;
+    font-size: larger;
+    word-wrap: break-word;
+    width: 90%;
+}
+
+#mainimage{
+    background-image:url('../homepage/assets/image1.jpg');
+	background-position:center right;
+	min-height:300px;
+	margin-bottom:30px;
+	text-align: center;
+}

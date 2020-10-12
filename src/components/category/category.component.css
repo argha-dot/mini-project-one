@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap');
+
+:root {
+    font-size: 16px;
+    --font-color: #6b6b6b;
+}
+
+.category-main {
+    padding-left: 15rem;
+    margin-top: 3rem;
+    color: var(--font-color);
+}
+
+.cat-title {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.cat-contents {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* text-align: center; */
+}
+
+.cat-item {
+    margin: 1rem 0rem;
+    margin-top: 5rem;
+    display: grid;
+    grid-template-areas: 
+        "image  name"
+        "image  description"
+        "image  buttons";
+    align-items: center;
+    justify-items: start;
+    gap: 2.0rem;
+}
+
+.cat-img {
+    width: 250px;
+    height: 250px;
+    grid-area: image;
+}
+
+.cat-description {
+    width: 50rem;
+    word-wrap: break-word;
+    padding-right: 5rem;
+    grid-area: description;
+}
+
+.btns {
+    grid-area: buttons;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.cat-item-title {
+    font-size: 1.5rem;
+    grid-area: name;
+}
+
+.add-link {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.add-to {
+    border: none;
+    border-radius: 5px;
+    height: 2.5rem;
+    width: 7.0rem;
+    margin: 0rem 1rem;
+}
+
+.cat-item-price {
+    padding-top: 0.5rem;
+    font-size: large;
+    font-weight: 700;
+}
