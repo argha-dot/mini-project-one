@@ -1,15 +1,76 @@
 const axios = require('axios');
 let User = require('../models/user')
 let Product = require('../models/product')
-
+const { auth } = require("../middleware/auth");
+const jwt = require('jsonwebtoken');
+const moment = require('moment');
+const {OAuth2Client} = require('google-auth-library')
+const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID); 
 module.exports = {
+
+    google_login(req, response) {
+        const {tokenId} = req.body;
+        client.verifyIdToken({idToken: tokenId, audience: process.env.REACT_APP_GOOGLE_CLIENT_ID}).then(res => {
+            const {email_verified, name, email, picture} = res.payload;
+            if (email_verified) {
+                User.findOne({email}).exec((err, user) => {
+                    if(err) {
+                        return res.status(400).json({
+                            error: "Error from finding user in google login"
+                        })
+                    } else {
+                        if (user) { // User already exisits:
+                            var token = jwt.sign(user._id.toHexString(), 'secret')
+                            var oneHour = moment().add(1, 'hour').valueOf();
+                        
+                            user.tokenExp = oneHour;
+                            user.token = token;
+                            user.save((err, data) => {
+                                if(err) {res.status(400).json({error: err});}
+                                response.cookie("w_authExp", user.tokenExp);
+                                    response
+                                        .cookie("w_auth", user.token)
+                                        .status(200)
+                                        .json({
+                                            loginSuccess: true, userId: user._id
+                                        }); 
+                            });
+                        } else {
+                            let new_user = new User({
+                                name: name,
+                                email: email,
+                                profile_picture: picture
+                            });
+                            new_user.save((err, data) => {
+                                if(err) {
+                                    return res.status(400).json({error: err}); 
+                                }
+                                data.generateToken((err, user) => {
+                                    // if (err) return res.status(400).json({error: err});
+                                    response.cookie("w_authExp", user.tokenExp);
+                                    response
+                                        .cookie("w_auth", user.token)
+                                        .status(200) 
+                                        .json({
+                                            loginSuccess: true, userId: user._id
+                                        }); 
+                                }); 
+                            })
+                            
+                        }
+                    }
+                })
+            }
+        }); 
+        console.log("Token id from Google Login: ", tokenId);
+    }, 
 
     remove_from_cart(req, res) {
         User.findOneAndUpdate(
             { _id: req.session.user._id },
             {
                 "$pull":
-                    { "cart": { "id": req.query._id } }
+                    { "cart": { "id": req.query._id } } 
             },
             { new: true },
             (err, userInfo) => {
@@ -84,50 +145,50 @@ module.exports = {
 
     },
 
-    login(req, res) {
-        return axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`, {
-            client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
-            client_secret: process.env.REACT_APP_AUTH0_CLIENT_SECRET,
-            code: req.query.code,
-            grant_type: 'authorization_code',
-            redirect_uri: `http://${req.headers.host}/auth/callback`
-        }).then(access_token_response => {
-            const access_token = access_token_response.data.access_token // Store token here, collect user info. 
-            return axios.get(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/userinfo?access_token=${access_token}`).then(user_data_response => {
-                //Getting the  data from auth0
-                const { name, nickname, email, picture, sub } = user_data_response.data;
-                console.log('User Info: ', user_data_response.data);
+    // login(req, res) {
+    //     return axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`, {
+    //         client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
+    //         client_secret: process.env.REACT_APP_AUTH0_CLIENT_SECRET,
+    //         code: req.query.code,
+    //         grant_type: 'authorization_code',
+    //         redirect_uri: `http://${req.headers.host}/auth/callback`
+    //     }).then(access_token_response => {
+    //         const access_token = access_token_response.data.access_token // Store token here, collect user info. 
+    //         return axios.get(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/userinfo?access_token=${access_token}`).then(user_data_response => {
+    //             //Getting the  data from auth0
+    //             const { name, nickname, email, picture, sub } = user_data_response.data;
+    //             console.log('User Info: ', user_data_response.data);
 
-                User.findOne({ auth0_id: sub }, (err, user) => {
-                    if (err) console.log('Error from login: ', err);
-                    if (!user) {
-                        //Create a new user if none exists.
-                        let new_user = new User({
-                            name: name,
-                            email: email,
-                            username: nickname,
-                            profile_picture: picture,
-                            auth0_id: sub,
-                        });
-                        //Assign the user to the session.
-                        req.session.user = new_user;
-                        //Save the session
-                        req.session.save();
-                        //Save user to mongodb
-                        new_user.save();
-                        console.log("Session Saved- New User!")
-                    } else {
-                        req.session.user = user;
-                        req.session.save();
-                        console.log("Session Saved!")
-                    }
-                    res.redirect('/');
-                })
-            }).catch(err => console.log('Error in getting user info - auth0: ', err));
-        }).catch(err => console.log('Auth0 Error', err));
-    },
+    //             User.findOne({ auth0_id: sub }, (err, user) => {
+    //                 if (err) console.log('Error from login: ', err);
+    //                 if (!user) {
+    //                     //Create a new user if none exists.
+    //                     let new_user = new User({
+    //                         name: name,
+    //                         email: email,
+    //                         username: nickname,
+    //                         profile_picture: picture,
+    //                         auth0_id: sub,
+    //                     });
+    //                     //Assign the user to the session.
+    //                     req.session.user = new_user;
+    //                     //Save the session
+    //                     req.session.save();
+    //                     //Save user to mongodb
+    //                     new_user.save();
+    //                     console.log("Session Saved- New User!")
+    //                 } else {
+    //                     req.session.user = user;
+    //                     req.session.save();
+    //                     console.log("Session Saved!")
+    //                 }
+    //                 res.redirect('/');
+    //             })
+    //         }).catch(err => console.log('Error in getting user info - auth0: ', err));
+    //     }).catch(err => console.log('Auth0 Error', err));
+    // },
 
-    logout(req, res) {
+    google_logout(req, res) {
         req.session.destroy();
         res.status(200).json({ message: "Succefully signed out" });
     }

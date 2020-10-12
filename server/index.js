@@ -11,6 +11,7 @@ const app = express();
 const jwt = require('express-jwt');
 const jwtAuthz = require('express-jwt-authz');
 const jwksRsa = require('jwks-rsa');
+const cookieParser = require("cookie-parser");
 
 
 // Setting controllers: 
@@ -30,46 +31,51 @@ connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 })
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors());
 
-// For authentication: 
-const checkJwt = jwt({
-    // Dynamically provide a signing key
-    // based on the kid in the header and 
-    // the signing keys provided by the JWKS endpoint.
-    secret: jwksRsa.expressJwtSecret({
-        cache: true,
-        rateLimit: true,
-        jwksRequestsPerMinute: 5,
-        jwksUri: `https://dev-n591a9lw.us.auth0.com/.well-known/jwks.json`
-    }),
+// // For authentication: 
+// const checkJwt = jwt({
+//     // Dynamically provide a signing key
+//     // based on the kid in the header and 
+//     // the signing keys provided by the JWKS endpoint.
+//     secret: jwksRsa.expressJwtSecret({
+//         cache: true,
+//         rateLimit: true,
+//         jwksRequestsPerMinute: 5,
+//         jwksUri: `https://dev-n591a9lw.us.auth0.com/.well-known/jwks.json`
+//     }),
 
-    // Validate the audience and the issuer.
-    audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-    issuer: `https://dev-n591a9lw.us.auth0.com/`,
-    algorithms: ['RS256']
-});
+//     // Validate the audience and the issuer.
+//     audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+//     issuer: `https://dev-n591a9lw.us.auth0.com/`,
+//     algorithms: ['RS256']
+// });
 
 
-// Seting up cookeies usage: 
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: null
-    }
-}));
+// // Seting up cookeies usage: 
+// app.use(session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//         maxAge: null
+//     }
+// }));
 
+
+app.post('/api/google_login', user_controller.google_login);
 
 // Setting a time limit before endpoints start running
 setTimeout(() => {
+    // app.post('/api/google_login', user_controller.google_login);
     app.get('/api/cart/:id', user_controller.add_to_cart);
     app.delete('/api/user-data/cart/:id', user_controller.remove_from_cart);
     app.get('/api/user-data', user_controller.read_user_data);
-    app.post('/api/logout', user_controller.logout);
-    app.get('/auth/callback', user_controller.login);
+    app.post('/api/logout', user_controller.google_logout);
+    // app.get('/auth/callback', user_controller.login);
     app.get('/api/products', product_controller.seeProducts);
     app.get('/api/products/:id', product_controller.seeSingleProduct);
     app.get('/api/users', admin_controller.getAdminUsers);
