@@ -7,6 +7,7 @@ import "./product.component.css"
 import "./input.css"
 
 function ProductPage(props) {
+    
     const dispatch = useDispatch();
     const productId = props.match.params._id;
     // console.log("Product ID: ", productId); 
@@ -15,9 +16,9 @@ function ProductPage(props) {
 
     useEffect(() => {
         // console.log("Query: ", `/api/products/${productId}`)
-        Axios.get(`/api/products/${productId}`)// Axios.get(`/api/products/${productId}`)
+        Axios.get(`http://localhost:5000/api/product/seeProductById?id=${productId}`)// Axios.get(`/api/products/${productId}`)
             .then(response => {
-                setProduct(response.data.product)
+                setProduct(response.data[0])
                 // console.log("Here", response.data.product)
                 // console.log("Pictures: ", Product.pictures)
             }).catch(err => console.log(err))

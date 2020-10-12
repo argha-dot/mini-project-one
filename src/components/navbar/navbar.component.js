@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+
 import { connect } from 'react-redux';
 import axios from 'axios';
 
@@ -39,12 +40,12 @@ export class NavBar extends Component {
   }
 
   login = () => {
-    const redirectURI = encodeURIComponent(`${window.location.origin}/auth/callback`);
+    const redirectURI = encodeURIComponent(`${window.location.origin}/users/auth/callback`);
     window.location = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/login?client=${process.env.REACT_APP_AUTH0_CLIENT_ID}&scope=openid%20profile%20email&redirect_uri=${redirectURI}`;
   }
 
   logout = () => {
-    axios.post('/api/logout', {})
+    axios.post('/api/users/logout', {})
     .then(res => {
       alert(res.data.message);
       this.props.history.go(); //Refresh the browser

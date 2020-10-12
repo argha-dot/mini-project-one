@@ -4,16 +4,18 @@ require('dotenv').config();
 const bodyParser = require('body-parser'); // For retreiving values from req.body
 const session = require('express-session'); // For saving uses session, manipulating cache
 const cors = require('cors'); // For cross origin requests 
+const cookieParser = require("cookie-parser"); 
 const mongoose = require('mongoose');
 const app = express();
 
 // Setting controllers: 
-const user_controller = require('./controllers/user.controller');
-const admin_controller = require('./controllers/admin.controller');
-const product_controller = require('./controllers/product.controller'); 
+// const user_controller = require('./controllers/user.controller');
+// const admin_controller = require('./controllers/admin.controller');
+// const product_controller = require('./controllers/product.controller'); 
 
-
-// Use your dependencies here
+app.use('/api/users', require('./controllers/user.controller'));
+app.use('/api/product', require('./controllers/product.controller'));
+app.use('/api/admin', require('./controllers/admin.controller'));
 
 
 // Connection with MongoDB Atlas
@@ -29,6 +31,9 @@ connection.once('open', () => {
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 // Seting up cookeies usage: 
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -41,19 +46,19 @@ app.use(session({
 
 
 // Setting a time limit before endpoints start running
-setTimeout(() => {
-app.get('/api/cart/:id', user_controller.add_to_cart);
-app.delete('/api/user-data/cart/:id', user_controller.remove_from_cart);
-app.get('/api/user-data', user_controller.read_user_data);
-app.post('/api/logout', user_controller.logout);
-app.get('/auth/callback', user_controller.login);
-app.get('/api/products', product_controller.seeProducts);
-app.get('/api/products/:id', product_controller.seeSingleProduct);
-app.get('/api/users', admin_controller.getAdminUsers);
-app.post('/api/products', admin_controller.createProduct);
-app.put('/api/products/:id', admin_controller.updateProduct);
-app.delete('/api/products/:id', admin_controller.deleteProduct);
-    }, 200)
+// setTimeout(() => {
+// app.get('/api/cart/:id', user_controller.add_to_cart);
+// app.delete('/api/user-data/cart/:id', user_controller.remove_from_cart);
+// app.get('/api/user-data', user_controller.read_user_data);
+// app.post('/api/logout', user_controller.logout);
+// app.get('/auth/callback', user_controller.login);
+// app.get('/api/products', product_controller.seeProducts);
+// app.get('/api/products/:id', product_controller.seeSingleProduct);
+// app.get('/api/users', admin_controller.getAdminUsers);
+// app.post('/api/products', admin_controller.createProduct);
+// app.put('/api/products/:id', admin_controller.updateProduct);
+// app.delete('/api/products/:id', admin_controller.deleteProduct);
+//     }, 200)
  
 
 // Start Server here

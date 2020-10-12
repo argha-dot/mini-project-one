@@ -13,7 +13,7 @@ export default class LandingPage extends Component {
     }
 
     componentDidMount() {
-        Axios.get('/api/products')
+        Axios.get('http://localhost:5000/api/product/seeProducts')
         .then(response => {
             console.log(response.data.success);
             if(response.data.success) {
@@ -24,16 +24,16 @@ export default class LandingPage extends Component {
             }
         }).catch(err => console.log('Read all products - Error',  err));
 
-        Axios.get('/api/user-data')
-        .then(response => {
-            console.log(response.data.success); 
-            if(response.data.success) {
-                // console.log('Frontend User:', response.data.user)
-                this.setState({user: response.data.user});
-            } else {
-                alert("User was not fetched");
-            }
-        }).catch(err => console.log('Read User - Error',  err));
+    //     Axios.get('http://localhost:5000/api/users/auth')
+    //     .then(response => {
+    //         console.log(response.data.success); 
+    //         if(response.data.success) {
+    //             // console.log('Frontend User:', response.data.user)
+    //             this.setState({user: response.data.user});
+    //         } else {
+    //             alert("User was not fetched");
+    //         }
+    //     }).catch(err => console.log('Read User - Error',  err));
             
     }; 
 
