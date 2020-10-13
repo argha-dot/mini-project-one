@@ -1,5 +1,6 @@
 // Imports
 const express = require('express');
+const {auth} = require('./middleware/auth')
 require('dotenv').config();
 const bodyParser = require('body-parser'); // For retreiving values from req.body
 const session = require('express-session'); // For saving uses session, manipulating cache
@@ -23,10 +24,10 @@ const product_controller = require('./controllers/product.controller');
 // Connection with MongoDB Atlas
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri,
-    { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
+    { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false }
 );
 
-const connection = mongoose.connection;
+const connection = mongoose.connection; 
 connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 })
@@ -67,6 +68,7 @@ app.use(cors());
 
 
 app.post('/api/google_login', user_controller.google_login);
+app.post('/api/google_logout', user_controller.google_logout);
 
 // Setting a time limit before endpoints start running
 setTimeout(() => {
@@ -74,7 +76,7 @@ setTimeout(() => {
     app.get('/api/cart/:id', user_controller.add_to_cart);
     app.delete('/api/user-data/cart/:id', user_controller.remove_from_cart);
     app.get('/api/user-data', user_controller.read_user_data);
-    app.post('/api/logout', user_controller.google_logout);
+    
     // app.get('/auth/callback', user_controller.login);
     app.get('/api/products', product_controller.seeProducts);
     app.get('/api/products/:id', product_controller.seeSingleProduct);

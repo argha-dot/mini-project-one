@@ -11,9 +11,10 @@ import { Navbar } from "react-bootstrap"
 import "./navbar.component.css"
 
 
-var isSignedIn = false;
 function NavBar(props) {
   const [sidebarToggle, setToggle] = useState(true);
+  const [isSignedIn, setSignedIn] = useState(false);
+  const [userId, setUserID] = useState('');
   const linkFunc = (path) => {
     this.props.history.push(path);
   }
@@ -33,11 +34,14 @@ function NavBar(props) {
   // const { loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0();
   // console.log("Authentication Status: ", isAuthenticated);
 
-  const logout =(response) => {
+  const logout =() => {
+    console.log("From Logout: ", userId)
     axios({
-      method: "GET",
-      url: "http://localhost:5000/api/google_logout"
+      method: "POST",
+      url: "http://localhost:5000/api/google_logout", 
+      data: {userId: userId}
     })
+    setSignedIn(false); 
   }
   const sucessfulResponseGoogle = (response) => {
     axios({
@@ -46,17 +50,20 @@ function NavBar(props) {
       data: {tokenId: response.tokenId}
     }).then(res => {
       console.log(res);
-      isSignedIn = true;
+      setSignedIn(true);
+      setUserID(res.data.userId); 
+      console.log("Var inside: ", isSignedIn, res.data.userId); 
     })
     .catch(err => console.log("Error from succesfulResponseGoogle", err));  
   }
 
   const failedResponseGoogle = (response) => {
     console.log("Here", response);
-    isSignedIn = true;
+    setSignedIn(true);
   }
 
   var auth_button;
+  console.log("Var Outside: ", isSignedIn)
   if (isSignedIn) {
     auth_button =  <GoogleLogout
     clientId="741634897739-ac07i81bga1jtqdg7lqfk98tt71m76h5.apps.googleusercontent.com"
