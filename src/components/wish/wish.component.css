@@ -2,7 +2,44 @@
     font-size: 16px;
 }
 
-.wishlist-main {
+.wish-main {
     padding-left: 15rem;
     padding-top: 5rem;
+}
+
+.wish-title {
+    color: whitesmoke;
+}
+
+.wish-item {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-areas: 
+        "image name"
+        "image price"
+        "image buttons";
+    align-items: start;
+    justify-items: start;
+    grid-template-columns: 10rem auto;
+    /* gap: 5rem; */
+    grid-column-gap: 5rem;
+}
+
+.wish-item-img {
+    grid-area: image;
+}
+
+.wish-item-link {
+    grid-area: name;
+    font-size: 2rem;
+}
+
+.wish-item-buttons {
+    grid-area: buttons;
+    align-self: end;
+}
+
+.wish-item-price {
+    grid-area: price;
+    font-size: 1rem;
 }

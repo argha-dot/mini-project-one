@@ -1,0 +1,54 @@
+:root {
+    font-size: 16px;
+}
+
+.profile-main {
+    padding-left: 15rem;
+    margin-top: 3rem;
+}
+
+.profile-main {
+    display: grid;
+    grid-template-areas: 
+        "nav    content";
+    grid-template-columns: 15rem auto;
+    gap: 3rem;
+    color: var(--font-color);
+}
+
+.profile-navigation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    grid-area: nav;
+}
+
+.profile-img {
+    align-self: center;
+    height: "auto";
+    border-radius: 50%;
+    margin: 1.0rem;
+}
+
+.content-main {
+    grid-area: content;
+}
+
+.profile-icon {
+    fill: white;
+}
+
+.over-info {
+    width: 30rem;
+}
+
+.over-title {
+    margin-bottom: 5rem;
+}
+
+.over-table-row {
+    height: 3rem;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}

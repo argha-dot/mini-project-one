@@ -9,19 +9,9 @@ export default class Footer extends Component
 
         return (
             <div className="footer">
-                <div className="container">
-                    <div className="row">
-                        <div >
-                            <h6>About Us</h6>
-                        </div>
-                        <div >
-                            <h6>Connect with Us</h6>
-                        </div>
-                        <div >
-                            <h6>Support Us</h6>
-                        </div>
-                    </div>
-                </div>
+                <div className="usefulVarName">About Us</div>
+                <div className="usefulVarName">Connect with Us</div>
+                <div className="usefulVarName">Support Us</div>
             </div>
         )
     }

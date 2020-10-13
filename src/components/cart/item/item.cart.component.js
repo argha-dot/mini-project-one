@@ -26,7 +26,7 @@ export default class CartItem extends Component {
                 <div className="cart-item-img">
                     <img src={data.gameboy.imgLinks[0]} width={"250px"}
                         alt="Something"
-                        width="160px" />
+                        width="160px"/>
                 </div>
                 <div className="cart-item-buttons">
                     <button className="cart-item-qty">Qty: 1</button>
