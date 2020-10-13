@@ -50,7 +50,7 @@ export class App extends Component  {
           <Route path="/cart" component={Cart} />
           <Route path="/wish" component={Wish} />
           <Footer />
-          <Sidebar />
+          <Sidebar />  
         </div>
     );
   }
