@@ -73,11 +73,11 @@ app.post('/api/google_logout', user_controller.google_logout);
 // Setting a time limit before endpoints start running
 setTimeout(() => {
     // app.post('/api/google_login', user_controller.google_login);
-    app.get('/api/cart/:id', user_controller.add_to_cart);
+    app.get('/api/cart', auth, user_controller.add_to_cart);
+
     app.delete('/api/user-data/cart/:id', user_controller.remove_from_cart);
     app.get('/api/user-data', user_controller.read_user_data);
-    
-    // app.get('/auth/callback', user_controller.login);
+
     app.get('/api/products', product_controller.seeProducts);
     app.get('/api/products/:id', product_controller.seeSingleProduct);
     app.get('/api/users', admin_controller.getAdminUsers);

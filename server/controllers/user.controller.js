@@ -92,29 +92,31 @@ module.exports = {
     },
 
     add_to_cart(req, res) {
-        console.log("Id:", req.session.user._id);
-        User.find({ _id: req.session.user._id }, (err, userInfo) => {
-
+        User.findOne({ _id: req.user._id }, (err, userInfo) => {
             let duplicate = false;
-            userInfo.cart.forEach((cartInfo) => {
-                if (cartInfo.id === req.query.productId) {
-                    duplicate = false;
+    
+            console.log(userInfo)
+    
+            userInfo.cart.forEach((item) => {
+                if (item.id == req.query.productId) {
+                    duplicate = true;
                 }
             })
-
+    
+    
             if (duplicate) {
                 User.findOneAndUpdate(
-                    { _id: req.session.user._id, "cart.id": req.query.productId },
+                    { _id: req.user._id, "cart.id": req.query.productId },
                     { $inc: { "cart.$.quantity": 1 } },
                     { new: true },
-                    () => {
+                    (err, userInfo) => {
                         if (err) return res.json({ success: false, err });
-                        return res.json(userInfo.cart);
+                        res.status(200).json(userInfo.cart)
                     }
                 )
             } else {
                 User.findOneAndUpdate(
-                    { _id: req.session.user._id },
+                    { _id: req.user._id },
                     {
                         $push: {
                             cart: {
@@ -132,7 +134,6 @@ module.exports = {
                 )
             }
         })
-
     },
 
 
