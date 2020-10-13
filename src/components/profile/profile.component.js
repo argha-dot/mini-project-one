@@ -3,6 +3,7 @@ import "./profile.component.css";
 
 import Navigation from "./navi.profile.compnent"
 import Overview from "./over.profile.component"
+import Address from "./add.profile.component"
 
 export default function Profile() {
 
@@ -12,16 +13,11 @@ export default function Profile() {
             name: "over",
             label: "Account Overview",
             content: (<Overview />)
-        }, 
-        {
-            name: "edit",
-            label: "Edit your Account",
-            content: (<Navigation />)
         },
         {
             name: "address",
             label: "Addresses",
-            content: (<Navigation />)
+            content: (<Address />)
         },
         {
             name: "orders",

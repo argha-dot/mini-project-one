@@ -23,7 +23,7 @@ export default function WishItem() {
                 {data.gameboy.productName}
             </Link>
             <div className="wish-item-img">
-                <img src={data.gameboy.imgLinks[0]} width={"250px"}
+                <img src={data.gameboy.imgLinks[0]}
                     alt="Something"
                     width="160px" />
             </div>
