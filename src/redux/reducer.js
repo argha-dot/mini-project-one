@@ -51,6 +51,7 @@ export default (state = initial_state, action) => {
 export const login = (user_info) => {
     return {
         type: LOGIN,
+
         payload: user_info
     }
 }

@@ -1,6 +1,7 @@
 // Imports
 const express = require('express');
 const {auth} = require('./middleware/auth')
+
 require('dotenv').config();
 const bodyParser = require('body-parser'); // For retreiving values from req.body
 const session = require('express-session'); // For saving uses session, manipulating cache

@@ -1,19 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap');
-
 :root {
     font-size: 16px;
 }
 
-.cart-main {
+.wish-main {
     padding-left: 15rem;
     padding-top: 5rem;
 }
 
-.cart-title {
-    font-family: 'Josefin Sans', sans-serif;
+.wish-title {
+    color: whitesmoke;
 }
 
-.cart-item {
+.wish-item {
     margin-top: 2rem;
     display: grid;
     grid-template-areas: 
@@ -27,21 +25,21 @@
     grid-column-gap: 5rem;
 }
 
-.cart-item-img {
+.wish-item-img {
     grid-area: image;
 }
 
-.cart-item-link {
+.wish-item-link {
     grid-area: name;
     font-size: 2rem;
 }
 
-.cart-item-buttons {
+.wish-item-buttons {
     grid-area: buttons;
     align-self: end;
 }
 
-.cart-item-price {
+.wish-item-price {
     grid-area: price;
     font-size: 1rem;
 }

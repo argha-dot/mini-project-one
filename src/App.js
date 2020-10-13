@@ -1,7 +1,8 @@
+// TODO Fix the footer thing. 
+
 import React, { Component } from 'react'; 
 import { Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
-
 
 // Redux imports:
 import { connect } from 'react-redux';
@@ -17,6 +18,11 @@ import LandingPage from "./components/landing_page"
 
 import Category from "./components/category/category.component"
 import Cart from "./components/cart/cart.component";
+import Wish from "./components/wish/wish.component";
+import Footer from "./components/footer/footer.component"
+import Sidebar from "./components/sidebar/sidebar.component"
+import Profile from "./components/profile/profile.component"
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; 
 
@@ -43,6 +49,10 @@ export class App extends Component  {
           <Route path="/product/:_id" component={Product}/>
           <Route path="/category" component={Category} />
           <Route path="/cart" component={Cart} />
+          <Route path="/wish" component={Wish} />
+          <Route path="/profile" component={Profile} />
+          <Footer />
+          <Sidebar />
         </div>
     );
   }

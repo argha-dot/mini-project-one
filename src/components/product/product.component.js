@@ -139,7 +139,4 @@ const data =
     }
 }
 
-
-
-
 export default ProductPage;

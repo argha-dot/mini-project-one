@@ -1,0 +1,97 @@
+:root {
+    font-size: 16px;
+    --transition-delay: 160ms;
+    --primary-color: #76f3e4;
+    --secondary-color: #000000;
+    --hover-color: #807b7bf8;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #000000;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+}
+
+.sidebar {
+    padding-top: 5rem;
+    float: left;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    position: fixed;
+    transform: translateX(-13rem);
+    transition: transform var(--transition-delay) ease-in-out;
+    width: 13rem;
+    height: 100%;
+    background-color: var(--secondary-color);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-color) var(--secondary-color);
+    box-shadow: 0 0px 10px #375955;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+    transition: transform var(--transition-delay) ease-in-out;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto;
+}
+
+.side-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4.5rem;
+}
+
+.side-item:hover {
+    background-color: #bff4ee;
+}
+
+.side-item:hover *{
+    color: var(--secondary-color);
+    fill: var(--secondary-color);
+}
+
+.side-item:last-child {
+    margin-top: auto;
+}
+
+.link-text {
+    color: var(--primary-color);
+}
+
+a i.fas {
+    margin: 0.9rem;
+    color: rgb(71,156,159);
+}
+
+a svg.fas {
+    margin: 0.5rem;
+    fill: rgb(71,156,159);
+}
+
+a i.uil {
+    margin: 0.5rem;
+    color: rgb(71,156,159);
+}
+
+a i.fa-shopping-cart {
+    color: #000000;
+}

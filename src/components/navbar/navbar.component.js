@@ -188,8 +188,6 @@ function NavBar(props) {
       </nav>
     </div>
   )
-
-
 }
 
 
@@ -200,5 +198,4 @@ const mapStateToProps = state => {
 }
 // //Then wrap our Component with the HOC, and the connect double invoked. 
 // export default withRouter(connect(mapStateToProps)(NavBar));
-
 export default withRouter(connect(mapStateToProps)(NavBar));
