@@ -33,6 +33,7 @@
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--secondary-color) var(--secondary-color);
+    box-shadow: 0 0px 10px #375955;
 }
 
 .sidebar.open {
@@ -60,7 +61,7 @@
 }
 
 .side-item:hover {
-    background-color: 	#bff4ee;
+    background-color: #bff4ee;
 }
 
 .side-item:hover *{
@@ -70,6 +71,10 @@
 
 .side-item:last-child {
     margin-top: auto;
+}
+
+.link-text {
+    color: var(--primary-color);
 }
 
 a i.fas {
