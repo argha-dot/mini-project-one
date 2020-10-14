@@ -8,6 +8,21 @@ const {OAuth2Client} = require('google-auth-library')
 const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID); 
 module.exports = {
 
+    auth(req, res) {
+    res.status(200).json({
+        _id: req.user._id,
+        //isAdmin: req.user.role === 0 ? false : true,
+        //isAuth: true,
+        email: req.user.email,
+        name: req.user.name,
+        //lastname: req.user.lastname,
+        //role: req.user.role,
+        image: req.user.image,
+        cart: req.user.cart,
+       // history: req.user.history
+    });
+},
+
     google_login(req, response) {
         const {tokenId} = req.body;
         client.verifyIdToken({idToken: tokenId, audience: process.env.REACT_APP_GOOGLE_CLIENT_ID}).then(res => {
@@ -32,7 +47,7 @@ module.exports = {
                                         .cookie("w_auth", user.token) 
                                         .status(200)
                                         .json({
-                                            loginSuccess: true, userId: user._id
+                                            loginSuccess: true, user: user
                                         }); 
                             });
                         } else {
@@ -52,7 +67,7 @@ module.exports = {
                                         .cookie("w_auth", user.token)
                                         .status(200) 
                                         .json({
-                                            loginSuccess: true, userId: user._id
+                                            loginSuccess: true, user: user
                                         }); 
                                 }); 
                             })
@@ -92,29 +107,35 @@ module.exports = {
     },
 
     add_to_cart(req, res) {
-        console.log("Id:", req.session.user._id);
-        User.find({ _id: req.session.user._id }, (err, userInfo) => {
-
+        const {_id} = req.body;
+        User.findOne({ _id }, (err, userInfo) => {
+            if (err) {
+                return res.json({ success: "Error from finding the user - add to cart backend", err });
+            }
             let duplicate = false;
-            userInfo.cart.forEach((cartInfo) => {
-                if (cartInfo.id === req.query.productId) {
-                    duplicate = false;
+    
+            console.log("Message from cart backend", userInfo)
+    
+            userInfo.cart.forEach((item) => {
+                if (item.id == req.query.productId) {
+                    duplicate = true;
                 }
             })
-
+    
+    
             if (duplicate) {
                 User.findOneAndUpdate(
-                    { _id: req.session.user._id, "cart.id": req.query.productId },
+                    { _id: _id, "cart.id": req.query.productId },
                     { $inc: { "cart.$.quantity": 1 } },
                     { new: true },
-                    () => {
+                    (err, userInfo) => {
                         if (err) return res.json({ success: false, err });
-                        return res.json(userInfo.cart);
+                        res.status(200).json(userInfo.cart)
                     }
                 )
             } else {
                 User.findOneAndUpdate(
-                    { _id: req.session.user._id },
+                    { _id: _id },
                     {
                         $push: {
                             cart: {
@@ -132,7 +153,6 @@ module.exports = {
                 )
             }
         })
-
     },
 
 

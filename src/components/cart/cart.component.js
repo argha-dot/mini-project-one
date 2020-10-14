@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 // import { Link } from "react-router-dom";
 
-import CartItem from "./item/item.cart.component";
+import CartItem from "./item.cart.component";
 
 import "./cart.component.css";
 
