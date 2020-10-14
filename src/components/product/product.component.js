@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Axios from 'axios'
 import { Carousel, Form, ButtonGroup, Button } from "react-bootstrap";
+import {addToCart} from '../crud_cart'; 
 // import { addToCart } from '../../redux/reducer';
 // import { useDispatch } from 'react-redux';
 import "./product.component.css"
@@ -8,12 +9,12 @@ import "./input.css"
 
 function ProductPage(props) {
     // const dispatch = useDispatch();
-    const productId = props.match? props.match.params.productId:'5f8226bd85da3239dc1f5c25';
+    const productId = props.match? props.match.params.productId: '';
     var userId = props.user? props.user._id : '';
     // var user = props.user? props.user : '';
 
-    // console.log("Props from product page: ", props)
-    // console.log("usr Id from Product Page:", userId, user); 
+    console.log("Product Id from product page: ", productId)
+    console.log("usr Id from Product Page:", userId); 
     // console.log("Product ID: ", productId); 
     const [Product, setProduct] = useState('')
     const [qty, setIncrement] = useState(1)
@@ -30,16 +31,17 @@ function ProductPage(props) {
                 setProduct(response.data.product)
             }).catch(err => console.log(err))
 
-    })
+    }, [Product])
 
-    function addToCart() {
-        const request = Axios({
-            method: "POST",
-            url: `http://localhost:5000/api/cart?productId=${productId}`,
-            data: {_id: userId}
-        })
-        .then(response => console.log("Response from add to cart: ", response))
-        .catch(err => console.log("Add to Cart Error: ", err));
+    function _addToCart() {
+        addToCart(productId, userId);
+        // const request = Axios({
+        //     method: "POST",
+        //     url: `http://localhost:5000/api/cart?productId=${productId}`,
+        //     data: {_id: userId}
+        // })
+        // .then(response => console.log("Response from add to cart: ", response))
+        // .catch(err => console.log("Add to Cart Error: ", err));
     }
 
     var buy = {
@@ -97,7 +99,7 @@ function ProductPage(props) {
                             <Button>
                                 <a className="add-link"
                                     style={{ textDecoration: "none" }}
-                                    onClick={addToCart}>
+                                    onClick={_addToCart}>
                                     Add To Cart
                                     </a>
                             </Button>

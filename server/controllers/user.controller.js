@@ -80,9 +80,32 @@ module.exports = {
         console.log("Token id from Google Login: ", tokenId);
     }, 
 
+    get_cart_info(req, res) {
+        const {_id} = req.body;
+        User.findOne(
+            { _id: _id },
+            (err, userInfo) => {
+                let cart = userInfo.cart;
+                let array = cart.map(item => {
+                    return item.id
+                })
+    
+    
+                Product.find({ '_id': { $in: array } })
+                    .populate('writer')
+                    .exec((err, cartDetail) => {
+                        if (err) return res.status(400).send(err);
+                        return res.status(200).json({ success: true, cartDetail, cart })
+                    })
+    
+            }
+        )
+    },
+
     remove_from_cart(req, res) {
+        const {_id} = req.body;
         User.findOneAndUpdate(
-            { _id: req.session.user._id },
+            { _id: _id },
             {
                 "$pull":
                     { "cart": { "id": req.query._id } } 
@@ -101,7 +124,7 @@ module.exports = {
                             cartDetail,
                             cart
                         })
-                    })
+                    }) 
             }
         )
     },
@@ -114,7 +137,7 @@ module.exports = {
             }
             let duplicate = false;
     
-            console.log("Message from cart backend", userInfo)
+            // console.log("Message from cart backend", userInfo)
     
             userInfo.cart.forEach((item) => {
                 if (item.id == req.query.productId) {
@@ -156,14 +179,14 @@ module.exports = {
     },
 
 
-    read_user_data(req, res) {
-        if (req.session.user) {
-            return res.status(200).json({ success: true, user: req.session.user });
-        } else {
+    // read_user_data(req, res) {
+    //     if (req.session.user) {
+    //         return res.status(200).json({ success: true, user: req.session.user });
+    //     } else {
 
-        }
+    //     }
 
-    },
+    // },
 
     google_logout(req, res) {
         console.log("User ID: from logout: ",  );

@@ -28,17 +28,17 @@ import './App.css';
 
 
 export class App extends Component  {
-  componentDidMount() {
-    axios.get('/api/user-data')
-    .then(res => {
-      const {dispatch} = this.props; // Destructing dispatch to initiate actions
-      if (res.data.user) {
-        dispatch(login(res.data.user)); 
-      } else {
-        dispatch(logout());
-      }
-    }) 
-  }
+  // componentDidMount() {
+  //   axios.get('/api/user-data')
+  //   .then(res => {
+  //     const {dispatch} = this.props; // Destructing dispatch to initiate actions
+  //     if (res.data.user) {
+  //       dispatch(login(res.data.user)); 
+  //     } else {
+  //       dispatch(logout());
+  //     }
+  //   }) 
+  // }
 
   render() {
     return (

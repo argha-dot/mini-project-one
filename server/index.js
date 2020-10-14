@@ -44,8 +44,9 @@ setTimeout(() => {
     // app.post('/api/google_login', user_controller.google_login);
     app.post('/api/cart', user_controller.add_to_cart);
 
-    app.delete('/api/user-data/cart/:id', user_controller.remove_from_cart);
-    app.get('/api/user-data', user_controller.read_user_data);
+    app.delete('/api/cart', user_controller.remove_from_cart);
+    app.get('/api/cart:id' , user_controller.get_cart_info);
+    // app.get('/api/user-data', user_controller.read_user_data);
 
     app.get('/api/products', product_controller.seeProducts);
     app.get('/api/products/:id', product_controller.seeSingleProduct);
