@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Axios from 'axios'
 import { Carousel, Form, ButtonGroup, Button } from "react-bootstrap";
 import { addToCart } from '../../redux/reducer';
@@ -9,17 +9,13 @@ import "./input.css"
 function ProductPage(props) {
     const dispatch = useDispatch();
     const productId = props.match.params._id;
-    // console.log("Product ID: ", productId); 
     const [Product, setProduct] = useState('')
     const [qty, setIncrement] = useState(1)
 
     useEffect(() => {
-        // console.log("Query: ", `/api/products/${productId}`)
-        Axios.get(`/api/products/${productId}`)// Axios.get(`/api/products/${productId}`)
+        Axios.get(`/api/products/${productId}`)
             .then(response => {
                 setProduct(response.data.product)
-                // console.log("Here", response.data.product)
-                // console.log("Pictures: ", Product.pictures)
             }).catch(err => console.log(err))
 
     })

@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
-import "./category.component.css";
+import React from "react";
 import { Link } from "react-router-dom";
-import ItemCategory from "./item.category.component"
-import axios from "axios";
 
 const data = [
     {
@@ -23,25 +20,36 @@ const data = [
     }
 ]
 
-export default function Category() {
-    const [productList, setProductList] = useState(null);
-
-    useEffect(() => {
-        axios.get(`/api/products/`)
-            .then(response => {
-                setProductList(response.data.products)
-            }).catch(err => console.log(`${err} from catergory.component frontend`))
-    })
+export default function ItemCategory(props) {
 
     return(
-        <div className = "category-main" >
-            <h3 className="cat-title">FOR GAMERS</h3>
-            <br />
-            <div className="cat-contents">
-                <ItemCategory />
-                <ItemCategory />
+        <div className = "cat-item" >
+            <Link to={`/product/${data[0].id}`} 
+            className="cat-item-title cat-title"
+            style={{ "color": "#6b6b6b" }}>
+                {data[0].productName}
+            </Link>
+            <div className="cat-img">
+                <img src={data[0].imgLinks[0]} width={"250px"}
+                    alt="Something"/>
             </div>
-            {console.log(productList)}
+            
+            <div className="cat-description">
+                {data[0].description}
+            </div>
+            <div className="btns">
+                <span className="cat-item-price">{data[0].price}</span>
+                <button className="add-to">
+                    <a className="add-link"
+                        style={{ textDecoration: "none" }}
+                        href="https://www.youtube.com/">
+                    Add To Cart
+                    </a>
+                </button>
+                <button className="add-wishlist">
+                    <i className="fas fa-heart"></i>
+                </button>
+            </div>
         </div>
     )
 }
