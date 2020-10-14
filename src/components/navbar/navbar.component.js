@@ -20,14 +20,7 @@ import "./navbar.component.css"
     const countries = [
       {name: 'India', value: 'sv'},
       {name: 'Nepal', value: 'en'},
-      {name: 'Bangladesh', value: 'bengali'},
-      {
-          type: 'group',
-          name: 'Group name',
-          items: [
-              {name: 'Spanish', value: 'es'},
-          ]
-      },
+      {name: 'Bangladesh', value: 'bengali'}      
   ];
     const Search = () => {
       return (
