@@ -24,24 +24,29 @@ const data = [
 ]
 
 export default function Category() {
-    const [productList, setProductList] = useState(null);
+    const [productList, setProductList] = useState("");
 
     useEffect(() => {
         axios.get(`/api/products/`)
             .then(response => {
                 setProductList(response.data.products)
             }).catch(err => console.log(`${err} from catergory.component frontend`))
-    })
+    }, [productList])
 
     return(
         <div className = "category-main" >
+            {console.log(productList)}
             <h3 className="cat-title">FOR GAMERS</h3>
             <br />
             <div className="cat-contents">
-                <ItemCategory />
-                <ItemCategory />
+                {
+                    // productList.map(() => {
+                    //     <ItemCategory />
+                    // })
+                }
+                <ItemCategory data={productList[0]} />
+                {/* <ItemCategory /> */}
             </div>
-            {console.log(productList)}
         </div>
     )
 }
