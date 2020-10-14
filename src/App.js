@@ -17,6 +17,7 @@ import Cart from "./components/cart/cart.component";
 import Wish from "./components/wish/wish.component";
 // import Footer from "./components/footer/footer.component"
 import Sidebar from "./components/sidebar/sidebar.component"
+import Slider from "./components/homepage/slider"
 import Profile from "./components/profile/profile.component"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; 
@@ -48,6 +49,7 @@ export class App extends Component  {
           <Route path="/profile" component={Profile} />
           {/* <Footer /> */}
           <Sidebar />
+          <Slider/>
         </div>
     );
   }

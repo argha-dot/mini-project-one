@@ -6,10 +6,12 @@
     width: 90%;
 }
 
-#mainimage{
+.mainimage{
     background-image:url('../homepage/assets/image1.jpg');
 	background-position:center right;
 	min-height:300px;
 	margin-bottom:30px;
 	text-align: center;
 }
+
+
