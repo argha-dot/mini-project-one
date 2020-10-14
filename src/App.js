@@ -47,7 +47,7 @@ export class App extends Component  {
           <br />
           <Route path="/" exact component={LandingPage} />
           <Route path="/product/:productId" component={Product}/>
-          <Route path="/category" component={Category} />
+          <Route path="/category/:catId" component={Category} />
           <Route path="/cart" component={Cart} />
           <Route path="/wish" component={Wish} />
           <Route path="/profile" component={Profile} />

@@ -8,8 +8,8 @@ import "./input.css"
 
 function ProductPage(props) {
     // const dispatch = useDispatch();
-    const productId = props.match? props.match.params.productId:'5f8226bd85da3239dc1f5c25';
-    var userId = props.user? props.user._id : '';
+    const productId = props.match ? props.match.params.productId:'5f8226bd85da3239dc1f5c25';
+    var userId = props.user ? props.user._id : '';
     // var user = props.user? props.user : '';
 
     // console.log("Props from product page: ", props)

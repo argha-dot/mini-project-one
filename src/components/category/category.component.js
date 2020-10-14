@@ -18,11 +18,15 @@ const data = [
     }
 ]
 
-export default function Category() {
+const key = {
+    "games": "Vintage Gaming"
+}
+
+export default function Category(props) {
+    var categoryId = props.match.params.catId ? props.match.params.catId : '';
     const [productList, setProductList] = useState([{
         "pictures": [
-            "https://illlustrations.co/static/cb0069bee07d4675ef939a4c61774cac/116-gameboy.png",
-            "https://64.media.tumblr.com/e5f1772c9315615fd54d0727f762c3d5/tumblr_o3paohrAl31v8mn5wo1_1280.jpg"
+            "https://illlustrations.co/static/cb0069bee07d4675ef939a4c61774cac/116-gameboy.png"
         ],
         "category": "",
         "_id": "",
@@ -32,9 +36,8 @@ export default function Category() {
     }]);
 
     const fetchData = () => {
-        axios.get(`api/products/`)
+        axios.get(`api/products`)
             .then((response) => {
-                // const setItem = 
                 setProductList(response.data.products)
             })
             .catch(err => console.log(`${err} from catergory.component frontend`))
@@ -49,12 +52,12 @@ export default function Category() {
     return(
         <div className = "category-main" >
             {console.log(productList)}
-            <h3 className="cat-title">FOR GAMERS</h3>
+            <h3 className="cat-title">{key[categoryId]}</h3>
             <br />
             <div className="cat-contents">
                 {
                     productList.map((index) => (
-                        index.category==="Vintage Gaming"?<ItemCategory data={index} />:null
+                        index.category==="Vintage Gaming" ? <ItemCategory data={index} />:null
                     ))
                 }
             </div>

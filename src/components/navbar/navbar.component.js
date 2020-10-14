@@ -177,7 +177,7 @@ function NavBar(props) {
             <span className="link-text">Graphics Card</span>
           </Link>
 
-          <Link to="/category" className="side-item">
+          <Link to="/category/games" className="side-item">
             <i className="fas fa-gamepad"></i>
             <span className="link-text">For Gamers</span>
           </Link>
