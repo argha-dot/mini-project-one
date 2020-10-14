@@ -95,7 +95,7 @@ function NavBar(props) {
   return (
     <div className="nav-main">
       <div>
-        {isSignedIn?console.log("user from navbar: ", user): console.log('')}
+        {/* {isSignedIn?console.log("user from navbar: ", user): console.log('')} */}
         {user? <ProductPage user={user} /> : null}
       </div>
       <Navbar fixed="top" style={{ "justifyContent": "space-between", "padding": "0.5rem 0.5rem" }}>
