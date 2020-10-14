@@ -23,7 +23,7 @@ export function deleteFromCart(productId, userId) {
 export function getCartInfo(userId) {
     const request = Axios({
         method: "GET",
-        url: `http://localhost:5000/api/cart/id=${userId}`,
+        url: `http://localhost:5000/api/see_cart/id=${userId}`,
     })
     .then(response => console.log("Response from getCartInfo from cart: ", response))
     .catch(err => console.log("getCartInfo from front-end Error: ", err));

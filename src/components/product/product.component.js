@@ -13,8 +13,8 @@ function ProductPage(props) {
     var userId = props.user? props.user._id : '';
     // var user = props.user? props.user : '';
 
-    console.log("Product Id from product page: ", productId)
-    console.log("usr Id from Product Page:", userId); 
+    // console.log("Product Id from product page: ", productId)
+    // console.log("usr Id from Product Page:", userId); 
     // console.log("Product ID: ", productId); 
     const [Product, setProduct] = useState('')
     const [qty, setIncrement] = useState(1)
@@ -35,13 +35,6 @@ function ProductPage(props) {
 
     function _addToCart() {
         addToCart(productId, userId);
-        // const request = Axios({
-        //     method: "POST",
-        //     url: `http://localhost:5000/api/cart?productId=${productId}`,
-        //     data: {_id: userId}
-        // })
-        // .then(response => console.log("Response from add to cart: ", response))
-        // .catch(err => console.log("Add to Cart Error: ", err));
     }
 
     var buy = {

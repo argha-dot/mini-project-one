@@ -24,7 +24,7 @@ export default function ItemCategory(props) {
 
     return(
         <div className = "cat-item" >
-            <Link to={`/product/${data[0].id}`} 
+            <Link to={`/product/5f8226bd85da3239dc1f5c25`} 
             className="cat-item-title cat-title"
             style={{ "color": "#6b6b6b" }}>
                 {data[0].productName}
