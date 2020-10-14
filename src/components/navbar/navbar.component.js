@@ -1,10 +1,12 @@
 import React, { Component, useState } from "react";
+import ProductPage from '../product/product.component';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch } from 'react-redux';
+
 import { GoogleLogin, GoogleLogout, useGoogleLogin } from 'react-google-login';
 // CSS Imports: 
 import { Navbar } from "react-bootstrap"
@@ -12,9 +14,11 @@ import "./navbar.component.css"
 
 
 function NavBar(props) {
+  const dispatch = useDispatch();
   const [sidebarToggle, setToggle] = useState(true);
   const [isSignedIn, setSignedIn] = useState(false);
   const [userId, setUserID] = useState('');
+  const [user, setUser] = useState(null);
   const linkFunc = (path) => {
     this.props.history.push(path);
   }
@@ -28,33 +32,39 @@ function NavBar(props) {
       document.querySelector(".sidebar").classList.remove("open");
       document.querySelector(".my-bar").classList.remove("open");
     }
-    setToggle(!sidebarToggle); 
+    setToggle(!sidebarToggle);
   }
 
   // const { loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0();
   // console.log("Authentication Status: ", isAuthenticated);
 
-  const logout =() => {
+  const logoutSuccess = () => {
     console.log("From Logout: ", userId)
     axios({
       method: "POST",
-      url: "http://localhost:5000/api/google_logout", 
-      data: {userId: userId}
+      url: "http://localhost:5000/api/google_logout",
+      data: { userId: userId }
+    }).then(res => {
+      setSignedIn(false);
+      setUser(null);
+      // dispatch(logout());
     })
-    setSignedIn(false); 
   }
+
   const sucessfulResponseGoogle = (response) => {
     axios({
-      method: "POST", 
-      url:'http://localhost:5000/api/google_login',
-      data: {tokenId: response.tokenId}
+      method: "POST",
+      url: 'http://localhost:5000/api/google_login',
+      data: { tokenId: response.tokenId }
     }).then(res => {
       console.log(res);
       setSignedIn(true);
-      setUserID(res.data.userId); 
-      console.log("Var inside: ", isSignedIn, res.data.userId); 
+      setUserID(res.data.user._id);
+      setUser(res.data.user);
+      console.log("Var inside: ", isSignedIn, res.data.user._id);
+      // dispatch(login(res.data.user));
     })
-    .catch(err => console.log("Error from succesfulResponseGoogle", err));  
+      .catch(err => console.log("Error from succesfulResponseGoogle", err));
   }
 
   const failedResponseGoogle = (response) => {
@@ -65,25 +75,29 @@ function NavBar(props) {
   var auth_button;
   console.log("Var Outside: ", isSignedIn)
   if (isSignedIn) {
-    auth_button =  <GoogleLogout
-    clientId="741634897739-ac07i81bga1jtqdg7lqfk98tt71m76h5.apps.googleusercontent.com"
-    buttonText="Logout"
-    onLogoutSuccess={logout}
+    auth_button = <GoogleLogout
+      clientId="741634897739-ac07i81bga1jtqdg7lqfk98tt71m76h5.apps.googleusercontent.com"
+      buttonText="Logout"
+      onLogoutSuccess={logoutSuccess}
     >
     </GoogleLogout>
   } else {
     auth_button = <GoogleLogin
-    clientId="741634897739-ac07i81bga1jtqdg7lqfk98tt71m76h5.apps.googleusercontent.com"
-    buttonText="Login"
-    onSuccess={sucessfulResponseGoogle}
-    onFailure={failedResponseGoogle}
-    cookiePolicy={'single_host_origin'}
-/>
+      clientId="741634897739-ac07i81bga1jtqdg7lqfk98tt71m76h5.apps.googleusercontent.com"
+      buttonText="Login"
+      onSuccess={sucessfulResponseGoogle}
+      onFailure={failedResponseGoogle}
+      cookiePolicy={'single_host_origin'}
+    />
   }
 
 
   return (
     <div className="nav-main">
+      <div>
+        {isSignedIn?console.log("user from navbar: ", user): console.log('')}
+        {user? <ProductPage user={user} /> : null}
+      </div>
       <Navbar fixed="top" style={{ "justifyContent": "space-between", "padding": "0.5rem 0.5rem" }}>
 
         <div className="left-side">

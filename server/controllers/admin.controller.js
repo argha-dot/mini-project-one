@@ -13,7 +13,7 @@ module.exports = {
       
       // CRUD Operations for products: 
       createProduct(req, res) {
-          const {name, description, price} = req.body;
+          const {name, description, price, category, pictures} = req.body;
           let new_product = new Product({
               name, 
               description, 

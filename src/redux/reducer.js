@@ -9,14 +9,15 @@ const LOGOUT = "LOGOUT";
 const ADD_TO_CART = "ADD_TO_CART";
 const REMOVE_CART_ITEM = "REMOVE_CART_ITEM";
 const GET_CART_ITEMS = "GET_CART_ITEMS";
+const AUTH_USER = "AUTH_USER";
 
-export default (state = initial_state, action) => {
+export default (state = {}, action) => {
     switch (action.type) {
         case LOGIN:
-            return { ...state, user: action.payload };
+            return {...state, user: action.payload};
 
         case LOGOUT:
-            return { ...state, user: null } // setting default values
+            return { ...state } // setting default values
 
         case ADD_TO_CART:
             return {
@@ -47,11 +48,20 @@ export default (state = initial_state, action) => {
             return state;
     }
 }
+export function auth() {
+    const request = Axios.get('/api/auth')
+        .then(response => response.data);
 
-export const login = (user_info) => {
+    return {
+        type: AUTH_USER,
+        payload: request
+    }
+}
+
+export const login = (userInfo) => {
     return {
         type: LOGIN,
-        payload: user_info
+        payload: userInfo
     }
 }
 
@@ -61,10 +71,14 @@ export const logout = () => {
     }
 }
 
-export function addToCart(_id) {
-    const request = Axios.get(`http://localhost:5000/api/cart/${_id}`)
-        .then(response => response.data)
-        .catch(err => console.log("Cart Error: ", err));
+export function addToCart(productId) {
+    const request = Axios({
+        method: "POST",
+        url: `http://localhost:5000/api/cart?_id=${productId}`,
+        data: {_id: this.user._id}
+    })
+    .then(response => response.data)
+    .catch(err => console.log("Cart Error: ", err));
 
     return {
         type: ADD_TO_CART,
