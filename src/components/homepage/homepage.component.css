@@ -1,7 +1,3 @@
-:root {
-    font-size: 16px;
-}
-
 .homepage-main {
     padding-left: 15rem;
     padding-top: 5rem;
@@ -10,10 +6,69 @@
     width: 90%;
 }
 
-#mainimage{
-    background-image:url('../homepage/assets/image1.jpg');
-	background-position:center right;
-	min-height:300px;
-	margin-bottom:30px;
-	text-align: center;
+.homepage-carousel{
+    width: 70rem;
+    height: 40rem;
+    margin-bottom: 10rem;
+    margin-top: 4rem;
+    margin-left: 0rem;
+    margin-right: 4rem;
+    background-position:center;
+    padding-bottom: 0.2rem;
+
 }
+.homepage-carddeck{
+    width: 100%;
+    height: 20rem;
+    margin-bottom: 1rem;
+
+}
+.homepage-cardtext{
+  width: 100%;
+  color: black;
+  font-size: 1rem;
+  margin-top: 0rem;
+
+
+}
+
+.homepage-carousel-image{
+    height: 500px;
+    width: 500px;
+}
+
+/* .basic-grid {
+    display: grid;
+    gap: 1rem;
+
+    /* 1 too skinny, too much code */
+    /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; */
+  
+    /* 2 cleaner code */
+    /* grid-template-columns: repeat(12, 1fr); */
+  
+    /* 3  better sizing, but overflows */
+    /* grid-template-columns: repeat(12, minmax(240px, 1fr)); */
+  
+    /* 4 final */
+    /* grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+ } */ 
+
+ .photo-grid {
+    display: grid;
+    gap: 1rem;
+  
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-auto-rows: 240px;
+  }
+  
+  /* Medium screens */
+  @media screen and (min-width: 600px) {
+    .card-tall {
+      grid-row: span 2 / auto;
+    }
+  
+    .card-wide {
+      grid-column: span 2 / auto;
+    }
+  }

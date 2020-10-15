@@ -7,11 +7,12 @@
 .cart-main {
     padding-left: 15rem;
     padding-top: 5rem;
+    padding-bottom: 6rem;
 }
 
-.cart-title {
+/* .cart-title {
     font-family: 'Josefin Sans', sans-serif;
-}
+} */
 
 .cart-item {
     margin-top: 2rem;
@@ -24,7 +25,9 @@
     justify-items: start;
     grid-template-columns: 10rem auto;
     /* gap: 5rem; */
+    color: teal;
     grid-column-gap: 5rem;
+    padding-bottom: 2rem;
 }
 
 .cart-item-img {

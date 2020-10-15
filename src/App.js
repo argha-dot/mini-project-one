@@ -45,7 +45,7 @@ export class App extends Component  {
         <div className="main">
           <NavBar />
           <br />
-          <Route path="/" exact component={LandingPage} />
+          <Route path="/" exact component={Homepage} />
           <Route path="/product/:productId" component={Product}/>
           <Route path="/category" component={Category} />
           <Route path="/cart" component={Cart} />
