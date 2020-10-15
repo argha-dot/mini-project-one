@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./category.component.css";
-import { Link } from "react-router-dom";
 import ItemCategory from "./item.category.component"
 import axios from "axios";
 
 const key = {
     "games": "Vintage Gaming",
-    "monitor": "Laptops",
+    "monitor": "Monitors",
     "motherboard": "Motherboard",
     "cpu": "CPU",
     "psu": "Power Unitss and Cooling",
