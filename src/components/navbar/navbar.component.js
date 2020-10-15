@@ -1,5 +1,7 @@
 import React, { Component, useState } from "react";
 import ProductPage from '../product/product.component';
+import SelectSearch, {useSelect} from 'react-select-search';
+import SearchBar from './searchbar';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -12,8 +14,24 @@ import { GoogleLogin, GoogleLogout, useGoogleLogin } from 'react-google-login';
 import { Navbar } from "react-bootstrap"
 import "./navbar.component.css"
 
+  export default function NavBar(props) {
+  
+    // const countries = ['India', 'Nepal', 'Bangladesh'];
+    const countries = [
+      {name: 'India', value: 'sv'},
+      {name: 'Nepal', value: 'en'},
+      {name: 'Bangladesh', value: 'bengali'}      
+  ];
+    const Search = () => {
+      return (
+        <SelectSearch
+            options={countries}
+            search
+            placeholder="Select your country"
+        />
+      )
+    }
 
-function NavBar(props) {
   const dispatch = useDispatch();
   const [sidebarToggle, setToggle] = useState(true);
   const [isSignedIn, setSignedIn] = useState(false);
@@ -90,8 +108,9 @@ function NavBar(props) {
       cookiePolicy={'single_host_origin'}
     />
   }
+  
 
-
+  
   return (
     <div className="nav-main">
       <div>
@@ -111,9 +130,14 @@ function NavBar(props) {
           </span>
 
           <form className="form-main">
-            <input placeholder="Search" type="text" className="search-form" />
-            <button className="search-btn"><i className="fas fa-search"></i></button>
+          <SelectSearch
+            options={countries}
+            search
+            placeholder="Select your country"
+        />
           </form>
+          {/* <SelectSearch options={options} value="sv" name="language" placeholder="Choose your language" /> */}
+          {/* <SearchBar/>  */}
 
         </div>
 
@@ -141,4 +165,5 @@ const mapStateToProps = state => {
 }
 // //Then wrap our Component with the HOC, and the connect double invoked. 
 // export default withRouter(connect(mapStateToProps)(NavBar));
-export default withRouter(connect(mapStateToProps)(NavBar));
+// export default withRouter(connect(mapStateToProps)(NavBar));
+// export default NavBar; 

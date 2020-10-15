@@ -8,21 +8,20 @@ const {OAuth2Client} = require('google-auth-library')
 const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID); 
 module.exports = {
 
-    auth(req, res) {
-    res.status(200).json({
-        _id: req.user._id,
-        //isAdmin: req.user.role === 0 ? false : true,
-        //isAuth: true,
-        email: req.user.email,
-        name: req.user.name,
-        //lastname: req.user.lastname,
-        //role: req.user.role,
-        image: req.user.image,
-        cart: req.user.cart,
-       // history: req.user.history
-    });
-},
-
+//     auth(req, res) {
+//     res.status(200).json({
+//         _id: req.user._id,
+//         //isAdmin: req.user.role === 0 ? false : true,
+//         //isAuth: true,
+//         email: req.user.email,
+//         name: req.user.name,
+//         //lastname: req.user.lastname,
+//         //role: req.user.role,
+//         image: req.user.image,
+//         cart: req.user.cart,
+//        // history: req.user.history
+//     });
+// },
     google_login(req, response) {
         const {tokenId} = req.body;
         client.verifyIdToken({idToken: tokenId, audience: process.env.REACT_APP_GOOGLE_CLIENT_ID}).then(res => {
@@ -77,12 +76,52 @@ module.exports = {
                 })
             }
         }); 
-        console.log("Token id from Google Login: ", tokenId);
+        // console.log("Token id from Google Login: ", tokenId);
     }, 
 
+    google_logout(req, res) {
+        console.log("User ID: from logout: ",  );
+        const {userId} = req.body; 
+        console.log(userId, req.body); 
+        User.findOneAndUpdate({ _id: userId }, { token: "", tokenExp: "" }, (err, doc) => {
+            if (err) return res.json({ success: false, err });
+            return res.status(200).send({
+                success: true
+            });
+        });
+    },
+
+    /***************************AUTH DONE*************************************** */
+
+
+    /***************************Cart CRUD*************************************** */
+
+    get_cart_info(req, res) {
+        const {_id} = req.body;
+        User.findOne(
+            { _id: _id },
+            (err, userInfo) => {
+                let cart = userInfo.cart;
+                let array = cart.map(item => {
+                    return item.id
+                })
+    
+    
+                Product.find({ '_id': { $in: array } })
+                    .populate('writer')
+                    .exec((err, cartDetail) => {
+                        if (err) return res.status(400).send(err);
+                        return res.status(200).json({ success: true, cartDetail, cart: cart })
+                    })
+    
+            }
+        )
+    },
+
     remove_from_cart(req, res) {
+        const {_id} = req.body;
         User.findOneAndUpdate(
-            { _id: req.session.user._id },
+            { _id: _id },
             {
                 "$pull":
                     { "cart": { "id": req.query._id } } 
@@ -101,7 +140,7 @@ module.exports = {
                             cartDetail,
                             cart
                         })
-                    })
+                    }) 
             }
         )
     },
@@ -114,7 +153,7 @@ module.exports = {
             }
             let duplicate = false;
     
-            console.log("Message from cart backend", userInfo)
+            // console.log("Message from cart backend", userInfo)
     
             userInfo.cart.forEach((item) => {
                 if (item.id == req.query.productId) {
@@ -155,26 +194,101 @@ module.exports = {
         })
     },
 
+    /***************************Cart CRUD Done*************************************** */
 
-    read_user_data(req, res) {
-        if (req.session.user) {
-            return res.status(200).json({ success: true, user: req.session.user });
-        } else {
+    /***************************Wishlist CRUD*************************************** */
 
-        }
-
+    add_to_wishlist(req, res) {
+        const {_id} = req.body;
+        User.findOne({ _id }, (err, userInfo) => {
+            if (err) {
+                return res.json({ success: "Error from finding the user - add to wishlist backend", err });
+            }
+            let duplicate = false;
+    
+            // console.log("Message from cart backend", userInfo)
+    
+            userInfo.wishlist.forEach((item) => {
+                if (item.id == req.query.productId) {
+                    duplicate = true;
+                }
+            })
+    
+    
+            if (duplicate) {
+                res.status(200).json({success: false, error: "item already exists"});
+            } else {
+                User.findOneAndUpdate(
+                    { _id: _id },
+                    {
+                        $push: {
+                            wishlist: {
+                                id: req.query.productId,
+                                quantity: 1,
+                                date: Date.now()
+                            }
+                        }
+                    },
+                    { new: true },
+                    (err, userInfo) => {
+                        if (err) return res.json({ success: false, err });
+                        res.status(200).json(userInfo.wishlist)
+                    }
+                )
+            }
+        })
     },
 
-    google_logout(req, res) {
-        console.log("User ID: from logout: ",  );
-        const {userId} = req.body; 
-        console.log(userId, req.body); 
-        User.findOneAndUpdate({ _id: userId }, { token: "", tokenExp: "" }, (err, doc) => {
-            if (err) return res.json({ success: false, err });
-            return res.status(200).send({
-                success: true
-            });
-        });
+    remove_from_wishlist(req, res) {
+        const {_id} = req.body;
+        User.findOneAndUpdate(
+            { _id: _id },
+            {
+                "$pull":
+                    { "wishlist": { "id": req.query._id } } 
+            },
+            { new: true },
+            (err, userInfo) => {
+                let wishlist = userInfo.wishlist;
+                let array = wishlist.map(item => {
+                    return item.id
+                })
+
+                Product.find({ '_id': { $in: array } })
+                    .populate('writer')
+                    .exec((err, wishlistDetail) => {
+                        return res.status(200).json({
+                            wishlistDetail,
+                            wishlist
+                        })
+                    }) 
+            }
+        )
+    },
+
+    
+    get_wishlist_info(req, res) {
+        const {_id} = req.body;
+        User.findOne(
+            { _id: _id },
+            (err, wishlistInfo) => {
+                let wishlist = userInfo.wishlist;
+                let array = cart.map(item => {
+                    return item.id
+                })
+    
+    
+                Product.find({ '_id': { $in: array } })
+                    .populate('writer')
+                    .exec((err, wishlistInfo) => {
+                        if (err) return res.status(400).send(err);
+                        return res.status(200).json({ success: true, wishlistInfo, wishlist })
+                    })
+    
+            }
+        )
     }
+
+    /***************************Wishlist CRUD Done*************************************** */
+
 }
- 

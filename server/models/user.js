@@ -13,6 +13,7 @@ const userSchema = new Schema ({
     // auth0_id: {type: String, required: true},
     profile_picture: {type: String},
     cart: {type: Array, default: []}, 
+    wishlist: {type: Array, default: []}, 
     token: {
         type: String
     },
