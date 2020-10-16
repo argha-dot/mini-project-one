@@ -13,6 +13,20 @@ import four from "./4.jpeg"
 import five from "./5.jpeg" 
 import six from "./6.jpeg"  
 
+const category=[["Motherboard", "https://images.unsplash.com/photo-1510746001195-0db09655b6db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"],
+                ["Memory", "https://images.unsplash.com/photo-1562976540-1502c2145186?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1778&q=80"],
+                ["Motherboard", "https://images.unsplash.com/photo-1510746001195-0db09655b6db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"],
+                ["Memory", "https://images.unsplash.com/photo-1562976540-1502c2145186?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1778&q=80"],
+                ["Motherboard", "https://images.unsplash.com/photo-1510746001195-0db09655b6db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"],
+                ["Memory", "https://images.unsplash.com/photo-1562976540-1502c2145186?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1778&q=80"],
+                ["Motherboard", "https://images.unsplash.com/photo-1510746001195-0db09655b6db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"],
+                ["Memory", "https://images.unsplash.com/photo-1562976540-1502c2145186?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1778&q=80"],
+                ["Motherboard", "https://images.unsplash.com/photo-1510746001195-0db09655b6db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"],
+                ["Memory", "https://images.unsplash.com/photo-1562976540-1502c2145186?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1778&q=80"]
+              ]
+
+
+
 export default class Homepage extends Component {
     render() {
 
@@ -35,7 +49,7 @@ export default class Homepage extends Component {
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
-                    src={two} 
+                    src={one} 
                     alt="Second slide"
                   />
 
@@ -47,7 +61,7 @@ export default class Homepage extends Component {
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
-                    src={three} 
+                    src={one} 
                     alt="Third slide"
                   />
 
@@ -60,74 +74,22 @@ export default class Homepage extends Component {
                 </Carousel.Item>
               </Carousel>
           
-          {/* <PhotoGrid>
-
-          </PhotoGrid> */}
-
-          <h1>Categories</h1>
+              <div className="homepage-grid-container">
+                {category.map((item, key) => {
+                    return(
+                      <div className="homepage-photo-grid" key = 
+                      {key}>
+                      <div
+                          className="homepage-grid-card"
+                        style={{ backgroundImage: `url("https://images.unsplash.com/photo-1510746001195-0db09655b6db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80")` }}>
+                      </div>
+                      {item[0]}
+                      
+                  </div>
+                    )
+                })} 
+            </div>
           
-          <CardDeck className="homepage-carddeck">
-            <Card
-            //  bg={variant.toLowerCase()}
-            //  text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
-             style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={four} fluid />
-              <Card.Body>
-                <Card.Title>Card title</Card.Title>
-                <Card.Text className="homepage-cardtext">
-                  This is a wider card with supporting text below as a natural lead-in to
-                  additional content. This content is a little bit longer.
-                </Card.Text>
-              </Card.Body>
-
-            </Card>
-            <Card>
-              <Card.Img variant="top" src={five} fluid />
-
-              </Card>
-              <Card>
-             
-            <Card.Body>
-            <Card.Img variant="top" src={six} fluid />
-
-          
-            </Card.Body>
-            </Card>
-            <Card>
-            
-              
-              
-              <Card.Body>
-              <Card.Img variant="top" src={four} fluid />
-
-            
-              </Card.Body>
-            </Card>
-
-            <Card>
-              
-              <Card.Body>
-              <Card.Img variant="top" src={five} fluid />
-                <Card.Title className="homepage-cardtext">Card title</Card.Title>
-            
-              </Card.Body>
-              
-            </Card>
-            <Card>
-              <Card.Img variant="top" src={six} fluid />
-              <Card.Body>
-                <Card.Title>Card title</Card.Title>
-                <Card.Text>
-                  This is a wider card with supporting text below as a natural lead-in to
-                  additional content. This card has even longer content than the first to
-                  show that equal height action.
-                </Card.Text>
-              </Card.Body>
-              <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </Card.Footer>
-            </Card>
-          </CardDeck>
 </div>
         )
     }

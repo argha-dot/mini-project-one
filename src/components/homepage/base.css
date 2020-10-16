@@ -32,3 +32,34 @@ body {
  }
 
 
+
+
+ .photo-grid {
+    display: flex;
+    gap: 2rem;
+    /* padding-right: 5rem; */
+    width: auto;
+    height: 80px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+
+
+  
+    /* grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-auto-rows: 240px; */
+  }
+  
+  /* Medium screens */
+  @media screen and (min-width: 600px) {
+    .card-tall {
+      grid-row: span 2 / auto;
+    }
+  
+    .card-wide {
+      grid-column: span 2 / auto;
+    }
+  }
+
+
