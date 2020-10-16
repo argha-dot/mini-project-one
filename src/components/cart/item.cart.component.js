@@ -30,7 +30,7 @@ export default class CartItem extends Component {
                 <div className="cart-item-buttons">
                     <button className="cart-item-qty">Qty: 1</button>
                     <button className="cart-item-del">Delete</button>
-                    <button className="cart-item-wish">Save for later</button>
+                    <button className="cart-item-wish">Wishlist</button>
                 </div>
                 <h3 className="cart-item-price">
                     {"Price: " + data.gameboy.price}  
