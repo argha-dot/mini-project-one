@@ -5,6 +5,7 @@
 .wish-main {
     padding-left: 15rem;
     padding-top: 5rem;
+    padding-bottom: 6rem;
 }
 
 .wish-title {
@@ -21,8 +22,10 @@
     align-items: start;
     justify-items: start;
     grid-template-columns: 10rem auto;
+    color: teal;
     /* gap: 5rem; */
-    grid-column-gap: 5rem;
+    grid-column-gap: 4rem;
+    padding-bottom: 2rem;
 }
 
 .wish-item-img {
@@ -31,15 +34,30 @@
 
 .wish-item-link {
     grid-area: name;
-    font-size: 2rem;
+    font-size: 2.5rem;
+    padding-bottom: 1rem;
+    justify-self: start;
 }
 
 .wish-item-buttons {
     grid-area: buttons;
     align-self: end;
+    
+    margin-bottom: 2rem;
+    margin-top: 1.75rem;
+    
 }
+
+.wish-item-buttons *{
+    background-color: teal;
+    color: whitesmoke;
+    border: none;
+
+}
+
 
 .wish-item-price {
     grid-area: price;
     font-size: 1rem;
+    
 }

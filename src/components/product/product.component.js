@@ -47,12 +47,14 @@ function ProductPage(props) {
         <div className="product-main">
             <Carousel>{
                 Product.pictures && Product.pictures.map(function (link) {
-                    return <Carousel.Item key={link.toString()}>
-                        <img
-                            className="d-block w-100"
-                            src={link}
-                            alt="First slide" />
-                    </Carousel.Item>
+                    return(
+                        <Carousel.Item key={link.toString()}>
+                            <img
+                                className="product-carousel-img"
+                                src={link}
+                                alt="First slide" />
+                        </Carousel.Item>
+                    )
                 })
             }
             </Carousel>

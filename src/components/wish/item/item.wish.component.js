@@ -19,7 +19,7 @@ export default function WishItem() {
         <div className="wish-item">
             <Link to={"/product/" + data.gameboy.id}
                 className="wish-item-link"
-                style={{ color: "#6b6b6b" }}>
+                style={{ color: "#ffffff" }}>
                 {data.gameboy.productName}
             </Link>
             <div className="wish-item-img">
@@ -28,7 +28,6 @@ export default function WishItem() {
                     width="160px" />
             </div>
             <div className="wish-item-buttons">
-                <button className="wish-item-qty">Qty: 1</button>
                 <button className="wish-item-del">Delete</button>
                 <button className="wish-item-wish">Move To Cart</button>
             </div>
