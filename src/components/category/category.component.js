@@ -8,11 +8,11 @@ const key = {
     "monitor": "Monitors",
     "motherboard": "Motherboard",
     "cpu": "CPU",
-    "psu": "Power Unitss and Cooling",
+    "psu": "Power Unit and Cooling",
     "ram": "Memory",
     "peri": "Peripherals",
     "graphics": "Graphics Card",
-    "cabinets": "PC Cases",
+    "cabinets": "Cabinets",
     "storage": "Storage"
 }
 
