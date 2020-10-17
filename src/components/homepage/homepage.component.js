@@ -87,26 +87,27 @@ export default function Homepage() {
             </Carousel.Item>
           ))
         }
-        {/* <Carousel.Item>
-          <Link to="/wish" style={{ display: "flex", gap: "32px" }}>
+        <Carousel.Item key="5f8226bd85da3239dc1f5c25">
+          <Link to={`/product/5f8226bd85da3239dc1f5c25`} style={{ display: "flex", gap: "160px" }}>
             <img
               className="home-carousel-img"
-              src={category[0][1]}
-              alt="First slide"
-              style={{ height: "15rem", width: "auto", borderRadius: "10px", marginTop: "40px", marginLeft: "150px" }}
+              src={"https://illlustrations.co/static/cb0069bee07d4675ef939a4c61774cac/116-gameboy.png"}
+              alt={`gameboy`}
+              style={{ height: "15rem", width: "auto", borderRadius: "10px", marginTop: "40px", marginLeft: "150px", maxWidth: "30rem" }}
             />
             <div className="home-carousel-des"
               style={{ color: "wheat", display: "flex", flexDirection: "column", marginTop: "48px" }}>
-              <h6 className="home-car-cat">cpu</h6>
-              <h3 className="home-car-title">
-                Hello
-                    </h3>
+              <h6 className="home-car-cat">Vintage Gaming</h6>
+              <h3 className="home-car-title"
+                style={{ wordWrap: "break-word" }}>
+                Gameboy
+              </h3>
               <p className="home-car-para">
-                $500
-                    </p>
+                ₹2000
+              </p>
             </div>
           </Link>
-        </Carousel.Item> */}
+        </Carousel.Item>
       </Carousel>
 
       <div className="homepage-grid-container">

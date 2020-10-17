@@ -2,10 +2,22 @@ import React, { useEffect, useState } from "react";
 import Axios from 'axios'
 import { Carousel, Form, ButtonGroup, Button } from "react-bootstrap";
 import {addToCart} from '../crud_cart'; 
-// import { addToCart } from '../../redux/reducer';
-// import { useDispatch } from 'react-redux';
+import { Link } from "react-router-dom"
 import "./product.component.css"
 import "./input.css"
+
+const key = {
+    "Vintage Gaming":"games",
+    "Monitors":"monitor",
+    "Motherboard":"motherboard",
+    "CPU":"cpu",
+    "Power Unit and Cooling":"psu",
+    "Memory":"ram",
+    "Peripherals":"peri",
+    "Graphics Card":"graphics",
+    "Cabinets":"cabinets",
+    "Storage":"storage"
+}
 
 function ProductPage(props) {
     // const dispatch = useDispatch();
@@ -60,7 +72,7 @@ function ProductPage(props) {
             </Carousel>
 
             <div className="product-description">
-                <div className="product-category">{Product.category}</div>
+                <Link to={`/category/${key[Product.category]}`} className="product-category">{Product.category}</Link>
                 <div className="product-name">{Product.name}</div>
 
                 <div className="product-text">
