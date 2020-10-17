@@ -32,18 +32,17 @@ export default function Category(props) {
     const fetchData = () => {
         axios.get(`/api/products/`)
             .then((response) => {
-                console.log(`reponse from category ${response}`)
+                console.log(`reponse from category: ${response}`)
                 setProductList(response.data.products)
             })
             .catch(err => console.log(`${err} from catergory.component frontend`))
     }
 
     useEffect(() => {
-        fetchData();
-        // setTimeout(() => {
-            
-        // }, 1000);
-    })
+        setTimeout(() => {
+            fetchData();
+        }, 1000);
+    }, [])
 
     return(
         <div className = "category-main" >
