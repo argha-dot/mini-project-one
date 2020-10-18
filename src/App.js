@@ -71,9 +71,11 @@ function App()  {
         <div className="main">
           <NavBar user = {user} isSignedIn = {isSignedIn} logoutSuccess = {logoutSuccess} sucessfulResponseGoogle = {sucessfulResponseGoogle} failedResponseGoogle = {failedResponseGoogle}/>
           <br />
-          <Route 
+          <Route exact
             path="/" 
-            render={props => <Homepage user={user} {...props} />} 
+            render={props => <Homepage user={user} {...props}
+            component={Homepage} />
+          }  
           />
 
           <Route 

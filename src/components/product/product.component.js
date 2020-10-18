@@ -22,7 +22,7 @@ const key = {
 function ProductPage(props) {
     // const dispatch = useDispatch();
     const productId = props.match? props.match.params.productId: '';
-    const userId = props.user? props.user._id : '';
+    const userId = props.location.state.user? props.location.state.user._id : '';
     // var user = props.user? props.user : '';
 
     // console.log("Product Id from product page: ", productId)
