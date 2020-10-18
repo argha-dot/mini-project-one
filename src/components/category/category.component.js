@@ -18,6 +18,7 @@ const key = {
 
 export default function Category(props) {
     var categoryId = props.match ? props.match.params.catId : '';
+    const userId = props.userId; 
     const [productList, setProductList] = useState([{
         "pictures": [
             "https://illlustrations.co/static/cb0069bee07d4675ef939a4c61774cac/116-gameboy.png"

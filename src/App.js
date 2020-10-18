@@ -65,18 +65,39 @@ function App()  {
     console.log("Here", response);
     setSignedIn(true);
   }
+  // exact component={Homepage}
 
     return (
         <div className="main">
           <NavBar user = {user} isSignedIn = {isSignedIn} logoutSuccess = {logoutSuccess} sucessfulResponseGoogle = {sucessfulResponseGoogle} failedResponseGoogle = {failedResponseGoogle}/>
-          {/* <AddToCart> */}
           <br />
-          <Route path="/" exact component={Homepage} />
-          <Route path="/product/:productId" component={Product}/>
-          <Route path="/category/:catId" component={Category} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/wish" component={Wish} />
-          <Route path="/profile" component={Profile} />
+          <Route 
+            path="/" 
+            render={props => <Homepage user={user} {...props} />} 
+          />
+
+          <Route 
+            path="/product/:productId"
+            component={Product}
+            // render={props => <Product user={user} {...props} />}
+          />
+
+          <Route 
+            path="/category/:catId" 
+            component={Category}
+            // render={props => <Category user={user} {...props} />}
+          />
+
+          <Route 
+            path="/cart" 
+            // render={props => <Cart user={user} {...props} />}
+            component={Cart} />
+          <Route 
+            path="/wish" component={Wish} />
+          <Route 
+            path="/profile" component={Profile} />
+
+
           <Footer />
           <Sidebar />
         </div>

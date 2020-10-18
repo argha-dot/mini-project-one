@@ -30,7 +30,10 @@ const chooseRandom = (arr, num = 1) => {
   return res;
 };
 
-export default function Homepage() {
+export default function Homepage(props) {
+
+  const user = props.user; 
+  console.log("usr Id from Home  Page:", user); 
 
   const [productList, setProductList] = useState([{
     "pictures": [
@@ -65,7 +68,14 @@ export default function Homepage() {
         {
           productList.map((item) => (
             <Carousel.Item key={item._id}>
-              <Link to={`/product/${item._id}`} style={{ display: "flex", gap: "160px" }}>
+            <Link to={{
+                pathname: `/product/${item._id}`,
+                state: {
+                  user: user
+                }
+              }}
+              style={{ display: "flex", gap: "160px" }}
+              >
                 <img
                   className="home-carousel-img"
                   src={item.pictures[0]}
@@ -92,7 +102,13 @@ export default function Homepage() {
       <div className="homepage-grid-container">
         {category.map((item, key) => {
           return (
-            <Link to={`/category/${item[2]}`} className="homepage-photo-card"
+            <Link to={{
+              pathname: `/category/${item[2]}`,
+              state: {
+                user: user
+              }
+            }} 
+              className="homepage-photo-card"
               key={key}
               style={{ backgroundImage: `url(${item[1]})`, color: "white" }}>
               {item[0]}

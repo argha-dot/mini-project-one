@@ -22,12 +22,12 @@ const key = {
 function ProductPage(props) {
     // const dispatch = useDispatch();
     const productId = props.match? props.match.params.productId: '';
-    var userId = props.user? props.user._id : '';
+    const userId = props.user? props.user._id : '';
     // var user = props.user? props.user : '';
 
     // console.log("Product Id from product page: ", productId)
-    // console.log("usr Id from Product Page:", userId); 
-    // console.log("Product ID: ", productId); 
+    console.log("usr Id from Product Page:", userId); 
+    console.log("Product ID: ", productId); 
     const [Product, setProduct] = useState('')
     const [qty, setIncrement] = useState(1)
     // const [userId, setUserId] = useState('')
@@ -46,7 +46,9 @@ function ProductPage(props) {
     }, [Product])
 
     function _addToCart() {
-        // Cart(productId, userId);
+        return(
+            <Cart userId = {userId} qty = {qty} productId = {productId} type = {'ADD_TO_CART'}/>
+        )
     }
 
     var buy = {
