@@ -287,8 +287,82 @@ module.exports = {
     
             }
         )
-    }
+    },
 
     /***************************Wishlist CRUD Done*************************************** */
 
+    
+   onPurchase(req, res) {
+    let history = [];
+    
+    req.body.cartDetail.forEach((item) => {
+        history.push({
+            dateOfPurchase: Date.now(),
+            name: item.title,
+            id: item._id,
+            price: item.price,
+            quantity: item.quantity,
+        })
+    })
+
+
+
+
+    User.findOneAndUpdate(
+        { _id: req.user._id },
+        { $push: { history: history }, $set: { cart: [] } },
+        { new: true },
+        (err, user) => {
+            if (err) return res.json({ success: false, err });
+
+
+                //3. Increase the amount of number for the sold information 
+
+                //first We need to know how many product were sold in this transaction for 
+                // each of products
+
+                let products = [];
+                doc.product.forEach(item => {
+                    products.push({ id: item.id, quantity: item.quantity })
+                })
+
+                // first Item    quantity 2
+                // second Item  quantity 3
+
+                async.eachSeries(products, (item, callback) => {
+                    Product.update(
+                        { _id: item.id },
+                        {
+                            $inc: {
+                                "sold": item.quantity
+                            }
+                        },
+                        { new: false },
+                        callback
+                    )
+                }, (err) => {
+                    if (err) return res.json({ success: false, err })
+                    res.status(200).json({
+                        success: true,
+                        cart: user.cart,
+                        cartDetail: []
+                    })
+                })
+
+            })
+        },
+
+
+    getHistory(req, res) {
+    User.findOne(
+        { _id: req.user._id },
+        (err, doc) => {
+            let history = doc.history;
+            if (err) return res.status(400).send(err)
+            return res.status(200).json({ success: true, history })
+        }
+    )
 }
+}
+
+
