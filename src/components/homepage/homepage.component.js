@@ -76,7 +76,7 @@ export default function Homepage() {
                 style={{ color: "wheat", display: "flex", flexDirection: "column", marginTop: "48px" }}>
                   <h6 className="home-car-cat">{item.category}</h6>
                   <h3 className="home-car-title"
-                  style={{ wordWrap: "break-word" }}>
+                  style={{ wordWrap: "break-word", width: "30rem" }}>
                     {item.name}
                     </h3>
                   <p className="home-car-para">

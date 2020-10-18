@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import ProductPage from '../product/product.component';
 import SelectSearch, {useSelect} from 'react-select-search';
 import SearchBar from './searchbar';
@@ -14,14 +14,13 @@ import { GoogleLogin, GoogleLogout, useGoogleLogin } from 'react-google-login';
 import { Navbar } from "react-bootstrap"
 import "./navbar.component.css"
 
-  export default function NavBar(props) {
-  
+export default function NavBar(props) {
     // const countries = ['India', 'Nepal', 'Bangladesh'];
     const countries = [
       {name: 'India', value: 'sv'},
       {name: 'Nepal', value: 'en'},
       {name: 'Bangladesh', value: 'bengali'}      
-  ];
+    ];
     const Search = () => {
       return (
         <SelectSearch
@@ -37,6 +36,33 @@ import "./navbar.component.css"
   const [isSignedIn, setSignedIn] = useState(false);
   const [userId, setUserID] = useState('');
   const [user, setUser] = useState(null);
+  const [search, setSearch] = useState("");
+  const [productList, setProductList] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  
+  const fetchData = () => {
+    axios.get(`/api/products/`)
+      .then((response) => {
+        console.log(`reponse from category: ${response}`)
+        setProductList(response.data.products)
+      })
+      .catch(err => console.log(`${err} from navbar.component frontend`))
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      fetchData();
+    }, 1000);
+  }, [])
+
+  useEffect(() => {
+    setFilteredProducts(
+      productList.filter(product => {
+        return product.name.toLowerCase().includes(search.toLowerCase())
+      })
+    )
+  }, [search, productList])
+  
   const linkFunc = (path) => {
     this.props.history.push(path);
   }
@@ -102,7 +128,7 @@ import "./navbar.component.css"
   } else {
     auth_button = <GoogleLogin
       clientId="741634897739-ac07i81bga1jtqdg7lqfk98tt71m76h5.apps.googleusercontent.com"
-      buttonText="Login"
+      buttonText="Login with Google"
       onSuccess={sucessfulResponseGoogle}
       onFailure={failedResponseGoogle}
       cookiePolicy={'single_host_origin'}
@@ -110,7 +136,6 @@ import "./navbar.component.css"
   }
   
 
-  
   return (
     <div className="nav-main">
       <div>
@@ -130,15 +155,25 @@ import "./navbar.component.css"
           </span>
 
           <form className="form-main">
-          <SelectSearch
-            options={countries}
-            search
-            placeholder="Select your country"
-        />
+            {/* <SelectSearch
+              options={countries}
+              search
+              placeholder="Select your country"
+            /> */}
+            {/* {search} */}
+            <input placeholder="Search" type="text" className="search-form" onChange={ e => setSearch(e.target.value)} />
+            <button className="search-btn"><i className="fas fa-search"></i></button>
+            {
+              filteredProducts.map(pro => {
+                console.log(pro)
+                return(
+                  <div>
+                    {pro.name}
+                  </div>
+                )
+              })
+            }
           </form>
-          {/* <SelectSearch options={options} value="sv" name="language" placeholder="Choose your language" /> */}
-          {/* <SearchBar/>  */}
-
         </div>
 
         <div className="right-side">
@@ -166,4 +201,4 @@ const mapStateToProps = state => {
 // //Then wrap our Component with the HOC, and the connect double invoked. 
 // export default withRouter(connect(mapStateToProps)(NavBar));
 // export default withRouter(connect(mapStateToProps)(NavBar));
-// export default NavBar; 
+// export default NavBar;
