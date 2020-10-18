@@ -23,9 +23,11 @@ import Wish from "./components/wish/wish.component";
 import Footer from "./components/footer/footer.component"
 import Sidebar from "./components/sidebar/sidebar.component"
 import Profile from "./components/profile/profile.component"
+// import ItemCategory from "./components/category/item.category.component"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; 
+import ItemCategory from './components/category/item.category.component';
 
 
 function App()  {
@@ -94,6 +96,8 @@ function App()  {
             path="/cart" 
             // render={props => <Cart user={user} {...props} />}
             component={Cart} />
+          <Route  
+            component={ItemCategory} />
           <Route 
             path="/wish" component={Wish} />
           <Route 

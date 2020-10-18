@@ -33,7 +33,7 @@ const chooseRandom = (arr, num = 1) => {
 export default function Homepage(props) {
 
   const user = props.user; 
-  console.log("usr Id from Home  Page:", user); 
+  // console.log("usr Id from Home  Page:", user); 
 
   const [productList, setProductList] = useState([{
     "pictures": [
@@ -49,7 +49,7 @@ export default function Homepage(props) {
   const fetchData = () => {
     axios.get(`/api/products/`)
       .then((response) => {
-        console.log(`reponse from homepage: ${response}`)
+        // console.log(`reponse from homepage: ${response}`)
         setProductList(chooseRandom(response.data.products, 4))
       })
       .catch(err => console.log(`${err} from catergory.component frontend`))
@@ -63,7 +63,7 @@ export default function Homepage(props) {
 
   return (
     <div className="homepage-main" style={{ color: "whitesmoke" }}>
-      {console.log(productList)}
+      {/* {console.log(productList)} */}
       <Carousel className="home-carousel">
         {
           productList.map((item) => (

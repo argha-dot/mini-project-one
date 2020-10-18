@@ -102,7 +102,7 @@ export default function NavBar(props) {
           <button className="search-btn"><i className="fas fa-search"></i></button>
           {
             filteredProducts.map(pro => {
-              console.log(pro)
+              // console.log(pro)
               return (
                 <div className="form-main-result">
                   {pro.name}

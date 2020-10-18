@@ -18,7 +18,7 @@ const key = {
 
 export default function Category(props) {
     var categoryId = props.match ? props.match.params.catId : '';
-    const userId = props.userId; 
+    const user = props.location.state? props.location.state.user : '';
     const [productList, setProductList] = useState([{
         "pictures": [
             "https://illlustrations.co/static/cb0069bee07d4675ef939a4c61774cac/116-gameboy.png"
@@ -47,13 +47,13 @@ export default function Category(props) {
 
     return(
         <div className = "category-main" >
-            {console.log(productList)}
+            {/* {console.log(productList)} */}
             <h3 className="cat-title">{key[categoryId]}</h3>
             <br />
             <div className="cat-contents">
                 {
                     productList.map((index) => (
-                        index.category === key[categoryId] ? <ItemCategory data={index} />:null
+                        index.category === key[categoryId] ? <ItemCategory data={index} user={user}/>:null
                     ))
                 }
             </div>
