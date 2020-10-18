@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Axios from 'axios'
 import { Carousel, Form, ButtonGroup, Button } from "react-bootstrap";
-import {addToCart} from '../crud_cart'; 
+import Cart from '../crud_cart'; 
 import { Link } from "react-router-dom"
 import "./product.component.css"
 import "./input.css"
@@ -46,7 +46,7 @@ function ProductPage(props) {
     }, [Product])
 
     function _addToCart() {
-        addToCart(productId, userId);
+        // Cart(productId, userId);
     }
 
     var buy = {

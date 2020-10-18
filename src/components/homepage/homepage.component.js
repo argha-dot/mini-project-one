@@ -94,7 +94,7 @@ export default function Homepage() {
           return (
             <Link to={`/category/${item[2]}`} className="homepage-photo-card"
               key={key}
-              style={{ backgroundImage: `url(${item[1]})`, color: "black" }}>
+              style={{ backgroundImage: `url(${item[1]})`, color: "white" }}>
               {item[0]}
             </Link>
           )

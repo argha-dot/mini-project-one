@@ -15,25 +15,9 @@ import { Navbar } from "react-bootstrap"
 import "./navbar.component.css"
 
 export default function NavBar(props) {
-    const countries = [
-      {name: 'India', value: 'sv'},
-      {name: 'Nepal', value: 'en'},
-      {name: 'Bangladesh', value: 'bengali'}      
-    ];
-    const Search = () => {
-      return (
-        <SelectSearch
-            options={countries}
-            search
-            placeholder="Select your country"
-        />
-      )
-    }
 
 
   const [sidebarToggle, setToggle] = useState(true);
-  // const [isSignedIn, setSignedIn] = useState(false);
-  // const [userId, setUserID] = useState('');
   const [user, setUser] = useState(null);
   const [search, setSearch] = useState("");
   const [productList, setProductList] = useState([]);
@@ -114,19 +98,13 @@ export default function NavBar(props) {
           </span>
         </div>
         <form className="form-main">
-          {/* <SelectSearch
-              options={countries}
-              search
-              placeholder="Select your country"
-            /> */}
-          {/* {search} */}
           <input placeholder="Search" type="text" className="search-form" onChange={e => setSearch(e.target.value)} />
           <button className="search-btn"><i className="fas fa-search"></i></button>
           {
             filteredProducts.map(pro => {
               console.log(pro)
               return (
-                <div>
+                <div className="form-main-result">
                   {pro.name}
                 </div>
               )
@@ -144,11 +122,11 @@ export default function NavBar(props) {
 }
 
 
-const mapStateToProps = state => {
-  return {
-    user: state.user
-  }
-}
+// const mapStateToProps = state => {
+//   return {
+//     user: state.user
+//   }
+// }
 // //Then wrap our Component with the HOC, and the connect double invoked. 
 // export default withRouter(connect(mapStateToProps)(NavBar));
 // export default withRouter(connect(mapStateToProps)(NavBar));

@@ -12,6 +12,7 @@ import { login, logout } from './redux/reducer';
 import NavBar from "./components/navbar/navbar.component"
 import Product from "./components/product/product.component"
 import Homepage from "./components/homepage/homepage.component"
+// import AddToCart from 
 
 // Aarav edits: 
 import { GoogleLogin, GoogleLogout, useGoogleLogin } from 'react-google-login';
@@ -68,6 +69,7 @@ function App()  {
     return (
         <div className="main">
           <NavBar user = {user} isSignedIn = {isSignedIn} logoutSuccess = {logoutSuccess} sucessfulResponseGoogle = {sucessfulResponseGoogle} failedResponseGoogle = {failedResponseGoogle}/>
+          {/* <AddToCart> */}
           <br />
           <Route path="/" exact component={Homepage} />
           <Route path="/product/:productId" component={Product}/>
