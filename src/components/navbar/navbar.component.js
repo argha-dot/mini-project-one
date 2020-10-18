@@ -58,7 +58,7 @@ export default function NavBar(props) {
   useEffect(() => {
     setFilteredProducts(
       productList.filter(product => {
-        return product.name.toLowerCase().includes(search.toLowerCase())
+        return (product.name.toLowerCase().includes(search.toLowerCase()) || product.category.toLowerCase().includes(search.toLowerCase()))
       })
     )
   }, [search, productList])
@@ -153,28 +153,27 @@ export default function NavBar(props) {
           <span className="navbar-brand">
             <Link to="/" className="nav-link">SHOP</Link>
           </span>
-
-          <form className="form-main">
-            {/* <SelectSearch
+        </div>
+        <form className="form-main">
+          {/* <SelectSearch
               options={countries}
               search
               placeholder="Select your country"
             /> */}
-            {/* {search} */}
-            <input placeholder="Search" type="text" className="search-form" onChange={ e => setSearch(e.target.value)} />
-            <button className="search-btn"><i className="fas fa-search"></i></button>
-            {
-              filteredProducts.map(pro => {
-                console.log(pro)
-                return(
-                  <div>
-                    {pro.name}
-                  </div>
-                )
-              })
-            }
-          </form>
-        </div>
+          {/* {search} */}
+          <input placeholder="Search" type="text" className="search-form" onChange={e => setSearch(e.target.value)} />
+          <button className="search-btn"><i className="fas fa-search"></i></button>
+          {
+            filteredProducts.map(pro => {
+              console.log(pro)
+              return (
+                <div>
+                  {pro.name}
+                </div>
+              )
+            })
+          }
+        </form>
 
         <div className="right-side">
           <button className="cart-btn"><i className="fas fa-shopping-cart fa-lg"></i></button>

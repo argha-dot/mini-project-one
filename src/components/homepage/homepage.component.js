@@ -87,27 +87,6 @@ export default function Homepage() {
             </Carousel.Item>
           ))
         }
-        <Carousel.Item key="5f8226bd85da3239dc1f5c25">
-          <Link to={`/product/5f8226bd85da3239dc1f5c25`} style={{ display: "flex", gap: "160px" }}>
-            <img
-              className="home-carousel-img"
-              src={"https://illlustrations.co/static/cb0069bee07d4675ef939a4c61774cac/116-gameboy.png"}
-              alt={`gameboy`}
-              style={{ height: "15rem", width: "auto", borderRadius: "10px", marginTop: "40px", marginLeft: "150px", maxWidth: "30rem" }}
-            />
-            <div className="home-carousel-des"
-              style={{ color: "wheat", display: "flex", flexDirection: "column", marginTop: "48px" }}>
-              <h6 className="home-car-cat">Vintage Gaming</h6>
-              <h3 className="home-car-title"
-                style={{ wordWrap: "break-word" }}>
-                Gameboy
-              </h3>
-              <p className="home-car-para">
-                ₹2000
-              </p>
-            </div>
-          </Link>
-        </Carousel.Item>
       </Carousel>
 
       <div className="homepage-grid-container">
