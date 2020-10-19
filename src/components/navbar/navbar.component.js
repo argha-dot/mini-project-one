@@ -1,8 +1,5 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ProductPage from '../product/product.component';
-import SelectSearch, {useSelect} from 'react-select-search';
-import SearchBar from './searchbar';
-import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -22,6 +19,8 @@ export default function NavBar(props) {
   const [search, setSearch] = useState("");
   const [productList, setProductList] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [display, setDisplay] = useState(false);
+  const wrapperRef = useRef(null);
   
   const fetchData = () => {
     axios.get(`/api/products/`)
@@ -45,6 +44,21 @@ export default function NavBar(props) {
       })
     )
   }, [search, productList])
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, []);
+
+  const handleClickOutside = (event) => {
+    const {current: wrap} = wrapperRef;
+    if (wrap && !wrap.contains(event.target)) {
+      setDisplay(false);
+    }
+  }
   
   const linkFunc = (path) => {
     this.props.history.push(path);
@@ -97,23 +111,37 @@ export default function NavBar(props) {
             <Link to="/" className="nav-link">SHOP</Link>
           </span>
         </div>
-        <form className="form-main">
-          <input placeholder="Search" type="text" className="search-form" onChange={e => setSearch(e.target.value)} />
-          <button className="search-btn"><i className="fas fa-search"></i></button>
+        <form ref={wrapperRef} className="form-main">
+          <div className="search-bar">
+            <input
+              className="search-form"
+              placeholder="Search"
+              type="text"
+              onChange={e => setSearch(e.target.value)}
+              onClick={() => { setDisplay(!display) }} />
+            <button disabled={true} className="search-btn"><i className="fas fa-search"></i></button>
+          </div>
           {
-            filteredProducts.map(pro => {
-              console.log(pro)
-              return (
-                <div className="form-main-result">
-                  {pro.name}
-                </div>
-              )
-            })
+            display && search.length >= 2 && (
+              <div className="search-result-container">
+                {filteredProducts.map(pro => {
+                  return (
+                    <Link 
+                      to={`/product/${pro._id}`} 
+                      className="form-main-result" 
+                      key={pro._id}
+                      style={{ color: "rgb(255, 255, 255)" }}>
+                      {pro.name}
+                    </Link>
+                  )
+                })}
+              </div>
+            )
           }
         </form>
 
         <div className="right-side">
-          <button className="cart-btn"><i className="fas fa-shopping-cart fa-lg"></i></button>
+          <Link to="/cart" className="cart-btn"><i className="fas fa-shopping-cart fa-lg"></i></Link>
           {auth_button}
         </div>
       </Navbar>

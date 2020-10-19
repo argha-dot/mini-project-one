@@ -69,11 +69,19 @@ export default function Homepage() {
                 <img
                   className="home-carousel-img"
                   src={item.pictures[0]}
-                  alt={`picture of ${item.name}`}
-                  style={{ height: "15rem", width: "auto", borderRadius: "10px", marginTop: "40px", marginLeft: "150px", maxWidth: "30rem" }}
-                />
+                  alt={`${item.name}`}
+                  style={{  height: "15rem", 
+                            width: "auto", 
+                            borderRadius: "10px", 
+                            marginTop: "40px", 
+                            marginLeft: "150px", 
+                            maxWidth: "30rem", 
+                            border: "5px solid rgb(3, 85, 81)" }}/>
                 <div className="home-carousel-des"
-                style={{ color: "wheat", display: "flex", flexDirection: "column", marginTop: "48px" }}>
+                  style={{  color: "wheat", 
+                            display: "flex", 
+                            flexDirection: "column", 
+                            marginTop: "48px" }}>
                   <h6 className="home-car-cat">{item.category}</h6>
                   <h3 className="home-car-title"
                   style={{ wordWrap: "break-word", width: "30rem" }}>

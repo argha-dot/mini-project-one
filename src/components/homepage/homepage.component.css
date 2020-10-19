@@ -19,7 +19,7 @@
 }
 
 .homepage-carousel-img {
-  width: inherit;
+  width: auto;
   height: 20rem;
 }
 
@@ -34,6 +34,7 @@
   height: 10rem;
   color: rgb(255, 255, 255);
   flex-direction: column;
+  text-shadow: 2px 2px #055361;
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
@@ -50,4 +51,8 @@
 
 .homepage-photo-card:hover {
   transform: translateY(-3px) scale(1.1);
+}
+
+.homepage-grid-container:hover .homepage-photo-card:not(:hover) {
+  opacity: 0.2;
 }
