@@ -144,6 +144,9 @@ module.exports = {
             },
             { new: true },
             (err, userInfo) => {
+                if (err) {
+                    return res.status(400).send(err);
+                }
                 let cart = userInfo.cart;
                 let array = cart.map(item => {
                     return item.id

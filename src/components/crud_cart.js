@@ -5,7 +5,7 @@ export default function Cart(type, userId, productId) {
     switch (type){ 
         case 'ADD_TO_CART': 
                 console.log("Hello from ADD Cart")
-                const request = Axios({
+                Axios({
                 method: "POST",
                 url: `http://localhost:5000/api/cart?productId=${productId}`,
                 data: { _id: userId }
@@ -14,7 +14,7 @@ export default function Cart(type, userId, productId) {
                 .catch(err => console.log("Add to Cart Error: ", err))
 
         case 'DELETE_FROM_CART':
-                request = Axios({
+                Axios({
                     method: "DELETE",
                     url: `http://localhost:5000/api/cart?productId=${productId}`,
                     data: { _id: userId }
@@ -24,7 +24,7 @@ export default function Cart(type, userId, productId) {
     
 
         case 'GET_CART_INFO': 
-            request = Axios({
+            Axios({
                 method: "GET",
                 url: `http://localhost:5000/api/see_cart/id=${userId}`,
             })
