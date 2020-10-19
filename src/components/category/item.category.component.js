@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 
 export default function ItemCategory(props) {
 
-    console.log("From Item Category Page: ", props.data);
+    console.log("From Item Category Page: ", props.user);
     const user = props.user; 
 
     return(
-        <div className = "cat-item" >
+        <div className="cat-item" >
             <Link to={{
-                path: `/product/${props.data? props.data._id : ''}`, 
+                pathname: `/product/${props.data ? props.data._id : ''}`, 
                 state: {
                     user:user
                 }

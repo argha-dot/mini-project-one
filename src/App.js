@@ -71,7 +71,7 @@ function App()  {
 
     return (
         <div className="main">
-          <NavBar user = {user} isSignedIn = {isSignedIn} logoutSuccess = {logoutSuccess} sucessfulResponseGoogle = {sucessfulResponseGoogle} failedResponseGoogle = {failedResponseGoogle}/>
+          <NavBar user={user} isSignedIn={isSignedIn} logoutSuccess={logoutSuccess} sucessfulResponseGoogle={sucessfulResponseGoogle} failedResponseGoogle={failedResponseGoogle}/>
           <br />
           <Route exact
             path="/" 
@@ -105,7 +105,7 @@ function App()  {
 
 
           <Footer />
-          <Sidebar />
+          <Sidebar user={user}/>
         </div>
     );
   }
