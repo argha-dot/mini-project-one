@@ -22,11 +22,11 @@ const key = {
 function ProductPage(props) {
     // const dispatch = useDispatch();
     const productId = props.match? props.match.params.productId: '';
-    var userId = props.user? props.user._id : '';
+    const userId = props.location.state ? props.location.state.user ? props.location.state.user._id : '' : '';
     // var user = props.user? props.user : '';
 
     // console.log("Product Id from product page: ", productId)
-    // console.log("usr Id from Product Page:", userId); 
+    // console.log("usr Id from Product Page:", props); 
     // console.log("Product ID: ", productId); 
     const [Product, setProduct] = useState('')
     const [qty, setIncrement] = useState(1)
@@ -34,7 +34,6 @@ function ProductPage(props) {
 
     // props.user? setUserId(props.user._id) : setUserId('');
     
-
 
     useEffect(() => {
         // console.log("Query: ", `/api/products/${productId}`)
@@ -46,7 +45,8 @@ function ProductPage(props) {
     }, [Product])
 
     function _addToCart() {
-        // Cart(productId, userId);
+        console.log("hello from _addToCart")
+        Cart("ADD_TO_CART", userId, productId);
     }
 
     var buy = {

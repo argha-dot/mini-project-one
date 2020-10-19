@@ -23,9 +23,11 @@ import Wish from "./components/wish/wish.component";
 import Footer from "./components/footer/footer.component"
 import Sidebar from "./components/sidebar/sidebar.component"
 import Profile from "./components/profile/profile.component"
+// import ItemCategory from "./components/category/item.category.component"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; 
+import ItemCategory from './components/category/item.category.component';
 
 
 function App()  {
@@ -65,20 +67,45 @@ function App()  {
     console.log("Here", response);
     setSignedIn(true);
   }
+  // exact component={Homepage}
 
     return (
         <div className="main">
-          <NavBar user = {user} isSignedIn = {isSignedIn} logoutSuccess = {logoutSuccess} sucessfulResponseGoogle = {sucessfulResponseGoogle} failedResponseGoogle = {failedResponseGoogle}/>
-          {/* <AddToCart> */}
+          <NavBar user={user} isSignedIn={isSignedIn} logoutSuccess={logoutSuccess} sucessfulResponseGoogle={sucessfulResponseGoogle} failedResponseGoogle={failedResponseGoogle}/>
           <br />
-          <Route path="/" exact component={Homepage} />
-          <Route path="/product/:productId" component={Product}/>
-          <Route path="/category/:catId" component={Category} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/wish" component={Wish} />
-          <Route path="/profile" component={Profile} />
+          <Route exact
+            path="/" 
+            render={props => <Homepage user={user} {...props}
+            component={Homepage} />
+          }  
+          />
+
+          <Route 
+            path="/product/:productId"
+            component={Product}
+            // render={props => <Product user={user} {...props} />}
+          />
+
+          <Route 
+            path="/category/:catId" 
+            component={Category}
+            // render={props => <Category user={user} {...props} />}
+          />
+
+          <Route 
+            path="/cart" 
+            // render={props => <Cart user={user} {...props} />}
+            component={Cart} />
+          <Route  
+            component={ItemCategory} />
+          <Route 
+            path="/wish" component={Wish} />
+          <Route 
+            path="/profile" component={Profile} />
+
+
           <Footer />
-          <Sidebar />
+          <Sidebar user={user}/>
         </div>
     );
   }
