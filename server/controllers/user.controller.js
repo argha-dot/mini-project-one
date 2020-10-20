@@ -5,7 +5,16 @@ const {OAuth2Client} = require('google-auth-library')
 const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID); 
 module.exports = {
 
-
+    update_user_info(req, res) {
+        const {userId, collegeAddress, homeAddress} = req.body;
+        User.findOneAndUpdate({_id: userId}, {$set: {homeAddress: homeAddress, collegeAddress: collegeAddress}}).exec(err, user => {
+            if(err) {
+                return response.status(400).json({
+                    error: "Error from updating user info"
+                })
+            }
+        }); 
+    }, 
 
     get_user_info(req, res) {
         return res.status(200).json({

@@ -6,6 +6,11 @@ import { Route} from 'react-router-dom';
 
 import axios from 'axios';
 
+// CSS Imports
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'; 
+
+
 // Component Imports
 import NavBar from "./components/navbar/navbar.component"
 import Product from "./components/product/product.component"
@@ -17,10 +22,6 @@ import Footer from "./components/footer/footer.component"
 import Sidebar from "./components/sidebar/sidebar.component"
 import Profile from "./components/profile/profile.component"
 import ItemCategory from './components/category/item.category.component';
-
-// CSS Imports
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'; 
 
 
 

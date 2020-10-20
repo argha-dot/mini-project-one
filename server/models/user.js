@@ -7,6 +7,8 @@ const userSchema = new Schema ({
     profile_picture: {type: String},
     cart: {type: Array, default: []}, 
     wishlist: {type: Array, default: []}, 
+    collegeAddress: {type: String, default: ""},
+    homeAddress: {type: String, default: ""}
 });
 
 module.exports = mongoose.model('User', userSchema); 
