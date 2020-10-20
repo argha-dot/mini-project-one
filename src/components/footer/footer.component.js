@@ -10,7 +10,7 @@ export default class Footer extends Component
         return (
             <div className="footer">
                 <div className="usefulVarName">About Us</div>
-                <div className="usefulVarName">Connect with Us</div>
+                <div className="usefulVarName"><a href="https://github.com/argha-dot/mini-project-one">Connect with Us </a></div> 
                 <div className="usefulVarName">Support Us</div>
             </div>
         )
