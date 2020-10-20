@@ -1,18 +1,15 @@
+// React Imports: 
 import React, { useState, useEffect, useRef } from "react";
-import ProductPage from '../product/product.component';
 import { Link } from 'react-router-dom';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
-import { connect } from 'react-redux';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
 
-import { GoogleLogin, GoogleLogout, useGoogleLogin } from 'react-google-login';
 // CSS Imports: 
 import { Navbar } from "react-bootstrap"
 import "./navbar.component.css"
 
 export default function NavBar(props) {
-
 
   const [sidebarToggle, setToggle] = useState(true);
   const [user, setUser] = useState(null);
@@ -63,7 +60,6 @@ export default function NavBar(props) {
   const linkFunc = (path) => {
     this.props.history.push(path);
   }
-  // const { signIn, loaded } = useGoogleLogin({});
 
   const sideOpen = () => {
     if (sidebarToggle) {
@@ -78,6 +74,8 @@ export default function NavBar(props) {
 
   var auth_button;
   console.log("Var Outside: ", props.isSignedIn)
+
+  // Google auth buttons copied from npm google login button website
   if (props.isSignedIn) {
     auth_button = <GoogleLogout
       clientId="741634897739-ac07i81bga1jtqdg7lqfk98tt71m76h5.apps.googleusercontent.com"
@@ -148,14 +146,3 @@ export default function NavBar(props) {
     </div>
   )
 }
-
-
-// const mapStateToProps = state => {
-//   return {
-//     user: state.user
-//   }
-// }
-// //Then wrap our Component with the HOC, and the connect double invoked. 
-// export default withRouter(connect(mapStateToProps)(NavBar));
-// export default withRouter(connect(mapStateToProps)(NavBar));
-// export default NavBar;

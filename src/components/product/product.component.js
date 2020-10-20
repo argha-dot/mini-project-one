@@ -1,8 +1,13 @@
+// React Imports: 
 import React, { useEffect, useState } from "react";
-import Axios from 'axios'
-import { Carousel, Form, ButtonGroup, Button } from "react-bootstrap";
-import Cart from '../crud_cart'; 
 import { Link } from "react-router-dom"
+import { Carousel, Form, ButtonGroup, Button } from "react-bootstrap";
+
+import Axios from 'axios'
+
+import Cart from '../crud_cart'; 
+
+// CSS Imports: 
 import "./product.component.css"
 import "./input.css"
 
@@ -20,23 +25,16 @@ const key = {
 }
 
 function ProductPage(props) {
-    // const dispatch = useDispatch();
     const productId = props.match? props.match.params.productId: '';
     const userId = props.location.state ? props.location.state.user ? props.location.state.user._id : '' : '';
-    // var user = props.user? props.user : '';
 
     // console.log("Product Id from product page: ", productId)
     // console.log("usr Id from Product Page:", props); 
-    // console.log("Product ID: ", productId); 
     const [Product, setProduct] = useState('')
     const [qty, setIncrement] = useState(1)
-    // const [userId, setUserId] = useState('')
-
-    // props.user? setUserId(props.user._id) : setUserId('');
     
 
     useEffect(() => {
-        // console.log("Query: ", `/api/products/${productId}`)
         Axios.get(`/api/products/${productId}`)
             .then(response => {
                 setProduct(response.data.product)

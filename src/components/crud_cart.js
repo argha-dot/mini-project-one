@@ -31,25 +31,4 @@ export default function Cart(type, userId, productId) {
             .then(response => console.log("Response from getCartInfo from cart: ", response))
             .catch(err => console.log("getCartInfo from front-end Error: ", err))
     }
-
-
-
-    // function deleteFromCart(productId, userId) {
-    //     const request = Axios({
-    //         method: "DELETE",
-    //         url: `http://localhost:5000/api/cart?productId=${productId}`,
-    //         data: { _id: userId }
-    //     })
-    //         .then(response => console.log("Response from remove from cart: ", response))
-    //         .catch(err => console.log("Remove from Cart Error: ", err));
-    // }
-
-    // function getCartInfo(userId) {
-    //     const request = Axios({
-    //         method: "GET",
-    //         url: `http://localhost:5000/api/see_cart/id=${userId}`,
-    //     })
-    //         .then(response => console.log("Response from getCartInfo from cart: ", response))
-    //         .catch(err => console.log("getCartInfo from front-end Error: ", err));
-    // }
 }

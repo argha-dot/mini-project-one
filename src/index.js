@@ -1,15 +1,19 @@
+// React Imports
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import store from './redux/store';
+
+import App from './App';
+
+// Css Imports
+import './index.css';
+
+
 
 ReactDOM.render(
-  <Provider store={store}><BrowserRouter>
+  <BrowserRouter>
     <App /> 
-  </BrowserRouter></Provider>,
+  </BrowserRouter>,
   document.getElementById('root') 
 ); 
 
