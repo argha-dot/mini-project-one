@@ -181,3 +181,9 @@
     color: var(--secondary-color);
     background-color: #073638;
 }
+
+.nav-profile-pic {
+    height: 2.5rem;
+    width: auto;
+    border-radius: 50%;
+}

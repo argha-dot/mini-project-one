@@ -12,13 +12,13 @@ import "./navbar.component.css"
 export default function NavBar(props) {
 
   const [sidebarToggle, setToggle] = useState(true);
-  const [user, setUser] = useState(null);
   const [search, setSearch] = useState("");
   const [productList, setProductList] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [display, setDisplay] = useState(false);
   const [userDisplay, setUserDisplay] = useState(false);
   const wrapperRef = useRef(null);
+  const [profileImage, setProfileImage] = useState(<i className="fas fa-user fa-lg"></i>)
   
   const fetchData = () => {
     axios.get(`/api/products/`)
@@ -95,7 +95,8 @@ export default function NavBar(props) {
     cookiePolicy={'single_host_origin'}
   />
   
-  var auth_button_loggedIn = <GoogleLogout
+  var auth_button_loggedIn = 
+  <GoogleLogout
     clientId="324694862893-7rthjc44uda4smoddu16vqqtnfiofbuf.apps.googleusercontent.com"
     render={renderProps => (
       <button style={auth_button_style} onClick={renderProps.onClick} disabled={renderProps.disabled}>Logout</button>
@@ -155,12 +156,13 @@ export default function NavBar(props) {
             <button 
               className="usr-btn"
               onClick={() => setUserDisplay(!userDisplay)}>
-              <i className="fas fa-user fa-lg"></i>
+              {console.log("User from navbar", props.user)}
+              {(props.user) ? <img className="nav-profile-pic" src={props.user["profile_picture"]}></img> : <i className="fas fa-user fa-lg"></i>}
             </button>
             {
               userDisplay && (
                 <div className="sign-in-out">
-                  {(props.isSignedIn) ? auth_button_loggedIn : auth_button_loggedOut}
+                  {(props.user) ? auth_button_loggedIn : auth_button_loggedOut}
                 </div>
               )
             }
