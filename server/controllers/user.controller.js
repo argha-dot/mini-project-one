@@ -353,7 +353,39 @@ user_purchase(req, res) {
             return res.status(200).json({ success: true, history })
         }
     )
-}
+},
+    post_reviews(req, res) {
+        const {userId, productId, rating} = req.body;
+        User.findOneAndUpdate(
+            { _id: userId }, {
+                $push: 
+                {reviews: {
+                    productId: productId,
+                    rating: rating
+            }}}, (err, user) => {
+                if (err) return res.status(400).send("Error from post-reviews: ", err);
+            }
+        )
+
+        Product.findOneAndUpdate(
+            {_id: productId}, {
+            $push:
+            {reviews: {
+                userId: userId, 
+                rating: rating
+            }}}, (err, user) => {
+                if (err) return res.status(400).send("Error from post-reviews: ", err);
+            }
+        )
+    }, 
+
+    get_reviews(req, res) {
+        const userId = req.query.userId;
+        User.findById(userId, (err, user) => {
+            if (err) return res.status(400).send("Error from get-reviews: ", err);
+            return res.status(200).send({reviews: user.reviews}); 
+        })
+    }
 }
 
 
