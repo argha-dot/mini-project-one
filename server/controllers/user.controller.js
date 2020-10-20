@@ -1,9 +1,6 @@
 const axios = require('axios');
 let User = require('../models/user')
 let Product = require('../models/product')
-const { auth } = require("../middleware/auth");
-const jwt = require('jsonwebtoken');
-const moment = require('moment');
 const {OAuth2Client} = require('google-auth-library')
 const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID); 
 module.exports = {
@@ -24,20 +21,7 @@ module.exports = {
                    // history: req.user.history
         })
     },
-//     auth(req, res) {
-//     res.status(200).json({
-//         _id: req.user._id,
-//         //isAdmin: req.user.role === 0 ? false : true,
-//         //isAuth: true,
-//         email: req.user.email,
-//         name: req.user.name,
-//         //lastname: req.user.lastname,
-//         //role: req.user.role,
-//         image: req.user.image,
-//         cart: req.user.cart,
-//        // history: req.user.history
-//     });
-// },
+
     google_login(req, response) {
         const {tokenId} = req.body;
         client.verifyIdToken({idToken: tokenId, audience: process.env.REACT_APP_GOOGLE_CLIENT_ID}).then(res => {
@@ -49,17 +33,10 @@ module.exports = {
                             error: "Error from finding user in google login"
                         })
                     } else {
-                        if (user) { // User already exisits:
-                            var token = jwt.sign(user._id.toHexString(), 'secret')
-                            var oneHour = moment().add(1, 'hour').valueOf();
-                        
-                            user.tokenExp = oneHour;
-                            user.token = token;
+                        if (user) { 
                             user.save((err, data) => {  
                                 if(err) {res.status(400).json({error: err});}
-                                response.cookie("w_authExp", user.tokenExp);
-                                    response
-                                        .cookie("w_auth", user.token) 
+                                    response 
                                         .status(200)
                                         .json({
                                             loginSuccess: true, user: user
@@ -75,16 +52,10 @@ module.exports = {
                                 if(err) {
                                     return res.status(400).json({error: err}); 
                                 }
-                                data.generateToken((err, user) => {
-                                    // if (err) return res.status(400).json({error: err});
-                                    response.cookie("w_authExp", user.tokenExp);
-                                    response
-                                        .cookie("w_auth", user.token)
-                                        .status(200) 
+                                response.status(200) 
                                         .json({
                                             loginSuccess: true, user: user
-                                        }); 
-                                }); 
+                                        });           
                             })
                             
                         }
@@ -99,7 +70,7 @@ module.exports = {
         console.log("User ID: from logout: ",  );
         const {userId} = req.body; 
         console.log(userId, req.body); 
-        User.findOneAndUpdate({ _id: userId }, { token: "", tokenExp: "" }, (err, doc) => {
+        User.findOne({ _id: userId }, (err, doc) => {
             if (err) return res.json({ success: false, err });
             return res.status(200).send({
                 success: true
@@ -117,6 +88,9 @@ module.exports = {
         User.findOne(
             { _id: _id },
             (err, userInfo) => {
+                if (err) {
+                    return res.status(400).send(err);
+                } 
                 let cart = userInfo.cart;
                 let array = cart.map(item => {
                     return item.id
@@ -124,10 +98,9 @@ module.exports = {
     
     
                 Product.find({ '_id': { $in: array } })
-                    .populate('writer')
-                    .exec((err, cartDetail) => {
+                    .exec((err, cartData) => {
                         if (err) return res.status(400).send(err);
-                        return res.status(200).json({ success: true, cartDetail, cart: cart })
+                        return res.status(200).json({ success: true, cartData, cart: cart })
                     })
     
             }
@@ -153,10 +126,9 @@ module.exports = {
                 })
 
                 Product.find({ '_id': { $in: array } })
-                    .populate('writer')
-                    .exec((err, cartDetail) => {
+                    .exec((err, cartData) => {
                         return res.status(200).json({
-                            cartDetail,
+                            cartData,
                             cart
                         })
                     }) 
@@ -274,7 +246,6 @@ module.exports = {
                 })
 
                 Product.find({ '_id': { $in: array } })
-                    .populate('writer')
                     .exec((err, wishlistDetail) => {
                         return res.status(200).json({
                             wishlistDetail,
@@ -311,15 +282,15 @@ module.exports = {
     /***************************Wishlist CRUD Done*************************************** */
 
     
-   onPurchase(req, res) {
+user_purchase(req, res) {
     let history = [];
     
-    req.body.cartDetail.forEach((item) => {
+    req.body.cartData.forEach((item) => {
         history.push({
-            dateOfPurchase: Date.now(),
-            name: item.title,
-            id: item._id,
-            price: item.price,
+            purchase_date: Date.now(),
+            product_name: item.title,
+            product_id: item._id,
+            product_price: item.price,
             quantity: item.quantity,
         })
     })
@@ -334,19 +305,11 @@ module.exports = {
         (err, user) => {
             if (err) return res.json({ success: false, err });
 
-
-                //3. Increase the amount of number for the sold information 
-
-                //first We need to know how many product were sold in this transaction for 
-                // each of products
-
                 let products = [];
                 doc.product.forEach(item => {
                     products.push({ id: item.id, quantity: item.quantity })
                 })
 
-                // first Item    quantity 2
-                // second Item  quantity 3
 
                 async.eachSeries(products, (item, callback) => {
                     Product.update(
@@ -364,7 +327,7 @@ module.exports = {
                     res.status(200).json({
                         success: true,
                         cart: user.cart,
-                        cartDetail: []
+                        cartData: []
                     })
                 })
 
@@ -372,11 +335,11 @@ module.exports = {
         },
 
 
-    getHistory(req, res) {
+    get_history(req, res) {
     User.findOne(
         { _id: req.user._id },
-        (err, doc) => {
-            let history = doc.history;
+        (err, user) => {
+            let history = user.history;
             if (err) return res.status(400).send(err)
             return res.status(200).json({ success: true, history })
         }
