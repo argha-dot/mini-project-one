@@ -78,14 +78,14 @@ export default function NavBar(props) {
   // Google auth buttons copied from npm google login button website
   if (props.isSignedIn) {
     auth_button = <GoogleLogout
-      clientId="741634897739-ac07i81bga1jtqdg7lqfk98tt71m76h5.apps.googleusercontent.com"
+      clientId="324694862893-7rthjc44uda4smoddu16vqqtnfiofbuf.apps.googleusercontent.com"
       buttonText="Logout"
       onLogoutSuccess={props.logoutSuccess}
     >
     </GoogleLogout>
   } else {
     auth_button = <GoogleLogin
-      clientId="741634897739-ac07i81bga1jtqdg7lqfk98tt71m76h5.apps.googleusercontent.com"
+      clientId="324694862893-7rthjc44uda4smoddu16vqqtnfiofbuf.apps.googleusercontent.com"
       buttonText="Login with Google"
       onSuccess={props.sucessfulResponseGoogle}
       onFailure={props.failedResponseGoogle}
@@ -94,7 +94,7 @@ export default function NavBar(props) {
   }
   
 
-  return (
+  return ( 
     <div className="nav-main">
       
       <Navbar fixed="top" style={{ "justifyContent": "space-between", "padding": "0.5rem 0.5rem" }}>
