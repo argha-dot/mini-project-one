@@ -84,7 +84,7 @@ module.exports = {
     /***************************Cart CRUD*************************************** */
 
     get_cart_info(req, res) {
-        const {_id} = req.body;
+        const _id = req.query.userId;
         User.findOne(
             { _id: _id },
             (err, userInfo) => {

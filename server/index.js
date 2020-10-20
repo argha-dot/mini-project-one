@@ -35,7 +35,7 @@ app.post('/api/google_logout', user_controller.google_logout);
 
 app.post('/api/cart', user_controller.add_to_cart);
 app.delete('/api/cart', user_controller.remove_from_cart);
-app.get('/api/see_cart:id' , user_controller.get_cart_info);
+app.get('/api/see_cart/:id' , user_controller.get_cart_info);
 
 app.post('/api/wishlist', user_controller.add_to_wishlist);
 app.delete('/api/wishlist', user_controller.remove_from_wishlist);

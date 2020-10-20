@@ -17,6 +17,7 @@ export default function NavBar(props) {
   const [productList, setProductList] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [display, setDisplay] = useState(false);
+  const [userDisplay, setUserDisplay] = useState(false);
   const wrapperRef = useRef(null);
   
   const fetchData = () => {
@@ -72,28 +73,38 @@ export default function NavBar(props) {
     setToggle(!sidebarToggle);
   }
 
-  var auth_button;
   console.log("Var Outside: ", props.isSignedIn)
 
   // Google auth buttons copied from npm google login button website
-  if (props.isSignedIn) {
-    auth_button = <GoogleLogout
-      clientId="324694862893-7rthjc44uda4smoddu16vqqtnfiofbuf.apps.googleusercontent.com"
-      buttonText="Logout"
-      onLogoutSuccess={props.logoutSuccess}
-    >
-    </GoogleLogout>
-  } else {
-    auth_button = <GoogleLogin
-      clientId="324694862893-7rthjc44uda4smoddu16vqqtnfiofbuf.apps.googleusercontent.com"
-      buttonText="Login with Google"
-      onSuccess={props.sucessfulResponseGoogle}
-      onFailure={props.failedResponseGoogle}
-      cookiePolicy={'single_host_origin'}
-    />
-  }
-  
 
+  var auth_button_style = {
+    "backgroundColor": "#76f3e4",
+    "border": "none",
+    "color": "black"
+
+  }
+
+  var auth_button_loggedOut = <GoogleLogin
+    clientId="324694862893-7rthjc44uda4smoddu16vqqtnfiofbuf.apps.googleusercontent.com"
+    render={renderProps => (
+      <button style={auth_button_style} onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</button>
+    )}
+    buttonText="Login with Google"
+    onSuccess={props.sucessfulResponseGoogle}
+    onFailure={props.failedResponseGoogle}
+    cookiePolicy={'single_host_origin'}
+  />
+  
+  var auth_button_loggedIn = <GoogleLogout
+    clientId="324694862893-7rthjc44uda4smoddu16vqqtnfiofbuf.apps.googleusercontent.com"
+    render={renderProps => (
+      <button style={auth_button_style} onClick={renderProps.onClick} disabled={renderProps.disabled}>Logout</button>
+    )}
+    buttonText="Logout"
+    onLogoutSuccess={props.logoutSuccess}
+  >
+  </GoogleLogout>
+  
   return ( 
     <div className="nav-main">
       
@@ -140,7 +151,20 @@ export default function NavBar(props) {
 
         <div className="right-side">
           <Link to="/cart" className="cart-btn"><i className="fas fa-shopping-cart fa-lg"></i></Link>
-          {auth_button}
+          <div className="user-dropdown">
+            <button 
+              className="usr-btn"
+              onClick={() => setUserDisplay(!userDisplay)}>
+              <i className="fas fa-user fa-lg"></i>
+            </button>
+            {
+              userDisplay && (
+                <div className="sign-in-out">
+                  {(props.isSignedIn) ? auth_button_loggedIn : auth_button_loggedOut}
+                </div>
+              )
+            }
+          </div>
         </div>
       </Navbar>
     </div>
