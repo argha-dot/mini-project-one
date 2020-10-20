@@ -86,8 +86,6 @@ function App()  {
           <Route 
             path="/cart" 
             component={Cart} />
-          <Route  
-            component={ItemCategory} />
           <Route 
             path="/wish" component={Wish} />
           <Route 
