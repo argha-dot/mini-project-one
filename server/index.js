@@ -32,11 +32,14 @@ app.use(cors());
 // Setting a time limit before endpoints start running
 app.post('/api/google_login', user_controller.google_login);
 app.post('/api/google_logout', user_controller.google_logout);
-app.post('/api/update_user')
+app.post('/api/update_user', user_controller.update_user_info) 
 
 app.post('/api/cart', user_controller.add_to_cart);
 app.delete('/api/cart', user_controller.remove_from_cart);
 app.get('/api/see_cart:id' , user_controller.get_cart_info);
+app.post('/api/user/post_review', user_controller.post_reviews);
+app.get('/api/user/get_review/:id', user_controller.get_reviews);
+
 
 app.post('/api/wishlist', user_controller.add_to_wishlist);
 app.delete('/api/wishlist', user_controller.remove_from_wishlist);
@@ -44,6 +47,7 @@ app.get('/api/see_wishlist:id' , user_controller.get_wishlist_info);
 
 app.get('/api/products', product_controller.see_products);
 app.get('/api/products/:id', product_controller.see_single_product);
+app.get('/api/product/get_review/:id', product_controller.get_rating);
 
 app.post('/api/products', admin_controller.create_product);
 app.put('/api/products/:id', admin_controller.update_product);

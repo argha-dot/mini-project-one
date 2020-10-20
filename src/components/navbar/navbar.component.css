@@ -94,6 +94,13 @@
     color: var(--primary-color);
 }
 
+.user-dropdown {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    margin-left: 3.5rem;
+}
+
 .usr-btn {
     padding-top: 0rem;
     background-color: transparent;
@@ -116,6 +123,7 @@
     text-align: center;
     padding-left: 3.5rem;
     width: 12%;
+    justify-content: flex-start;
 }
 
 .form-main {
@@ -172,9 +180,4 @@
 .form-main-result:hover {
     color: var(--secondary-color);
     background-color: #073638;
-}
-
-.user-dropdown {
-    display: flex;
-    flex-direction: column;
 }
