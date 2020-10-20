@@ -32,6 +32,7 @@ app.use(cors());
 // Setting a time limit before endpoints start running
 app.post('/api/google_login', user_controller.google_login);
 app.post('/api/google_logout', user_controller.google_logout);
+app.post('/api/update_user')
 
 app.post('/api/cart', user_controller.add_to_cart);
 app.delete('/api/cart', user_controller.remove_from_cart);

@@ -13,7 +13,10 @@ export default function Cart(type, userId, productId) {
                 .then(response => console.log("Response from add to cart: ", response))
                 .catch(err => console.log("Add to Cart Error: ", err))
             break;
+<<<<<<< HEAD
 
+=======
+>>>>>>> d158ab167f1828ca7374eee7eb4c2e9b1e5f879d
         case 'DELETE_FROM_CART':
                 Axios({
                     method: "DELETE",
@@ -22,7 +25,12 @@ export default function Cart(type, userId, productId) {
                 })
                 .then(response => console.log("Response from remove from cart: ", response))
                 .catch(err => console.log("Remove from Cart Error: ", err))
+<<<<<<< HEAD
             break;
+=======
+    
+                break;
+>>>>>>> d158ab167f1828ca7374eee7eb4c2e9b1e5f879d
 
         case 'GET_CART_INFO': 
             Axios({
