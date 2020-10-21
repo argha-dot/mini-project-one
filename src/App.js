@@ -18,10 +18,12 @@ import Homepage from "./components/homepage/homepage.component"
 import Category from "./components/category/category.component"
 import Cart from "./components/cart/cart.component";
 import Wish from "./components/wish/wish.component";
-import Footer from "./components/footer/footer.component"
-import Sidebar from "./components/sidebar/sidebar.component"
-import Profile from "./components/profile/profile.component"
-import ItemCategory from './components/category/item.category.component';
+import Buy from "./components/buy/buy.component";
+import Footer from "./components/footer/footer.component";
+import Sidebar from "./components/sidebar/sidebar.component";
+import Profile from "./components/profile/profile.component";
+import AboutUs from "./components/about.us/about.us.component";
+// import ItemCategory from './components/category/item.category.component';
 
 
 
@@ -90,6 +92,12 @@ function App()  {
             path="/wish" component={Wish} />
           <Route 
             path="/profile" component={Profile} />
+          
+          <Route 
+            path="/buy" component={Buy} />
+
+          <Route 
+            path="/about.us" component={AboutUs} />
 
 
           <Footer />
