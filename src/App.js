@@ -23,6 +23,8 @@ import Footer from "./components/footer/footer.component";
 import Sidebar from "./components/sidebar/sidebar.component";
 import Profile from "./components/profile/profile.component";
 import AboutUs from "./components/about.us/about.us.component";
+import StarRating from "./components/star.rating/star.rating.component";
+import { startSession } from 'mongoose';
 // import ItemCategory from './components/category/item.category.component';
 
 
@@ -108,6 +110,10 @@ function App()  {
 
           <Route 
             path="/about.us" component={AboutUs} />
+
+          <Route 
+            path="/star.rating" component={StarRating} />
+
 
 
           <Footer />

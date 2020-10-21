@@ -4,3 +4,12 @@ body {
     position: relative;
     padding-bottom: 5rem;
 }
+
+.star{
+    cursor: pointer;
+    transition: color 200ms;
+}
+
+input[type="radio"] {
+    display: none;
+}

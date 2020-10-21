@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./footer.component.css"
+import { Link } from "react-router-dom"
 
 
 
@@ -9,7 +10,7 @@ export default class Footer extends Component
 
         return (
             <div className="footer">
-                <div className="usefulVarName"><a href="https://github.com/argha-dot/mini-project-one">Know More About Us</a></div>
+                <Link to="/about.us" className="usefulVarName">Know More About Us</Link>
                 <div className="usefulVarName"><a href="https://github.com/argha-dot/mini-project-one">Connect with Us </a></div> 
             </div>
         )
