@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Axios from 'axios'
+import Axios from 'axios';
+import CartC from "../crud_cart";
+
 const data =
 {
     "gameboy": {
@@ -14,25 +16,45 @@ const data =
 }
 
 export default function CartItem(props) {
+
+    const [productList, setProductList] = useState([]);
+
+    useEffect(() => {
+        Axios.get(`/api/products/${props.cartDetails ? props.cartDetails.id:null}`)
+            .then(response => {
+                setProductList(response.data.product)
+            }).catch(err => console.log(err))
+
+    }, [])
+
+    const _deleteFromCart = () => {
+        CartC("DELETE_FROM_CART", props.userId, props.cartDetails.id);
+        console.log("deleted succefully");
+    };
+
     return (
         <div className="cart-item">
-            <Link to={"/product/" + data.gameboy.id}
+            {console.log(productList)}
+            <Link to={"/product/" + productList.id}
                 className="cart-item-link"
                 style={ {color: "#6b6b6b"} }>
-                {data.gameboy.productName}
+                {productList.name}
             </Link>
             <div className="cart-item-img">
-                <img src={data.gameboy.imgLinks[0]} width={"250px"}
+                <img src={props.cartDetails ? productList.pictures:data.gameboy.imgLinks[0]} width={"250px"}
                     alt="Something"
                     width="160px"/>
             </div>
             <div className="cart-item-buttons">
-                <button className="cart-item-qty">Qty: 1</button>
-                <button className="cart-item-del">Delete</button>
+                <button className="cart-item-qty">{props.cartDetails ? props.cartDetails.quantity : 1}</button>
+                <button 
+                    className="cart-item-del"
+                    onClick={_deleteFromCart}>
+                Delete</button>
                 <button className="cart-item-wish">Wishlist</button>
             </div>
             <h3 className="cart-item-price">
-                {"Price: " + data.gameboy.price}  
+                {"Price: " + productList.price}  
             </h3>
         </div>
     )

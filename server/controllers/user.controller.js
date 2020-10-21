@@ -99,6 +99,7 @@ module.exports = {
     get_cart_info(req, res) {
         const _id = req.params.id;
         // console.log(req.params, _id); 
+
         User.findOne(
             { _id: _id },
             (err, userInfo) => {
@@ -127,9 +128,9 @@ module.exports = {
             { _id: _id },
             {
                 "$pull":
-                    { "cart": { "id": req.query._id } } 
+                    { "cart": { "id": req.query.productId } } 
             },
-            { new: true },
+            { new: true }, // Required to get a new object instead of the old one
             (err, userInfo) => {
                 if (err) {
                     return res.status(400).send(err);
@@ -250,7 +251,7 @@ module.exports = {
             { _id: _id },
             {
                 "$pull":
-                    { "wishlist": { "id": req.query._id } } 
+                    { "wishlist": { "id": req.query.productId } } 
             },
             { new: true },
             (err, userInfo) => {

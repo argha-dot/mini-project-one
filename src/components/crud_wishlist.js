@@ -1,4 +1,5 @@
-import Axios from 'axios'
+import Axios from 'axios';
+
 export default function Wishlist(type, userId, productId) {
     console.log("Hello from Wishlist CRUD")
     switch (type) {

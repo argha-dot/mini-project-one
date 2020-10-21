@@ -21,7 +21,7 @@ export default function NavBar(props) {
   const [profileImage, setProfileImage] = useState(<i className="fas fa-user fa-lg"></i>)
   
   const fetchData = () => {
-    axios.get(`/api/products/`)
+    axios.get(`http://localhost:5000/api/products/`)
       .then((response) => {
         // console.log(`reponse from category: ${response}`)
         setProductList(response.data.products)

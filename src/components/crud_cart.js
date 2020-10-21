@@ -26,6 +26,9 @@ export default function Cart(type, userId, productId) {
 
         case 'GET_CART_INFO': 
             console.log("Id from cart info: ", userId); 
+            // if (!userId) {
+            //     return ""; 
+            // }
             Axios({
                 method: "GET",
                 url: `http://localhost:5000/api/see_cart/${userId}`
