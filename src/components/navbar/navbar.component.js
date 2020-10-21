@@ -143,7 +143,13 @@ export default function NavBar(props) {
                 {filteredProducts.map(pro => {
                   return (
                     <Link 
-                      to={`/product/${pro._id}`} 
+                      // to={`/product/${pro._id}`} 
+                      to={{
+                        pathname:`/product/${pro._id}`,
+                        state: {
+                          user: props.user
+                        }
+                      }}
                       className="form-main-result" 
                       key={pro._id}
                       style={{ color: "rgb(255, 255, 255)" }}>
@@ -169,7 +175,7 @@ export default function NavBar(props) {
             {
               userDisplay && (
                 <div className="sign-in-out">
-                  <Link to="/wish" className="cart-button" style={{ backgroundColor: "crimson" }}><i className="fas fa-shopping-cart fa-lg"></i></Link>
+                  <Link to="/wish" className="cart-button" style={{ backgroundColor: "crimson" }}><i className="fas fa-heart"></i></Link>
                   {(props.user) ? auth_button_loggedIn : auth_button_loggedOut}
                 </div>
               )

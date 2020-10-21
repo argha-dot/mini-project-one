@@ -78,7 +78,7 @@ function ProductPage(props) {
                 <Link to={{
                     pathname: `/category/${key[Product.category]}`,
                     state: {
-                        user: props.location.state.user
+                        user: props.location.state ? props.location.state.user : null
                     }
                 }}
                     className="product-category">

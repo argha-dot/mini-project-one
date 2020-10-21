@@ -1,3 +1,5 @@
+// The code is taken from https://www.youtube.com/watch?v=eDw46GYAIDQ&ab_channel=EricMurphy, not used in production
+
 import React, {useState} from "react";
 import { FaStar} from "react-icons/fa";
 

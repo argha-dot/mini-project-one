@@ -113,9 +113,7 @@ function App()  {
 
           <Route 
             path="/star.rating" component={StarRating} />
-
-
-
+            
           <Footer />
           <Sidebar user={user}/>
         </div>
