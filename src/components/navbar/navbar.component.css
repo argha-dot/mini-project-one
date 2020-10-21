@@ -94,13 +94,6 @@
     color: var(--primary-color);
 }
 
-.user-dropdown {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    margin-left: 3.5rem;
-}
-
 .usr-btn {
     padding-top: 0rem;
     background-color: transparent;
@@ -186,4 +179,26 @@
     height: 2.5rem;
     width: auto;
     border-radius: 50%;
+}
+
+.user-dropdown {
+    position: fixed;
+    /* display: flex; */
+    /* flex-direction: column; */
+    margin-left: 3.5rem;
+    justify-content: center;
+    text-align: center;
+}
+
+.sign-in-out {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.log-container {
+    width: 5rem;
+    height: 3rem;
 }

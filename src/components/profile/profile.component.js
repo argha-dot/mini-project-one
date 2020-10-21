@@ -4,20 +4,22 @@ import "./profile.component.css";
 import Navigation from "./navi.profile.compnent"
 import Overview from "./over.profile.component"
 import Address from "./add.profile.component"
-
-export default function Profile() {
+/*
+app.post('/api/update_user', user_controller.update_user_info) 
+*/
+export default function Profile(props) {
 
     const [current, setCurrent] = useState("over");
     const tabs = [
         {
             name: "over",
             label: "Account Overview",
-            content: (<Overview />)
+            content: (<Overview user={props.user}/>)
         },
         {
             name: "address",
             label: "Addresses",
-            content: (<Address />)
+            content: (<Address user={props.user}/>)
         },
         {
             name: "orders",
@@ -33,11 +35,11 @@ export default function Profile() {
 
     return(
         <div className="profile-main">
-            
+            {console.log("hello from profile", props.user)}
             <div className="profile-navigation">
                 <img 
                     className="profile-img" 
-                    src="https://www.w3schools.com/howto/img_avatar.png" 
+                    src={(props.user) ? props.user.profile_picture : "https://www.w3schools.com/howto/img_avatar.png" }
                     alt="profile pic" 
                     style={{"width": "150px"}} />
                 {

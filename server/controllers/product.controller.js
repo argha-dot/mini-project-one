@@ -24,7 +24,7 @@ module.exports = {
     },
 
     get_rating(req, res) {
-        const userId = req.query.productId;
+        const userId = req.params;
         Product.findById(userId, (err, product) => {
             if (err) return res.status(400).send("Error from get-reviews: ", err);
             return res.status(200).send({reviews: product.reviews}); 

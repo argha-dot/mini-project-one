@@ -5,6 +5,7 @@ const userSchema = new Schema ({
     name: {type: String, required: true}, 
     email: {type: String, required: true}, 
     profile_picture: {type: String},
+    contact: {type: String, default: ""},
     cart: {type: Array, default: []}, 
     wishlist: {type: Array, default: []}, 
     collegeAddress: {type: String, default: ""},

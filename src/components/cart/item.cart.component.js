@@ -13,29 +13,27 @@ const data =
     }
 }
 
-export default class CartItem extends Component {
-    render() {
-        return (
-            <div className="cart-item">
-                <Link to={"/product/" + data.gameboy.id}
-                    className="cart-item-link"
-                    style={ {color: "#6b6b6b"} }>
-                    {data.gameboy.productName}
-                </Link>
-                <div className="cart-item-img">
-                    <img src={data.gameboy.imgLinks[0]} width={"250px"}
-                        alt="Something"
-                        width="160px"/>
-                </div>
-                <div className="cart-item-buttons">
-                    <button className="cart-item-qty">Qty: 1</button>
-                    <button className="cart-item-del">Delete</button>
-                    <button className="cart-item-wish">Wishlist</button>
-                </div>
-                <h3 className="cart-item-price">
-                    {"Price: " + data.gameboy.price}  
-                </h3>
+export default function CartItem(props) {
+    return (
+        <div className="cart-item">
+            <Link to={"/product/" + data.gameboy.id}
+                className="cart-item-link"
+                style={ {color: "#6b6b6b"} }>
+                {data.gameboy.productName}
+            </Link>
+            <div className="cart-item-img">
+                <img src={data.gameboy.imgLinks[0]} width={"250px"}
+                    alt="Something"
+                    width="160px"/>
             </div>
-        )
-    }
+            <div className="cart-item-buttons">
+                <button className="cart-item-qty">Qty: 1</button>
+                <button className="cart-item-del">Delete</button>
+                <button className="cart-item-wish">Wishlist</button>
+            </div>
+            <h3 className="cart-item-price">
+                {"Price: " + data.gameboy.price}  
+            </h3>
+        </div>
+    )
 }

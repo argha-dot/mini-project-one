@@ -8,7 +8,7 @@ export default function Sidebar(props) {
 
     return (
         <nav className="sidebar">
-            {console.log("From Item sidebar: ", user)}
+            {/* {// console.log("From Item sidebar: ", user)} */}
             <ul className="sidebar-nav">
                 <Link to="/" className="side-item">
                     <i className="fas fa-home"></i>

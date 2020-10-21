@@ -23,7 +23,7 @@ export default function NavBar(props) {
   const fetchData = () => {
     axios.get(`/api/products/`)
       .then((response) => {
-        console.log(`reponse from category: ${response}`)
+        // console.log(`reponse from category: ${response}`)
         setProductList(response.data.products)
       })
       .catch(err => console.log(`${err} from navbar.component frontend`))
@@ -73,7 +73,7 @@ export default function NavBar(props) {
     setToggle(!sidebarToggle);
   }
 
-  console.log("Var Outside: ", props.isSignedIn)
+  // console.log("Var Outside: ", props.isSignedIn)
 
   // Google auth buttons copied from npm google login button website
 
@@ -84,27 +84,33 @@ export default function NavBar(props) {
 
   }
 
-  var auth_button_loggedOut = <GoogleLogin
-    clientId="324694862893-7rthjc44uda4smoddu16vqqtnfiofbuf.apps.googleusercontent.com"
-    render={renderProps => (
-      <button style={auth_button_style} onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</button>
-    )}
-    buttonText="Login with Google"
-    onSuccess={props.sucessfulResponseGoogle}
-    onFailure={props.failedResponseGoogle}
-    cookiePolicy={'single_host_origin'}
-  />
+  var auth_button_loggedOut = 
+  <div className="log-container">
+    <GoogleLogin
+      clientId="324694862893-7rthjc44uda4smoddu16vqqtnfiofbuf.apps.googleusercontent.com"
+      render={renderProps => (
+        <button style={auth_button_style} onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</button>
+      )}
+      buttonText="Login with Google"
+      onSuccess={props.sucessfulResponseGoogle}
+      onFailure={props.failedResponseGoogle}
+      cookiePolicy={'single_host_origin'}
+    />
+  </div>
   
   var auth_button_loggedIn = 
-  <GoogleLogout
-    clientId="324694862893-7rthjc44uda4smoddu16vqqtnfiofbuf.apps.googleusercontent.com"
-    render={renderProps => (
-      <button style={auth_button_style} onClick={renderProps.onClick} disabled={renderProps.disabled}>Logout</button>
-    )}
-    buttonText="Logout"
-    onLogoutSuccess={props.logoutSuccess}
-  >
-  </GoogleLogout>
+    <div className="log-container">
+      <Link to="/profile" className="log-profile">Go to profile</Link>
+      <GoogleLogout
+        clientId="324694862893-7rthjc44uda4smoddu16vqqtnfiofbuf.apps.googleusercontent.com"
+        render={renderProps => (
+          <button style={auth_button_style} onClick={renderProps.onClick} disabled={renderProps.disabled}>Logout</button>
+        )}
+        buttonText="Logout"
+        onLogoutSuccess={props.logoutSuccess}
+      >
+      </GoogleLogout>
+    </div>
   
   return ( 
     <div className="nav-main">
@@ -149,8 +155,10 @@ export default function NavBar(props) {
             )
           }
         </form>
+        <Link to="/wish" className="cart-btn"><i className="fas fa-shopping-cart fa-lg"></i></Link>
 
         <div className="right-side">
+
           <Link to="/cart" className="cart-btn"><i className="fas fa-shopping-cart fa-lg"></i></Link>
           <div className="user-dropdown">
             <button 
