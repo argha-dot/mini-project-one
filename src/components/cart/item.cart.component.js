@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
 import CartC from "../crud_cart";
+import WishC from "../crud_wishlist";
 
 const data =
 {
@@ -32,6 +33,11 @@ export default function CartItem(props) {
         console.log("deleted succefully");
     };
 
+    const _moveToWishlist = () => {
+        CartC("DELETE_FROM_CART", props.userId, props.cartDetails.id);
+        WishC("ADD_TO_WISHLIST", props.userId, props.cartDetails.id); 
+    }
+
     return (
         <div className="cart-item">
             {console.log(productList)}
@@ -51,7 +57,10 @@ export default function CartItem(props) {
                     className="cart-item-del"
                     onClick={_deleteFromCart}>
                 Delete</button>
-                <button className="cart-item-wish">Wishlist</button>
+                <button 
+                    className="cart-item-wish"
+                    onClick={_moveToWishlist}
+                >Save To Wishlist</button>
             </div>
             <h3 className="cart-item-price">
                 {"Price: " + productList.price}  

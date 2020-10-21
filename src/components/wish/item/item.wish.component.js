@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import WishC from "../../crud_wishlist";
+import CartC from "../../crud_cart";
 
 const data =
 {
@@ -33,6 +34,11 @@ export default function WishItem(props) {
         console.log("deleted succefully");
     };
 
+    const _moveToCart = () => {
+        WishC("DELETE_FROM_WISHLIST", props.userId, props.wishDetails.id);
+        CartC("ADD_TO_CART", props.userId, props.wishDetails.id);
+    }
+
     return(
         <div className="wish-item">
             <Link to={"/product/" + productList.id}
@@ -50,7 +56,10 @@ export default function WishItem(props) {
                     className="wish-item-del"
                     onClick={_deleteFromWish}
                 >Delete</button>
-                <button className="wish-item-wish">Move To Cart</button>
+                <button 
+                    className="wish-item-wish"
+                    onClick={_moveToCart}
+                >Move To Cart</button>
             </div>
             <h3 className="wish-item-price">
                 {"Price: " + productList.price}
