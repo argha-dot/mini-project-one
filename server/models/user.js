@@ -8,8 +8,9 @@ const userSchema = new Schema ({
     contact: {type: String, default: ""},
     cart: {type: Array, default: []}, 
     wishlist: {type: Array, default: []}, 
-    collegeAddress: {type: String, default: ""},
-    homeAddress: {type: String, default: ""},
+    address: {type: Array, default: []}, 
+    // collegeAddress: {type: String, default: ""},
+    // homeAddress: {type: String, default: ""},
     reviews: {type: Array, default: []}
 });
 

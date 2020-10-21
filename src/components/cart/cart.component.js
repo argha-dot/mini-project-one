@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import CartItem from "./item.cart.component";
+import { Link } from "react-router-dom";
 
 
 import "./cart.component.css";
@@ -8,10 +9,12 @@ import "./cart.component.css";
 export default function Cart(props) {
 
     const [cartList, setCartList] = useState(null);
+    const [user, setUser] = useState(props.user ? props.user : "")
     const [userId, setUserId] = useState(props.user ? props.user._id : "")
 
     useEffect(() => {
         setUserId(props.user ? props.user._id : "");
+        setUser(props.user ? props.user : "");
         Axios({
             method: "GET",
             url: `http://localhost:5000/api/see_cart/${userId}`
@@ -21,7 +24,7 @@ export default function Cart(props) {
             setCartList(response.data.cart);
         })
         .catch(err => console.log("error from cart.comp Error: ", err))
-    }, [cartList])
+    }, [cartList, user])
 
     
     console.log("cartList from get cart: ", cartList);
@@ -40,6 +43,14 @@ export default function Cart(props) {
                     })
                 }
             </div>
+            {/* <Link to="/buy" className="buy-button">Checkout</Link> */}
+            <Link to={{
+                pathname: `/buy`,
+                state: {user: user}
+            }}
+                className="buy-button">
+                Checkout
+            </Link>
         </div>
     )
 }

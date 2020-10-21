@@ -75,7 +75,16 @@ function ProductPage(props) {
             </Carousel>
 
             <div className="product-description">
-                <Link to={`/category/${key[Product.category]}`} className="product-category">{Product.category}</Link>
+                <Link to={{
+                    pathname: `/category/${key[Product.category]}`,
+                    state: {
+                        user: props.location.state.user
+                    }
+                }}
+                    className="product-category">
+                    {Product.category}
+                </Link>
+                {/* <Link to={`/category/${key[Product.category]}`} className="product-category">{Product.category}</Link> */}
                 <div className="product-name">{Product.name}</div>
 
                 <div className="product-text">

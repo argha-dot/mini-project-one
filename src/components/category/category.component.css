@@ -78,3 +78,8 @@
     font-size: large;
     font-weight: 700;
 }
+
+.cat-topbar {
+    display: flex;
+    justify-content: space-between;
+}

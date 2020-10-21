@@ -42,6 +42,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-select-search": "^2.1.1",
+    "reactjs-popup": "^2.0.4",
     "secured": "0.0.12",
     "validator": "^13.1.17"
   },

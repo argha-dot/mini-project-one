@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./category.component.css";
 import ItemCategory from "./item.category.component"
 import axios from "axios";
+import { Dropdown, DropdownButton } from "react-bootstrap";
+
+
 
 const key = {
     "games": "Vintage Gaming",
@@ -40,20 +43,34 @@ export default function Category(props) {
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            fetchData();
-        }, 1000);
+        fetchData();
     }, [])
+
+
 
     return(
         <div className = "category-main" >
             {/* {console.log(productList)} */}
-            <h3 className="cat-title">{key[categoryId]}</h3>
+            <div className="cat-topbar">
+                <h3 className="cat-title">{key[categoryId]}</h3>
+                <DropdownButton size="sm" id="dropdown-basic-button" title="Dropdown button" style={{ marginRight: "6rem" }}>
+                    <Dropdown.Item 
+                        as="button" 
+                        onClick={() => {setProductList(productList.sort((a, b) => {
+                            console.log(productList)
+                            return Number(a.price.replace(/\D/g, '')) - Number(b.price.replace(/\D/g, ''))
+                        }))}}>
+                        Sort by Price
+                    </Dropdown.Item>
+                    <Dropdown.Item as="button" >Another action</Dropdown.Item>
+                    <Dropdown.Item as="button" >Something else</Dropdown.Item>
+                </DropdownButton>
+            </div>
             <br />
             <div className="cat-contents">
                 {
                     productList.map((index) => (
-                        index.category === key[categoryId] ? <ItemCategory data={index} user={user}/>:null
+                        index.category === key[categoryId] ? <ItemCategory data={index} user={user} key={index._id}/>:null
                     ))
                 }
             </div>

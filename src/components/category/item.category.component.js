@@ -1,10 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import CartC from '../crud_cart';
+import WishlistC from '../crud_wishlist';
+
+
 export default function ItemCategory(props) {
 
     console.log("From Item Category Page: ", props.user);
     const user = props.user; 
+
+    function _addToCart() {
+        CartC("ADD_TO_CART", user._id, props.data._id);
+    }
+
+    function _addToWishlist() {
+        WishlistC("ADD_TO_WISHLIST", user._id, props.data._id);
+    }
 
     return(
         <div className="cat-item" >
@@ -28,14 +40,12 @@ export default function ItemCategory(props) {
             </div>
             <div className="btns">
                 <span className="cat-item-price">{props.data?props.data.price:''}</span>
-                <button className="add-to">
-                    <a className="add-link"
-                        style={{ textDecoration: "none" }}
-                        href="https://www.youtube.com/">
+                <button className="add-to"
+                    onClick={_addToCart}>
                     Add To Cart
-                    </a>
                 </button>
-                <button className="add-wishlist">
+                <button className="add-wishlist"
+                    onClick={_addToWishlist}>
                     <i className="fas fa-heart"></i>
                 </button>
             </div>

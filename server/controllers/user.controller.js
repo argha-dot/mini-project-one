@@ -6,8 +6,8 @@ const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
 module.exports = {
 
     update_user_info(req, res) {
-        const {userId, collegeAddress, homeAddress, contact} = req.body;
-        User.findOneAndUpdate({_id: userId}, {$set: {contact: contact, homeAddress: homeAddress, collegeAddress: collegeAddress}}).exec(err, user => {
+        const {userId, address, contact} = req.body;
+        User.findOneAndUpdate({_id: userId}, {$set: {contact: contact, address: address}}).exec(err, user => {
             if(err) {
                 return res.status(400).json({
                     error: "Error from updating user info"
@@ -154,7 +154,7 @@ module.exports = {
     add_to_cart(req, res) {
         const {_id} = req.body;
         User.findOne({ _id }, (err, userInfo) => {
-            if (err) {
+            if (err || !userInfo) {
                 return res.json({ success: "Error from finding the user - add to cart backend", err });
             }
             let duplicate = false;

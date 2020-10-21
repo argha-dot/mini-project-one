@@ -155,7 +155,6 @@ export default function NavBar(props) {
             )
           }
         </form>
-        <Link to="/wish" className="cart-btn"><i className="fas fa-shopping-cart fa-lg"></i></Link>
 
         <div className="right-side">
 
@@ -170,6 +169,7 @@ export default function NavBar(props) {
             {
               userDisplay && (
                 <div className="sign-in-out">
+                  <Link to="/wish" className="cart-button" style={{ backgroundColor: "crimson" }}><i className="fas fa-shopping-cart fa-lg"></i></Link>
                   {(props.user) ? auth_button_loggedIn : auth_button_loggedOut}
                 </div>
               )

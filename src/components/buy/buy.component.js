@@ -6,20 +6,9 @@ import "./buy.component.css"
 export default function Buy(props){
     return (
         <div className="buy-container">
-            <h1 className="buy-title">CHECKOUT</h1>
+        {console.log("From buy page: ", props.location ? props.location.state.user : null)}
+        <h1 className="buy-title">CHECKOUT</h1>
         <Form>
-            <Form.Row>
-                <Form.Group as={Col} controlId="formGridEmail">
-                <Form.Label style={{backgroundColor:"#ffffff"}}>Name</Form.Label>
-                <Form.Control type="email" placeholder="Enter name" />
-                </Form.Group>
-
-                <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Mobile No.</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
-                </Form.Group>
-            </Form.Row>
-
             <Form.Group controlId="formGridAddress1">
                 <Form.Label>Address</Form.Label>
                 <Form.Control placeholder="1234 Main St" />
@@ -35,7 +24,7 @@ export default function Buy(props){
                 <Form.Label>City</Form.Label>
                 <Form.Control />
                 </Form.Group>
-
+        
                 <Form.Group as={Col} controlId="formGridState">
                 <Form.Label>State</Form.Label>
                 <Form.Control as="select" defaultValue="Choose...">
