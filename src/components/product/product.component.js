@@ -6,6 +6,7 @@ import { Carousel, Form, ButtonGroup, Button } from "react-bootstrap";
 import Axios from 'axios'
 
 import Cart from '../crud_cart'; 
+import Wishlist from '../crud_wishlist';
 
 // CSS Imports: 
 import "./product.component.css"
@@ -43,8 +44,11 @@ function ProductPage(props) {
     }, [Product])
 
     function _addToCart() {
-        console.log("hello from _addToCart")
         Cart("ADD_TO_CART", userId, productId);
+    }
+
+    function _addToWishlist() {
+        Wishlist("ADD_TO_WISHLIST", userId, productId); 
     }
 
     var buy = {
@@ -119,7 +123,10 @@ function ProductPage(props) {
                             </Button>
                         </ButtonGroup>
 
-                        <button className="add-wishlist">
+                        <button 
+                            className="add-wishlist"
+                            onClick={_addToWishlist}
+                        >
                             <i className="fas fa-heart"></i>
                         </button>
                     </div>

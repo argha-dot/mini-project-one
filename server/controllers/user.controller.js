@@ -6,28 +6,31 @@ const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
 module.exports = {
 
     update_user_info(req, res) {
-        const {userId, collegeAddress, homeAddress} = req.body;
-        User.findOneAndUpdate({_id: userId}, {$set: {homeAddress: homeAddress, collegeAddress: collegeAddress}}).exec(err, user => {
+        const {userId, collegeAddress, homeAddress, contact} = req.body;
+        User.findOneAndUpdate({_id: userId}, {$set: {contact: contact, homeAddress: homeAddress, collegeAddress: collegeAddress}}).exec(err, user => {
             if(err) {
-                return response.status(400).json({
+                return res.status(400).json({
                     error: "Error from updating user info"
                 })
             }
+            return res.status(200).json({
+                user: user
+            })
         }); 
     }, 
 
     get_user_info(req, res) {
-        return res.status(200).json({
-            _id: req.user._id,
-                    //isAdmin: req.user.role === 0 ? false : true,
-                    //isAuth: true,
-                    email: req.user.email,
-                    name: req.user.name,
-                    //lastname: req.user.lastname,
-                    //role: req.user.role,
-                    image: req.user.image,
-                    cart: req.user.cart,
-                   // history: req.user.history
+        const {userId} = req.params; 
+        
+        User.findById(userId, (err, user) => {
+            if (err) {
+                return res.status(400).json({
+                    error: "User id invalid! (in user info)"
+                })
+            }
+            return res.status(200).json({
+                user: user
+            })
         })
     },
 
@@ -35,6 +38,7 @@ module.exports = {
         const {tokenId} = req.body;
         client.verifyIdToken({idToken: tokenId, audience: process.env.REACT_APP_GOOGLE_CLIENT_ID}).then(res => {
             const {email_verified, name, email, picture} = res.payload;
+            console.log("Res from login backend: ", res.payload); 
             if (email_verified) {
                 User.findOne({email}).exec((err, user) => {
                     if(err) {
@@ -93,11 +97,12 @@ module.exports = {
     /***************************Cart CRUD*************************************** */
 
     get_cart_info(req, res) {
-        const _id = req.query.userId;
+        const _id = req.params.id;
+        // console.log(req.params, _id); 
         User.findOne(
             { _id: _id },
             (err, userInfo) => {
-                if (err) {
+                if (err || !userInfo) {
                     return res.status(400).send(err);
                 } 
                 let cart = userInfo.cart;
@@ -267,20 +272,22 @@ module.exports = {
 
     
     get_wishlist_info(req, res) {
-        const {_id} = req.body;
+        const _id = req.params.id;
         User.findOne(
             { _id: _id },
-            (err, wishlistInfo) => {
+            (err, userInfo) => {
+                if (err || !userInfo) {
+                    return res.status(400).send(err);
+                }
                 let wishlist = userInfo.wishlist;
-                let array = cart.map(item => {
+                let array = wishlist.map(item => {
                     return item.id
                 })
     
     
                 Product.find({ '_id': { $in: array } })
-                    .populate('writer')
                     .exec((err, wishlistInfo) => {
-                        if (err) return res.status(400).send(err);
+                        if (err) return res.status(400)
                         return res.status(200).json({ success: true, wishlistInfo, wishlist })
                     })
     

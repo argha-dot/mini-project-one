@@ -31,7 +31,7 @@ function App()  {
   const [user, setUser] = useState(null);
 
   const logoutSuccess = () => {
-    console.log("From Logout: ", userId)
+    // console.log("From Logout: ", userId)
     axios({
       method: "POST",
       url: "http://localhost:5000/api/google_logout",
@@ -52,13 +52,13 @@ function App()  {
       setSignedIn(true);
       setUserID(res.data.user._id);
       setUser(res.data.user);
-      console.log("Var inside: ", isSignedIn, res.data.user._id);
+      // console.log("Var inside: ", isSignedIn, res.data.user._id);
     })
       .catch(err => console.log("Error from succesfulResponseGoogle", err));
   }
 
   const failedResponseGoogle = (response) => {
-    console.log("Here", response);
+    // console.log("Here", response);
     setSignedIn(false);
   }
 
@@ -84,12 +84,23 @@ function App()  {
           />
 
           <Route 
-            path="/cart" 
+            path="/cart"
+            render={props => <Cart user={user} {...props}
             component={Cart} />
+          }/>
+
+          <Route
+            path="/wish"
+            render={props => <Wish user={user} {...props}
+            component={Wish} />
+          } />
+
           <Route 
-            path="/wish" component={Wish} />
-          <Route 
-            path="/profile" component={Profile} />
+            path="/profile" 
+            render={props => <Profile user={user} {...props}
+            component={Profile} />
+          }
+          />
 
 
           <Footer />
