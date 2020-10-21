@@ -1,5 +1,7 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
+import Axios from "axios";
+import WishC from "../../crud_wishlist";
 
 const data =
 {
@@ -14,25 +16,44 @@ const data =
 }
 
 
-export default function WishItem() {
+export default function WishItem(props) {
+
+    const [productList, setProductList] = useState([]);
+
+    useEffect(() => {
+        Axios.get(`/api/products/${props.wishDetails ? props.wishDetails.id : null}`)
+            .then(response => {
+                setProductList(response.data.product)
+            }).catch(err => console.log(err))
+
+    }, [])
+
+    const _deleteFromWish = () => {
+        WishC("DELETE_FROM_WISHLIST", props.userId, props.wishDetails.id);
+        console.log("deleted succefully");
+    };
+
     return(
         <div className="wish-item">
-            <Link to={"/product/" + data.gameboy.id}
+            <Link to={"/product/" + productList.id}
                 className="wish-item-link"
                 style={{ color: "#ffffff" }}>
-                {data.gameboy.productName}
+                {productList.name}
             </Link>
             <div className="wish-item-img">
-                <img src={data.gameboy.imgLinks[0]}
+                <img src={productList.pictures}
                     alt="Something"
                     width="160px" />
             </div>
             <div className="wish-item-buttons">
-                <button className="wish-item-del">Delete</button>
+                <button 
+                    className="wish-item-del"
+                    onClick={_deleteFromWish}
+                >Delete</button>
                 <button className="wish-item-wish">Move To Cart</button>
             </div>
             <h3 className="wish-item-price">
-                {"Price: " + data.gameboy.price}
+                {"Price: " + productList.price}
             </h3>
         </div>
     )
