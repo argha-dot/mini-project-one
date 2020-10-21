@@ -1,0 +1,11 @@
+.buy-container{
+    width: 30rem;
+    margin-left: 30rem;
+    margin-top: 5rem;
+    height: 80vh;
+}
+
+.buy-title{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: xx-large;
+}
