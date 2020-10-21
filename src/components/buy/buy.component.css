@@ -1,11 +1,16 @@
 .buy-container{
-    width: 30rem;
-    margin-left: 30rem;
+    width: 50rem;
+    margin-left: 20rem;
     margin-top: 5rem;
     height: 80vh;
+    color: rgb(255, 255, 255);
 }
 
 .buy-title{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: xx-large;
+    color: darkslategray;
+    /* background-color: ; */
+    text-align: center;
+    margin-bottom: 3rem;
 }
