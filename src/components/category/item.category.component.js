@@ -8,14 +8,15 @@ import WishlistC from '../crud_wishlist';
 export default function ItemCategory(props) {
 
     console.log("From Item Category Page: ", props.user);
-    const user = props.user; 
+    const user = props.user;
+    const userId = user ? props.user._id : null
 
     function _addToCart() {
-        CartC("ADD_TO_CART", user._id, props.data._id);
+        CartC("ADD_TO_CART", userId, props.data._id);
     }
 
     function _addToWishlist() {
-        WishlistC("ADD_TO_WISHLIST", user._id, props.data._id);
+        WishlistC("ADD_TO_WISHLIST", userId, props.data._id);
     }
 
     return(

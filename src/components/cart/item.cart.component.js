@@ -40,14 +40,13 @@ export default function CartItem(props) {
 
     return (
         <div className="cart-item">
-            {console.log(productList)}
-            <Link to={"/product/" + productList.id}
+            <Link to={`/product/${props.cartDetails ? ((productList) ? productList._id : null) : null}`}
                 className="cart-item-link"
                 style={ {color: "#6b6b6b"} }>
                 {productList.name}
             </Link>
             <div className="cart-item-img">
-                <img src={props.cartDetails ? productList.pictures:data.gameboy.imgLinks[0]} width={"250px"}
+                <img src={props.cartDetails ? ((productList.pictures) ? productList.pictures[0] : "https://www.amplifiedtelephones.co.uk/user/products/large/image-unavailable-amplified-telephones.jpg"):data.gameboy.imgLinks[0]} width={"250px"}
                     alt="Something"
                     width="160px"/>
             </div>

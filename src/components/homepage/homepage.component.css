@@ -35,7 +35,7 @@
   height: 10rem;
   color: rgb(255, 255, 255);
   flex-direction: column;
-  text-shadow: 2px 2px #055361;
+  text-shadow: 5px 5px 2px #000000;
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;

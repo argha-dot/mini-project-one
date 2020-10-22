@@ -7,6 +7,7 @@ import Axios from 'axios'
 
 import Cart from '../crud_cart'; 
 import Wishlist from '../crud_wishlist';
+import Popup from "../popup/popup";
 
 // CSS Imports: 
 import "./product.component.css"
@@ -33,6 +34,7 @@ function ProductPage(props) {
     // console.log("usr Id from Product Page:", props); 
     const [Product, setProduct] = useState('')
     const [qty, setIncrement] = useState(1)
+    const [showPopup, setShowPopUp] = useState(false);
     
 
     useEffect(() => {
@@ -55,6 +57,11 @@ function ProductPage(props) {
         borderRadius: "0px",
         backgroundColor: "darkgray",
         border: "none"
+    }
+
+    function togglePopup() {
+        setShowPopUp(!showPopup)
+        console.log(showPopup);
     }
 
     return (
@@ -115,12 +122,14 @@ function ProductPage(props) {
 
                     <div className="shop-btn">
                         <ButtonGroup className="add-buy">
-                            <Button>
-                                <a className="add-link"
+                            <Button onClick={() => {
+                                togglePopup()
+                                _addToCart()}}>
+                                <div className="add-link"
                                     style={{ textDecoration: "none" }}
-                                    onClick={_addToCart}>
+                                    >
                                     Add To Cart
-                                    </a>
+                                </div>
                             </Button>
 
                             <Button variant="dark" style={buy}>
@@ -128,19 +137,24 @@ function ProductPage(props) {
                                     style={{ textDecoration: "none" }}
                                     href="https://itch.io/">
                                     Buy Now
-                                    </a>
+                                </a>
                             </Button>
                         </ButtonGroup>
 
                         <button 
                             className="add-wishlist"
-                            onClick={_addToWishlist}
+                            onClick={() => {
+                                _addToWishlist()
+                                togglePopup()}}
                         >
                             <i className="fas fa-heart"></i>
                         </button>
                     </div>
                 </div>
             </div>
+            {showPopup && (
+                <Popup text={"Added ✔"} closePopup={() => setShowPopUp(!showPopup)}></Popup>
+            )}
         </div>
     )
 }

@@ -53,7 +53,7 @@ export default function Category(props) {
             {/* {console.log(productList)} */}
             <div className="cat-topbar">
                 <h3 className="cat-title">{key[categoryId]}</h3>
-                <DropdownButton size="sm" id="dropdown-basic-button" title="Dropdown button" style={{ marginRight: "6rem" }}>
+                <DropdownButton size="sm" id="dropdown-basic-button" title="Filter" style={{ marginRight: "6rem" }}>
                     <Dropdown.Item 
                         as="button" 
                         onClick={() => {setProductList(productList.sort((a, b) => {

@@ -1,56 +1,45 @@
 import React, { useEffect, useState } from "react";
-import Axios from "axios";
-import CartItem from "./item.cart.component";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
+import CartItem from "./item.cart.component";
+import CartSide from "./side.cart.component";
 
 import "./cart.component.css";
 
 export default function Cart(props) {
 
     const [cartList, setCartList] = useState(null);
-    const [user, setUser] = useState(props.user ? props.user : "")
-    const [userId, setUserId] = useState(props.user ? props.user._id : "")
+    const [user, setUser] = useState(props.user ? props.user : "");
+    var total = 0;
 
     useEffect(() => {
-        setUserId(props.user ? props.user._id : "");
         setUser(props.user ? props.user : "");
-        Axios({
+        axios({
             method: "GET",
-            url: `http://localhost:5000/api/see_cart/${userId}`
+            url: `http://localhost:5000/api/see_cart/${user._id}`
         })
-        .then(response => {
-            // console.log("Response from cart.comp from cart: ", response);
-            setCartList(response.data.cart);
-        })
+        .then(response => {setCartList(response.data);})
         .catch(err => console.log("error from cart.comp Error: ", err))
     }, [cartList, user])
 
-    
     console.log("cartList from get cart: ", cartList);
 
-    
     return (
         <div className="cart-main" style={{ color: "whitesmoke" }}>
             <h1 className="cart-title">Shopping Cart</h1>
             <br />
             <div className="cart-contents">
                 {
-                    cartList && cartList.map((item) => {
+                    cartList && cartList.cart.map((item) => { // cartList.cartData[index].price
+                        total += item.quantity*Number(cartList.cartData[cartList.cart.indexOf(item)].price.replace(/\D/g, ''))
                         return (
-                            <CartItem userId={userId} cartDetails={item} key={item.id}/>
+                            <CartItem userId={user._id} cartDetails={item} key={item.id}/>
                         )
                     })
                 }
             </div>
-            {/* <Link to="/buy" className="buy-button">Checkout</Link> */}
-            <Link to={{
-                pathname: `/buy`,
-                state: {user: user}
-            }}
-                className="buy-button">
-                Checkout
-            </Link>
+            <CartSide user={user} total={total}></CartSide>
         </div>
     )
 }
