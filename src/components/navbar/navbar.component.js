@@ -96,6 +96,7 @@ export default function NavBar(props) {
       onSuccess={props.sucessfulResponseGoogle}
       onFailure={props.failedResponseGoogle}
       cookiePolicy={'single_host_origin'}
+      isSignedIn={true}
     />
   </div>
   
