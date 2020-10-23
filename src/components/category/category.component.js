@@ -4,7 +4,7 @@ import ItemCategory from "./item.category.component"
 import axios from "axios";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 
-
+import Popup from "../popup/popup";
 
 const key = {
     "games": "Vintage Gaming",
@@ -22,6 +22,9 @@ const key = {
 export default function Category(props) {
     var categoryId = props.match ? props.match.params.catId : '';
     const user = props.location.state? props.location.state.user : '';
+    
+    const [showPopup, setShowPopUp] = useState(false);
+    
     const [productList, setProductList] = useState([{
         "pictures": [
             "https://illlustrations.co/static/cb0069bee07d4675ef939a4c61774cac/116-gameboy.png"
@@ -45,6 +48,10 @@ export default function Category(props) {
     useEffect(() => {
         fetchData();
     }, [])
+
+    function togglePopup() {
+        setShowPopUp(!showPopup);
+    }
 
 
 
@@ -70,10 +77,13 @@ export default function Category(props) {
             <div className="cat-contents">
                 {
                     productList.map((index) => (
-                        index.category === key[categoryId] ? <ItemCategory data={index} user={user} key={index._id}/>:null
+                        index.category === key[categoryId] ? <ItemCategory toggle={() => setShowPopUp(!showPopup)} data={index} user={user} key={index._id}/>:null
                     ))
                 }
             </div>
+            {showPopup && (
+                <Popup text={"Added ✔"} closePopup={() => setShowPopUp(!showPopup)}></Popup>
+            )}
         </div>
     )
 }

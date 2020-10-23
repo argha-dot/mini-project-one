@@ -42,11 +42,15 @@ export default function ItemCategory(props) {
             <div className="btns">
                 <span className="cat-item-price">{props.data?props.data.price:''}</span>
                 <button className="add-to"
-                    onClick={_addToCart}>
+                    onClick={() => {
+                        _addToCart()
+                        props.toggle()}}>
                     Add To Cart
                 </button>
                 <button className="add-wishlist"
-                    onClick={_addToWishlist}>
+                    onClick={() => {
+                        _addToWishlist()
+                        props.toggle()}}>
                     <i className="fas fa-heart"></i>
                 </button>
             </div>

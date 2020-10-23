@@ -61,7 +61,6 @@ function ProductPage(props) {
 
     function togglePopup() {
         setShowPopUp(!showPopup)
-        console.log(showPopup);
     }
 
     return (
