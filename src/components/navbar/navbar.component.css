@@ -113,11 +113,11 @@
 }
 
 .usr-btn {
-    padding-top: 0rem;
+    padding-top: 1.25rem;
     background-color: transparent;
     border: none;
-    width: 4rem; 
     height: 5rem;
+    width: auto;
     border-radius: 0px;
 }
 
@@ -135,6 +135,7 @@
     padding-left: 3.5rem;
     width: 12%;
     justify-content: flex-start;
+    gap: 1rem;
 }
 
 .form-main {
@@ -194,16 +195,9 @@
 }
 
 .nav-profile-pic {
-    height: 2.5rem;
+    height: 2rem;
     width: auto;
     border-radius: 50%;
-}
-
-.user-dropdown {
-    position: fixed;
-    margin-left: 3.5rem;
-    justify-content: center;
-    text-align: center;
 }
 
 .sign-in-out {

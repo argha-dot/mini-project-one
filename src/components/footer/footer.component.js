@@ -11,7 +11,7 @@ export default class Footer extends Component
         return (
             <div className="footer">
                 <Link to="/about.us" className="usefulVarName">Know More About Us</Link>
-                <div className="usefulVarName"><a href="https://github.com/argha-dot/mini-project-one">Connect with Us </a></div> 
+                <div className="usefulVarName"><a style={{ color: "white" }} target="_blanck" href="https://github.com/argha-dot/mini-project-one">Connect with Us </a></div> 
             </div>
         )
     }

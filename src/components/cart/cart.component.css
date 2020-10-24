@@ -63,5 +63,41 @@
 
 .cart-side-main {
     height: 30rem;
-    width: 18.5rem
+    width: 26rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+    position: fixed;
+    right: 0;
+}
+
+.price-title {
+    text-align: center;
+    padding-top: 0.5rem;
+}
+
+.price-details {
+    width: 25rem;
+    margin: 1.75rem;
+    margin-top: 3rem;
+}
+
+.price-details-row {
+    height: 2.5rem;
+}
+
+.price-details-row:last-child {
+    border-top: 1px ridge rgba(255, 255, 255, 0.1);
+}
+
+.goof {
+    margin: 1.25rem;
+    color: var(--hover-color);
+}
+
+.buy-button {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 6rem;
+    padding: 0.75rem;
+    border-radius: 5px;
+    margin-left: calc(2*(100%/5));
+    margin-top: 4rem
 }

@@ -69,8 +69,8 @@ export default function Category(props) {
                         }))}}>
                         Sort by Price
                     </Dropdown.Item>
-                    <Dropdown.Item as="button" >Another action</Dropdown.Item>
-                    <Dropdown.Item as="button" >Something else</Dropdown.Item>
+                    <Dropdown.Item as="button" >Doesn't Work</Dropdown.Item>
+                    <Dropdown.Item as="button" >Please Help</Dropdown.Item>
                 </DropdownButton>
             </div>
             <br />
