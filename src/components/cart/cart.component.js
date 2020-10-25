@@ -23,7 +23,7 @@ export default function Cart(props) {
         .catch(err => console.log("error from cart.comp Error: ", err))
     }, [cartList, user])
 
-    console.log("cartList from get cart: ", cartList);
+    // console.log("cartList from get cart: ", cartList);
 
     return (
         <div className="cart-main" style={{ color: "whitesmoke" }}>
@@ -34,7 +34,7 @@ export default function Cart(props) {
                     cartList && cartList.cart.map((item) => { // cartList.cartData[index].price
                         total += item.quantity*Number(cartList.cartData[cartList.cart.indexOf(item)].price.replace(/\D/g, ''))
                         return (
-                            <CartItem userId={user._id} cartDetails={item} key={item.id}/>
+                            <CartItem user={user} cartDetails={item} key={item.id}/>
                         )
                     })
                 }

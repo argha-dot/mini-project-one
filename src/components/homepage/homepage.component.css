@@ -16,7 +16,12 @@
   height: 20rem;
   /* max-width: 60rem; */
   align-self: center;
-  background-color: #000000;
+  background-color: rgba(50, 50, 50, 0.25);
+  transition: all 250ms
+}
+
+.home-carousel:hover {
+  transform: scale(1.2);
 }
 
 .homepage-carousel-img {

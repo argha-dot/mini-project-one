@@ -29,18 +29,22 @@ export default function CartItem(props) {
     }, [])
 
     const _deleteFromCart = () => {
-        CartC("DELETE_FROM_CART", props.userId, props.cartDetails.id);
+        CartC("DELETE_FROM_CART", (props.user) ? props.user._id : null, props.cartDetails.id);
         console.log("deleted succefully");
     };
 
     const _moveToWishlist = () => {
-        CartC("DELETE_FROM_CART", props.userId, props.cartDetails.id);
-        WishC("ADD_TO_WISHLIST", props.userId, props.cartDetails.id); 
+        CartC("DELETE_FROM_CART", (props.user) ? props.user._id:null, props.cartDetails.id);
+        WishC("ADD_TO_WISHLIST", (props.user) ? props.user._id : null, props.cartDetails.id); 
     }
 
     return (
         <div className="cart-item">
-            <Link to={`/product/${props.cartDetails ? ((productList) ? productList._id : null) : null}`}
+            <Link to={{
+                pathname:`/product/${props.cartDetails ? ((productList) ? productList._id : null) : null}`,
+                state: {
+                    user: props.user
+                }}}
                 className="cart-item-link"
                 style={ {color: "#6b6b6b"} }>
                 {productList.name}

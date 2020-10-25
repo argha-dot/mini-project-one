@@ -7,3 +7,12 @@
     color: gold;
     size: 20px;
 }
+
+.star{
+    cursor: pointer;
+    transition: color 200ms;
+}
+
+input[type="radio"] {
+    display: none;
+}

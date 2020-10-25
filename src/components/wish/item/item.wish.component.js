@@ -47,7 +47,7 @@ export default function WishItem(props) {
                 {productList.name}
             </Link>
             <div className="wish-item-img">
-                <img src={productList.pictures}
+                <img src={productList ? (productList.pictures ? productList.pictures[0]:"https://www.amplifiedtelephones.co.uk/user/products/large/image-unavailable-amplified-telephones.jpg"):data.gameboy.imgLinks[0]}
                     alt="Something"
                     width="160px" />
             </div>

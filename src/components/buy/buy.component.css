@@ -2,15 +2,14 @@
     width: 50rem;
     margin-left: 20rem;
     margin-top: 5rem;
+    margin-bottom: 3rem;
     height: 80vh;
-    color: rgb(255, 255, 255);
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .buy-title{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: xx-large;
+    font-size: 2rem;
     color: darkslategray;
-    /* background-color: ; */
-    text-align: center;
+    text-align: start;
     margin-bottom: 3rem;
 }

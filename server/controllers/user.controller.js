@@ -34,6 +34,8 @@ module.exports = {
         })
     },
 
+    // Already made a get+_cart_info below
+
     google_login(req, response) {
         const {tokenId} = req.body;
         client.verifyIdToken({idToken: tokenId, audience: process.env.REACT_APP_GOOGLE_CLIENT_ID}).then(res => {
