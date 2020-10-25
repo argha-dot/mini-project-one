@@ -65,15 +65,10 @@ export default function Sidebar(props) {
                     <span className="link-text">Cabinets</span>
                 </Link>
 
-                <a target="_blanck" href="https://blacklivesmatter.com/" className="side-item">
-                    <i className="fas fa-helicopter"></i>
-                    <span className="link-text">Kobe</span>
-                </a>
-
-                <Link to="/" className="side-item">
+                {/* <Link to="/" className="side-item">
                     <i className="fas fa-cogs"></i>
                     <span className="link-text">Settings</span>
-                </Link>
+                </Link> */}
             </ul>
         </nav>
     )

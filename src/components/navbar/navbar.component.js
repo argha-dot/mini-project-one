@@ -138,7 +138,7 @@ export default function NavBar(props) {
           </button>
 
           <span className="navbar-brand">
-            <Link to="/" className="nav-link">SHOP</Link>
+            <Link to="/" className="nav-link">LARRSON</Link>
           </span>
         </div>
         <form ref={wrapperRef} className="form-main">
