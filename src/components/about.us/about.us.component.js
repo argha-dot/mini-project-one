@@ -10,7 +10,7 @@ export default function AmongUs(props){
       <p>This is what we do.</p>
     </div>
     
-    <h2 style={{ textAlign: "center", text:  "#ffffff" }}>Our Team</h2>
+    <h2 style={{ textAlign: "center", color: "#ffffff", paddingTop: "20px" }}>hi!</h2>
     <div className="row">
       <div className="column">
         <div className="card">
@@ -20,7 +20,7 @@ export default function AmongUs(props){
             <p className="title">Founder</p>
             <p>CS Major, Math Minor.</p>
             <p>aarav.varshney_ug22@ashoka.edu.in</p>
-            <p><button className="button"><a href="https://github.com/aarav22">Contact</a></button></p>
+            <p><button className="button"><a style={{display: "table-cell"}} href="https://github.com/aarav22" target="_blank">Contact</a></button></p>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@ export default function AmongUs(props){
             <p className="title">Founder</p>
             <p>Keeps changing her major.</p>
             <p>khushi.mehta_ug22@ashoka.edu.in</p>
-            <p><button className="button"><a href="https://github.com/khushi678">Contact</a></button></p>
+            <p><button className="button"><a style={{display: "table-cell"}} href="https://github.com/khushi678" target="_blank">Contact</a></button></p>
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@ export default function AmongUs(props){
             <p className="title">Founder</p>
             <p>CS Major, Vintage Games Enthusiast</p>
             <p>argha.chakrabarty_ug22@ashoka.edu.in</p>
-            <p><button className="button"><a href="https://github.com/argha-dot">Contact</a></button></p>
+            <p><button className="button"><a style={{display: "table-cell"}} href="https://github.com/argha-dot" target="_blank">Contact</a></button></p>
           </div>
         </div>
       </div>

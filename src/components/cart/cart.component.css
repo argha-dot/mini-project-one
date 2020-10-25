@@ -51,9 +51,12 @@
     width: 32rem;
 }
 
-.cart-item-buttons {
+.cart-item-buttons *{
     grid-area: buttons;
     align-self: end;
+    color: #ffffff;
+    background-color: rgb(3, 90, 90);
+    border-color: rgb(0, 0, 0);
 }
 
 .cart-item-price {
