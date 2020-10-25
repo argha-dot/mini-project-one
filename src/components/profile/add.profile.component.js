@@ -24,7 +24,7 @@ const data = [
 ]
 
 
-export default function Address() {
+export default function Address(props) {
     return(
         <div className="addr-main">
             <h3 className="addr-title">Addresses</h3>

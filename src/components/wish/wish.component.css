@@ -36,18 +36,25 @@
     grid-area: name;
     font-size: 2.5rem;
     padding-bottom: 1rem;
+    justify-self: start;
 }
 
 .wish-item-buttons {
     grid-area: buttons;
     align-self: end;
-    background-color: teal;
-    color: whitesmoke;
+    
     margin-bottom: 2rem;
     margin-top: 1.75rem;
     
+}
+
+.wish-item-buttons *{
+    background-color: teal;
+    color: whitesmoke;
+    border: none;
 
 }
+
 
 .wish-item-price {
     grid-area: price;

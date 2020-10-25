@@ -1,0 +1,15 @@
+.buy-container{
+    width: 50rem;
+    margin-left: 20rem;
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+    height: 80vh;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.buy-title{
+    font-size: 2rem;
+    color: darkslategray;
+    text-align: start;
+    margin-bottom: 3rem;
+}

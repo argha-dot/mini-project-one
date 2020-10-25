@@ -1,5 +1,8 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Axios from 'axios';
+import CartC from "../crud_cart";
+import WishC from "../crud_wishlist";
 
 const data =
 {
@@ -13,29 +16,58 @@ const data =
     }
 }
 
-export default class CartItem extends Component {
-    render() {
-        return (
-            <div className="cart-item">
-                <Link to={"/product/" + data.gameboy.id}
-                    className="cart-item-link"
-                    style={ {color: "#6b6b6b"} }>
-                    {data.gameboy.productName}
-                </Link>
-                <div className="cart-item-img">
-                    <img src={data.gameboy.imgLinks[0]} width={"250px"}
-                        alt="Something"
-                        width="160px"/>
-                </div>
-                <div className="cart-item-buttons">
-                    <button className="cart-item-qty">Qty: 1</button>
-                    <button className="cart-item-del">Delete</button>
-                    <button className="cart-item-wish">Wishlist</button>
-                </div>
-                <h3 className="cart-item-price">
-                    {"Price: " + data.gameboy.price}  
-                </h3>
-            </div>
-        )
+export default function CartItem(props) {
+
+    const [productList, setProductList] = useState([]);
+
+    useEffect(() => {
+        Axios.get(`/api/products/${props.cartDetails ? props.cartDetails.id:null}`)
+            .then(response => {
+                setProductList(response.data.product)
+            }).catch(err => console.log(err))
+
+    }, [])
+
+    const _deleteFromCart = () => {
+        CartC("DELETE_FROM_CART", (props.user) ? props.user._id : null, props.cartDetails.id);
+        console.log("deleted succefully");
+    };
+
+    const _moveToWishlist = () => {
+        CartC("DELETE_FROM_CART", (props.user) ? props.user._id:null, props.cartDetails.id);
+        WishC("ADD_TO_WISHLIST", (props.user) ? props.user._id : null, props.cartDetails.id); 
     }
+
+    return (
+        <div className="cart-item">
+            <Link to={{
+                pathname:`/product/${props.cartDetails ? ((productList) ? productList._id : null) : null}`,
+                state: {
+                    user: props.user
+                }}}
+                className="cart-item-link"
+                style={ {color: "#6b6b6b"} }>
+                {productList.name}
+            </Link>
+            <div className="cart-item-img">
+                <img src={props.cartDetails ? ((productList.pictures) ? productList.pictures[0] : "https://www.amplifiedtelephones.co.uk/user/products/large/image-unavailable-amplified-telephones.jpg"):data.gameboy.imgLinks[0]} width={"250px"}
+                    alt="Something"
+                    width="160px"/>
+            </div>
+            <div className="cart-item-buttons">
+                <button className="cart-item-qty">{props.cartDetails ? props.cartDetails.quantity : 1}</button>
+                <button 
+                    className="cart-item-del"
+                    onClick={_deleteFromCart}>
+                Delete</button>
+                <button 
+                    className="cart-item-wish"
+                    onClick={_moveToWishlist}
+                >Save To Wishlist</button>
+            </div>
+            <h3 className="cart-item-price">
+                {"Price: " + productList.price}  
+            </h3>
+        </div>
+    )
 }

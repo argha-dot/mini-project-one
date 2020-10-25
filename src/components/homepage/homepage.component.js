@@ -1,134 +1,130 @@
-import React, { Component } from 'react';
-import "./homepage.component.css";
+import React, { useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel'
-import Image from 'react-bootstrap/Image'
-import Card from 'react-bootstrap/Card'
-import CardDeck from 'react-bootstrap/CardDeck'
-import "./base.css"
-// import Grid from "./grid.html"
-import one from "./1.jpg" 
-import two from "./2.jpg" 
-import three from "./3.jpeg"
-import four from "./4.jpeg" 
-import five from "./5.jpeg" 
-import six from "./6.jpeg"  
+import { Link } from "react-router-dom"
+import axios from "axios"
 
-export default class Homepage extends Component {
-    render() {
+import "./homepage.component.css";
 
-        return (
-            <div className="homepage-main" style={{ color: "whitesmoke" }}>
+const category = [["Motherboard", "https://images.unsplash.com/photo-1510746001195-0db09655b6db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80", "motherboard"],
+                ["Memory", "https://images.unsplash.com/photo-1562976540-1502c2145186?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1778&q=80", "ram"],
+                ["CPU", "https://images.unsplash.com/photo-1555617778-02518510b9fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80", "cpu"],
+                ["Storage", "https://images.unsplash.com/photo-1531492746076-161ca9bcad58?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80", "storage"],
+                ["Cabinets", "https://images.unsplash.com/photo-1592664474496-8f2c35acd655?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", "cabinets"],
+                ["Peripherals", "https://images.unsplash.com/photo-1595074475126-11362260b8aa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=752&q=80", "peri"],
+                ["Graphics Card", "https://images.unsplash.com/photo-1591489378430-ef2f4c626b35?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80", "graphics"],
+                ["Power Units/Cooling", "https://images.unsplash.com/photo-1562976540-1502c2145186?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1778&q=80", "psu"],
+                ["Monitors", "https://images.unsplash.com/photo-1547658718-1cdaa0852790?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80", "monitor"],
+                ["For Gamers", "https://images.unsplash.com/photo-1599005280793-04627b9bd10a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80", "games"]
+              ]
 
-              
-          <Carousel className="homepage-carousel">
-                <Carousel.Item>
-                  
-                    <img src = {one}  
-                    className="d-block w-100"/>
+const chooseRandom = (arr, num = 1) => {
+  const res = [];
+  for (let i = 0; i < num;) {
+    const random = Math.floor(Math.random() * arr.length);
+    if (res.indexOf(arr[random]) !== -1) {
+      continue;
+    };
+    res.push(arr[random]);
+    i++;
+  };
+  return res;
+};
 
-                  
-                  <Carousel.Caption>
-                    <h3>Lenovo IdeaCentre AIO 330 19.5-inch All-in-One Desktop </h3>
-                    <p>₹ 25,000</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={two} 
-                    alt="Second slide"
-                  />
+export default function Homepage(props) {
 
-                  <Carousel.Caption>
-                    <h3>Second slide label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={three} 
-                    alt="Third slide"
-                  />
+  const user = props.user; 
+  // console.log("usr Id from Home  Page:", user); 
 
-                  <Carousel.Caption>
-                    <h3>Third slide label</h3>
-                    <p>
-                      Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+  const [productList, setProductList] = useState([{
+    "pictures": [
+      "https://illlustrations.co/static/cb0069bee07d4675ef939a4c61774cac/116-gameboy.png"
+    ],
+    "category": "Vintage Gaming",
+    "_id": "5f8226bd85da3239dc1f5c25",
+    "name": "Gameboy",
+    "description": "",
+    "price": "₹2000",
+  }]);
+
+  const fetchData = () => {
+    axios.get(`/api/products/`)
+      .then((response) => {
+        // console.log(`reponse from homepage: ${response}`)
+        setProductList(chooseRandom(response.data.products, 4))
+      })
+      .catch(err => console.log(`${err} from catergory.component frontend`))
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      fetchData();
+    }, 100);
+  }, [])
+
+  return (
+    <div className="homepage-main" style={{ color: "whitesmoke" }}>
+      {/* {console.log(productList)} */}
+      <Carousel className="home-carousel">
+        {
+          productList.map((item) => (
+            <Carousel.Item key={item._id}>
+            <Link to={{
+                pathname: `/product/${item._id}`,
+                state: {
+                  user: user
+                }
+              }}
+              style={{ display: "flex", gap: "160px" }}
+              >
+                <img
+                  className="home-carousel-img"
+                  src={item.pictures[0]}
+                  alt={`${item.name}`}
+                  style={{  height: "15rem", 
+                            width: "auto", 
+                            borderRadius: "10px", 
+                            marginTop: "40px", 
+                            marginLeft: "150px", 
+                            maxWidth: "30rem", 
+                            border: "5px solid rgb(3, 85, 81)" }}/>
+                <div className="home-carousel-des"
+                  style={{  color: "wheat", 
+                            display: "flex", 
+                            flexDirection: "column", 
+                            marginTop: "48px" }}>
+                  <h6 className="home-car-cat">{item.category}</h6>
+                  <h3 className="home-car-title"
+                  style={{ wordWrap: "break-word", width: "30rem" }}>
+                    {item.name}
+                    </h3>
+                  <p className="home-car-para">
+                    {item.price}
                     </p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-              </Carousel>
-          
-          {/* <PhotoGrid>
+                </div>
+              </Link>
+            </Carousel.Item>
+          ))
+        }
+      </Carousel>
 
-          </PhotoGrid> */}
+      <div className="homepage-grid-container">
+        {category.map((item, key) => {
+          return (
+            <Link to={{
+              pathname: `/category/${item[2]}`,
+              state: {
+                user: user
+              }
+            }} 
+              className="homepage-photo-card"
+              key={key}
+              style={{ backgroundImage: `url(${item[1]})`, color: "white" }}>
+              {item[0]}
+            </Link>
+          )
+        })}
+      </div>
+    </div>
 
-          <h1>Categories</h1>
-          
-          <CardDeck className="homepage-carddeck">
-            <Card
-            //  bg={variant.toLowerCase()}
-            //  text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
-             style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={four} fluid />
-              <Card.Body>
-                <Card.Title>Card title</Card.Title>
-                <Card.Text className="homepage-cardtext">
-                  This is a wider card with supporting text below as a natural lead-in to
-                  additional content. This content is a little bit longer.
-                </Card.Text>
-              </Card.Body>
-
-            </Card>
-            <Card>
-              <Card.Img variant="top" src={five} fluid />
-
-              </Card>
-              <Card>
-             
-            <Card.Body>
-            <Card.Img variant="top" src={six} fluid />
-
-          
-            </Card.Body>
-            </Card>
-            <Card>
-            
-              
-              
-              <Card.Body>
-              <Card.Img variant="top" src={four} fluid />
-
-            
-              </Card.Body>
-            </Card>
-
-            <Card>
-              
-              <Card.Body>
-              <Card.Img variant="top" src={five} fluid />
-                <Card.Title className="homepage-cardtext">Card title</Card.Title>
-            
-              </Card.Body>
-              
-            </Card>
-            <Card>
-              <Card.Img variant="top" src={six} fluid />
-              <Card.Body>
-                <Card.Title>Card title</Card.Title>
-                <Card.Text>
-                  This is a wider card with supporting text below as a natural lead-in to
-                  additional content. This card has even longer content than the first to
-                  show that equal height action.
-                </Card.Text>
-              </Card.Body>
-              <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </Card.Footer>
-            </Card>
-          </CardDeck>
-</div>
-        )
-    }
+  )
 }

@@ -1,28 +1,80 @@
-import React, { Component, useState } from "react";
-import ProductPage from '../product/product.component';
-import { withRouter } from 'react-router-dom';
+// React Imports: 
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from 'react-router-dom';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { Dropdown, DropdownButton } from "react-bootstrap";
 
-import { connect } from 'react-redux';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
 
-import { GoogleLogin, GoogleLogout, useGoogleLogin } from 'react-google-login';
 // CSS Imports: 
 import { Navbar } from "react-bootstrap"
 import "./navbar.component.css"
 
+export default function NavBar(props) {
 
-function NavBar(props) {
-  const dispatch = useDispatch();
   const [sidebarToggle, setToggle] = useState(true);
-  const [isSignedIn, setSignedIn] = useState(false);
-  const [userId, setUserID] = useState('');
-  const [user, setUser] = useState(null);
+  const [search, setSearch] = useState("");
+  const [productList, setProductList] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [display, setDisplay] = useState(false);
+  const [userDisplay, setUserDisplay] = useState(false);
+  const [cartList, setCartList] = useState(null)
+  const wrapperRef = useRef(null);
+
+  const fetchData = () => {
+    axios.get(`http://localhost:5000/api/products/`)
+      .then((response) => {
+        // console.log(`reponse from category: ${response}`)
+        setProductList(response.data.products)
+      })
+      .catch(err => console.log(`${err} from navbar.component frontend`))
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      fetchData();
+    }, 1000);
+  }, [])
+
+  
+
+  useEffect(() => {
+    setFilteredProducts(
+      productList.filter(product => {
+        return (product.name.toLowerCase().includes(search.toLowerCase()) || product.category.toLowerCase().includes(search.toLowerCase()))
+      })
+    )
+  }, [search, productList])
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, []);
+
+  console.log("user from nav", props.user);
+
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: `http://localhost:5000/api/see_cart/${props.user ? props.user._id : ""}`
+    })
+      .then(response => { setCartList(response.data.cart); console.log("nav.comp user", cartList);})
+      .catch(err => console.log("error from nav.comp Error: ", err))
+  })
+
+  const handleClickOutside = (event) => {
+    const {current: wrap} = wrapperRef;
+    if (wrap && !wrap.contains(event.target)) {
+      setDisplay(false);
+    }
+  }
+  
   const linkFunc = (path) => {
     this.props.history.push(path);
   }
-  // const { signIn, loaded } = useGoogleLogin({});
 
   const sideOpen = () => {
     if (sidebarToggle) {
@@ -35,69 +87,48 @@ function NavBar(props) {
     setToggle(!sidebarToggle);
   }
 
-  // const { loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0();
-  // console.log("Authentication Status: ", isAuthenticated);
+  // console.log("Var Outside: ", props.isSignedIn)
 
-  const logoutSuccess = () => {
-    console.log("From Logout: ", userId)
-    axios({
-      method: "POST",
-      url: "http://localhost:5000/api/google_logout",
-      data: { userId: userId }
-    }).then(res => {
-      setSignedIn(false);
-      setUser(null);
-      // dispatch(logout());
-    })
+  // Google auth buttons copied from npm google login button website
+
+  var auth_button_style = {
+    "backgroundColor": "#76f3e4",
+    "border": "none",
+    "color": "black"
+
   }
 
-  const sucessfulResponseGoogle = (response) => {
-    axios({
-      method: "POST",
-      url: 'http://localhost:5000/api/google_login',
-      data: { tokenId: response.tokenId }
-    }).then(res => {
-      console.log(res);
-      setSignedIn(true);
-      setUserID(res.data.user._id);
-      setUser(res.data.user);
-      console.log("Var inside: ", isSignedIn, res.data.user._id);
-      // dispatch(login(res.data.user));
-    })
-      .catch(err => console.log("Error from succesfulResponseGoogle", err));
-  }
-
-  const failedResponseGoogle = (response) => {
-    console.log("Here", response);
-    setSignedIn(true);
-  }
-
-  var auth_button;
-  console.log("Var Outside: ", isSignedIn)
-  if (isSignedIn) {
-    auth_button = <GoogleLogout
-      clientId="741634897739-ac07i81bga1jtqdg7lqfk98tt71m76h5.apps.googleusercontent.com"
-      buttonText="Logout"
-      onLogoutSuccess={logoutSuccess}
-    >
-    </GoogleLogout>
-  } else {
-    auth_button = <GoogleLogin
-      clientId="741634897739-ac07i81bga1jtqdg7lqfk98tt71m76h5.apps.googleusercontent.com"
+  var auth_button_loggedOut = 
+  <div className="log-container">
+    <GoogleLogin
+      clientId="324694862893-7rthjc44uda4smoddu16vqqtnfiofbuf.apps.googleusercontent.com"
+      // render={renderProps => (
+      //   <button onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</button>
+      // )}
       buttonText="Login"
-      onSuccess={sucessfulResponseGoogle}
-      onFailure={failedResponseGoogle}
+      onSuccess={props.sucessfulResponseGoogle}
+      onFailure={props.failedResponseGoogle}
       cookiePolicy={'single_host_origin'}
+      isSignedIn={true}
     />
-  }
-
-
-  return (
+  </div>
+  
+  var auth_button_loggedIn = 
+    <div className="log-container">
+      <GoogleLogout
+        clientId="324694862893-7rthjc44uda4smoddu16vqqtnfiofbuf.apps.googleusercontent.com"
+        // render={renderProps => (
+        //   <button onClick={renderProps.onClick} disabled={renderProps.disabled}>Logout</button>
+        // )}
+        buttonText="Logout"
+        onLogoutSuccess={props.logoutSuccess}
+      >
+      </GoogleLogout>
+    </div>
+  
+  return ( 
     <div className="nav-main">
-      <div>
-        {/* {isSignedIn?console.log("user from navbar: ", user): console.log('')} */}
-        {user? <ProductPage user={user} /> : null}
-      </div>
+      
       <Navbar fixed="top" style={{ "justifyContent": "space-between", "padding": "0.5rem 0.5rem" }}>
 
         <div className="left-side">
@@ -107,109 +138,81 @@ function NavBar(props) {
           </button>
 
           <span className="navbar-brand">
-            <Link to="/" className="nav-link">Larrson</Link>
+            <Link to="/" className="nav-link">SHOP</Link>
           </span>
-
-          <form className="form-main">
-            <input placeholder="Search" type="text" className="search-form" />
-            <button className="search-btn"><i className="fas fa-search"></i></button>
-          </form>
-
         </div>
+        <form ref={wrapperRef} className="form-main">
+          <div className="search-bar">
+            <input
+              className="search-form"
+              placeholder="Search"
+              type="text"
+              onChange={e => setSearch(e.target.value)}
+              onClick={() => { setDisplay(!display) }} />
+            <button disabled={true} className="search-btn"><i className="fas fa-search"></i></button>
+          </div>
+          {
+            display && search.length >= 2 && (
+              <div className="search-result-container">
+                {filteredProducts.map(pro => {
+                  return (
+                    <Link 
+                      // to={`/product/${pro._id}`} 
+                      to={{
+                        pathname:`/product/${pro._id}`,
+                        state: {
+                          user: props.user
+                        }
+                      }}
+                      className="form-main-result" 
+                      key={pro._id}
+                      style={{ color: "rgb(255, 255, 255)" }}>
+                      {pro.name}
+                    </Link>
+                  )
+                })}
+              </div>
+            )
+          }
+        </form>
 
         <div className="right-side">
-          <button className="cart-btn"><i className="fas fa-shopping-cart fa-lg"></i></button>
-          {auth_button}
-          {/* <GoogleLogin
-            clientId="741634897739-ac07i81bga1jtqdg7lqfk98tt71m76h5.apps.googleusercontent.com"
-            buttonText="Login"
-            onSuccess={sucessfulResponseGoogle}
-            onFailure={failedResponseGoogle}
-            cookiePolicy={'single_host_origin'}
-        /> */}
+          <div className="user-dropdown">
+            <DropdownButton 
+              drop="left"
+              className="usr-btn"
+              onClick={() => setUserDisplay(!userDisplay)}
+              title={(props.user) ? <img className="nav-profile-pic" src={props.user["profile_picture"]}></img> : <i className="fas fa-user fa-lg"></i>}
+              key={"info"}
+              style ={{
+                color: "transparent"
+              }}
+            >
+              {
+                (props.user) ? (
+                  <div>
+                    <Dropdown.Item 
+                      as="button">
+                      <Link to="/wish" className="cart-button">wishlist<i className="fas fa-heart"></i></Link>
+                    </Dropdown.Item>
+                    <Dropdown.Item as="button" className="log-profile">
+                      <Link to="/profile" className="log-profile">Go to profile</Link>
+                    </Dropdown.Item>
+                    <Dropdown.Item as="button">{(props.user) ? auth_button_loggedIn : auth_button_loggedOut}</Dropdown.Item>
+                  </div>) : 
+                (<Dropdown.Item>
+                  {auth_button_loggedOut}
+                </Dropdown.Item>)
+              }
+            </DropdownButton> 
+          </div>
+          <Link to="/cart" className="cart-btn">
+            <div className="cart-number">{cartList ? cartList.length:0}</div>
+            <svg className="shopping-cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M478.4 297.7l33.4-200.3c0.8-4.8-0.6-9.8-3.7-13.5s-7.8-5.9-12.7-5.9H123.5L111 13.5C109.5 5.7 102.6 0 94.6 0H16.7C7.5 0 0 7.5 0 16.7s7.5 16.7 16.7 16.7h64.1L93.5 97.8c0 0 0 0 0 0l19.3 100.4 32.2 166.7c1.5 7.9 8.3 13.5 16.3 13.5h300.5c9.2 0 16.7-7.5 16.7-16.7s-7.5-16.7-16.7-16.7H175.2l-6.5-33.4h293.2C470.1 311.7 477 305.8 478.4 297.7zM162.2 278.3l-32.3-167h345.7L447.8 278.3H162.2z" /><path d="M217 411.8c-27.6 0-50.1 22.5-50.1 50.1S189.4 512 217 512c27.6 0 50.1-22.5 50.1-50.1S244.7 411.8 217 411.8zM217 478.6c-9.2 0-16.7-7.5-16.7-16.7s7.5-16.7 16.7-16.7c9.2 0 16.7 7.5 16.7 16.7S226.2 478.6 217 478.6z" /><path d="M406.3 411.8c-27.6 0-50.1 22.5-50.1 50.1S378.6 512 406.3 512s50.1-22.5 50.1-50.1S433.9 411.8 406.3 411.8zM406.3 478.6c-9.2 0-16.7-7.5-16.7-16.7s7.5-16.7 16.7-16.7 16.7 7.5 16.7 16.7S415.5 478.6 406.3 478.6z" /><path d="M306.1 144.7c-9.2 0-16.7 7.5-16.7 16.7v66.8c0 9.2 7.5 16.7 16.7 16.7s16.7-7.5 16.7-16.7v-66.8C322.8 152.2 315.3 144.7 306.1 144.7z" /><path d="M406.3 144.7c-9.2 0-16.7 7.5-16.7 16.7v66.8c0 9.2 7.5 16.7 16.7 16.7s16.7-7.5 16.7-16.7v-66.8C423 152.2 415.5 144.7 406.3 144.7z" /><path d="M205.9 144.7c-9.2 0-16.7 7.5-16.7 16.7v66.8c0 9.2 7.5 16.7 16.7 16.7 9.2 0 16.7-7.5 16.7-16.7v-66.8C222.6 152.2 215.1 144.7 205.9 144.7z" /></svg>
+          </Link>
+          
         </div>
       </Navbar>
-
-      <nav className="sidebar">
-        <ul className="sidebar-nav">
-          <Link to="/" className="side-item">
-            <i className="fas fa-home"></i>
-            <span className="link-text">Home</span>
-          </Link>
-
-          <Link to="/" className="side-item">
-            <svg className="fas" enableBackground="new 0 0 512 512" height="25" viewBox="0 0 512 512" width="25" xmlns="http://www.w3.org/2000/svg"><path d="m496 0h-480c-8.836 0-16 7.164-16 16v480c0 8.836 7.164 16 16 16h480c8.837 0 16-7.164 16-16v-480c0-8.836-7.163-16-16-16zm-16 480h-448v-16h16c8.836 0 16-7.164 16-16s-7.164-16-16-16h-16v-16h16c8.836 0 16-7.164 16-16s-7.164-16-16-16h-16v-16h16c8.836 0 16-7.164 16-16s-7.164-16-16-16h-16v-16h16c8.836 0 16-7.164 16-16s-7.164-16-16-16h-16v-160h16c8.836 0 16-7.164 16-16s-7.164-16-16-16h-16v-16h16c8.836 0 16-7.164 16-16s-7.164-16-16-16h-16v-16h448z" /><path d="m240 192c-8.836 0-16 7.164-16 16s7.164 16 16 16h18.752c4.829 13.615 15.633 24.419 29.248 29.248v18.752c0 8.836 7.163 16 16 16s16-7.164 16-16v-16h32v16c0 8.836 7.163 16 16 16s16-7.164 16-16v-18.752c13.615-4.829 24.419-15.633 29.248-29.248h18.752c8.837 0 16-7.164 16-16s-7.163-16-16-16h-16v-31h16c8.837 0 16-7.164 16-16s-7.163-16-16-16h-18.413c-4.646-14.084-15.641-25.301-29.587-30.248v-18.752c0-8.836-7.163-16-16-16s-16 7.164-16 16v16h-32v-16c0-8.836-7.163-16-16-16s-16 7.164-16 16v18.752c-13.946 4.946-24.94 16.164-29.587 30.248h-18.413c-8.836 0-16 7.164-16 16s7.164 16 16 16h16v31zm48-48c0-8.822 7.178-16 16-16h64c8.822 0 16 7.178 16 16v64c0 8.822-7.178 16-16 16h-64c-8.822 0-16-7.178-16-16z" /><path d="m240 352h192c8.837 0 16-7.164 16-16s-7.163-16-16-16h-192c-8.836 0-16 7.164-16 16s7.164 16 16 16z" /><path d="m240 416h16v16c0 8.836 7.163 16 16 16s16-7.164 16-16v-16h32v16c0 8.836 7.163 16 16 16s16-7.164 16-16v-16h32v16c0 8.836 7.163 16 16 16s16-7.164 16-16v-16h16c8.837 0 16-7.164 16-16s-7.163-16-16-16h-192c-8.836 0-16 7.164-16 16s7.164 16 16 16z" /><path d="m112 208c8.836 0 16-7.164 16-16v-112c0-8.836-7.164-16-16-16s-16 7.164-16 16v112c0 8.836 7.164 16 16 16z" /><path d="m176 272c8.836 0 16-7.164 16-16v-176c0-8.836-7.164-16-16-16s-16 7.164-16 16v176c0 8.836 7.164 16 16 16z" /><path d="m112 448h32c8.836 0 16-7.164 16-16s-7.164-16-16-16h-32c-8.836 0-16 7.164-16 16s7.164 16 16 16z" /><path d="m112 384h32c8.836 0 16-7.164 16-16s-7.164-16-16-16h-32c-8.836 0-16 7.164-16 16s7.164 16 16 16z" /><path d="m112 320h32c8.836 0 16-7.164 16-16s-7.164-16-16-16h-32c-8.836 0-16 7.164-16 16s7.164 16 16 16z" /></svg>
-            <span className="link-text">Motherboard</span>
-          </Link>
-
-          <Link to="/" className="side-item">
-            <i className="uil uil-processor"></i>
-            <span className="link-text">CPU</span>
-          </Link>
-
-          <Link to="/" className="side-item">
-            <i className="fas fa-hdd"></i>
-            <span className="link-text">Storage</span>
-          </Link>
-
-          <Link to="/" className="side-item">
-            <i className="fas fa-plug"></i>
-            <span className="link-text">Power Unit / Cooling</span>
-          </Link>
-
-          <Link to="/" className="side-item">
-            <i className="fas fa-memory"></i>
-            <span className="link-text">Memory</span>
-          </Link>
-
-          <Link to="/product/mac" className="side-item">
-            <i className="fas fa-tv"></i>
-            <span className="link-text">Monitors</span>
-          </Link>
-
-          <Link to="/" className="side-item">
-            <i className="fas fa-keyboard"></i>
-            <span className="link-text">Keyboards</span>
-          </Link>
-
-          <Link to="/product/gameboy" className="side-item">
-            <svg className="fas" enableBackground="new 0 0 512 512" height="25" viewBox="0 0 512 512" width="25" xmlns="http://www.w3.org/2000/svg"><g><path d="m60 481h30v-60h61v60h330v-60h31v-330h-422v-60h-90v30h60v60h-60v120h60v30h-60v120h60zm121-60h30v30h-30zm210 0v30h-30v-30zm-60 30h-30v-30h30zm-60 0h-30v-30h30zm180 0h-30v-30h30zm31-330v270h-392v-270zm-452 90v-60h30v60zm0 150v-60h30v60z" /><path d="m346 361c57.897 0 105-47.103 105-105s-47.103-105-105-105-105 47.103-105 105 47.103 105 105 105zm-70.376-79.073c5.973 1.447 12.803 2.394 20.496 2.394 4.426 0 9.145-.324 14.134-1.029 7.877 10.293 20.086 17.096 33.882 17.661 1.07 14.46-2.595 24.284-5.558 29.677-29.001-2.863-53.2-22.31-62.954-48.703zm70.376-10.927c-8.271 0-15-6.729-15-15s6.729-15 15-15 15 6.729 15 15-6.729 15-15 15zm25.926 55.376c2.28-9.407 3.284-20.972 1.356-34.623 10.298-7.877 17.104-20.089 17.67-33.889 14.459-1.07 24.284 2.595 29.677 5.558-2.862 29.002-22.31 53.2-48.703 62.954zm44.45-96.302c-9.407-2.28-20.972-3.284-34.623-1.356-7.877-10.297-20.089-17.104-33.888-17.67-1.07-14.46 2.595-24.284 5.558-29.677 29.001 2.862 53.199 22.309 62.953 48.703zm-96.302-44.45c-2.28 9.407-3.284 20.972-1.356 34.623-10.298 7.877-17.104 20.089-17.67 33.888-14.459 1.07-24.284-2.595-29.677-5.558 2.862-29.001 22.31-53.199 48.703-62.953z" /><path d="m121 151h30v30h-30z" /><path d="m181 151h30v30h-30z" /><path d="m121 211h30v30h-30z" /><path d="m181 211h30v30h-30z" /><path d="m121 271h30v30h-30z" /><path d="m181 271h30v30h-30z" /><path d="m121 331h30v30h-30z" /><path d="m181 331h30v30h-30z" /></g></svg>
-            <span className="link-text">Graphics Card</span>
-          </Link>
-
-          <Link to="/category" className="side-item">
-            <i className="fas fa-gamepad"></i>
-            <span className="link-text">For Gamers</span>
-          </Link>
-
-          <Link to="/product/gameboy" className="side-item">
-            <svg className="fas" enableBackground="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" height="25" width="25"><path d="m368 0h-224c-26.47 0-48 21.53-48 48v416c0 26.47 21.53 48 48 48h224c26.47 0 48-21.53 48-48v-416c0-26.47-21.53-48-48-48zm-112 384c17.64 0 32 14.35 32 32s-14.36 32-32 32-32-14.35-32-32 14.36-32 32-32zm-16-32v-16c0-8.84 7.16-16 16-16s16 7.16 16 16v16c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-64-64c-8.84 0-16-7.16-16-16v-64c0-8.84 7.16-16 16-16h160c8.84 0 16 7.16 16 16v64c0 8.84-7.16 16-16 16zm176-144c0 8.84-7.16 16-16 16h-160c-8.84 0-16-7.16-16-16v-64c0-8.84 7.16-16 16-16h160c8.84 0 16 7.16 16 16z" /><path d="m192 96h128v32h-128z" /><path d="m192 224h128v32h-128z" /></svg>
-            <span className="link-text">Cabinets</span>
-          </Link>
-
-          <a target="_blanck" href="https://blacklivesmatter.com/" className="side-item">
-            <i className="fas fa-helicopter"></i>
-            <span className="link-text">Kobe</span>
-          </a>
-
-          <Link to="/" className="side-item">
-            <i className="fas fa-cogs"></i>
-            <span className="link-text">Settings</span>
-          </Link>
-
-        </ul>
-
-      </nav>
     </div>
   )
 }
-
-
-const mapStateToProps = state => {
-  return {
-    user: state.user
-  }
-}
-// //Then wrap our Component with the HOC, and the connect double invoked. 
-// export default withRouter(connect(mapStateToProps)(NavBar));
-export default withRouter(connect(mapStateToProps)(NavBar));
