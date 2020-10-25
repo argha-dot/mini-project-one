@@ -1,4 +1,4 @@
-qgimport React, { useState } from 'react'
+import React, { useState } from 'react'
 import { Input } from 'antd';
 
 const { Search } = Input;
