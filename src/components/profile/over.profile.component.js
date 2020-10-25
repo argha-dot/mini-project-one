@@ -1,6 +1,6 @@
 import Axios from "axios";
 import React, { useState } from "react";
-// import Popup from 'reactjs-popup';
+
 
 const data = {
     name: "NA",
@@ -10,7 +10,6 @@ const data = {
     city: "NA"
 }
 
-// app.post('/api/update_user', user_controller.update_user_info) 
 export default function Overview(props) {
 
     const [contact, setContact] = useState("");
@@ -27,24 +26,6 @@ export default function Overview(props) {
         .then(response => console.log("Response from account overview: ", response))
         .catch(err => console.log("Update contact error: ", err))
     }
-
-    // const Pop = () => (
-    //     <Popup trigger={
-    //         <button
-    //             style={{ backgroundColor: "transparent", color: "white", border: "none" }}>
-    //             <i class="fas fa-pen"></i>
-    //         </button>} 
-    //     modal>
-    //         <div style={{ backgroundColor: "white" }}>
-    //             {contact}
-    //             <label for="fname">Contact No:</label><br />
-    //             <input type="text" className="contact-input"/>
-    //             <button onClick={() => updateContact}>
-    //                 Submit
-    //             </button>
-    //         </div>
-    //     </Popup>
-    // )
     
     return(
         <div className="over-sec">
@@ -68,7 +49,6 @@ export default function Overview(props) {
                         <td className="table-something">Contact</td>
                         <td className="table-otherthing">{(props.user) ? props.user.contact : data.contact}</td>
                         <td className="table-anotherthing">            
-                            {/* <Pop></Pop> */}
                         </td>
                     </tr>
                     <tr className="over-table-row">

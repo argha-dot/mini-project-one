@@ -4,6 +4,7 @@ import "./profile.component.css";
 import Navigation from "./navi.profile.compnent"
 import Overview from "./over.profile.component"
 import Address from "./add.profile.component"
+
 /*
 app.post('/api/update_user', user_controller.update_user_info) 
 */
@@ -24,12 +25,12 @@ export default function Profile(props) {
         {
             name: "orders",
             label: "Your Orders",
-            content: (<Navigation />)
+            content: (<div></div>)
         },
         {
             name: "wish",
             label: "Your Wishlist",
-            content: (<Navigation />)
+            content: (<div></div>)
         }
     ]
 
@@ -48,7 +49,7 @@ export default function Profile(props) {
                             key={i}
                             onClick={() => setCurrent(tab.name)}
                             className={`profile-nav-button ${(tab.name === current) ? "profile-tab-active": ""}`}>
-                              {tab.label}
+                            {tab.label}
                         </button>
                     ))
                 }
