@@ -122,8 +122,9 @@ function ProductPage(props) {
                     <div className="shop-btn">
                         <ButtonGroup className="add-buy">
                             <Button onClick={() => {
+                                _addToCart()
                                 togglePopup()
-                                _addToCart()}}>
+                                setTimeout(function(){ setShowPopUp(false) }, 650)}}>
                                 <div className="add-link"
                                     style={{ textDecoration: "none" }}
                                     >
@@ -144,7 +145,8 @@ function ProductPage(props) {
                             className="add-wishlist"
                             onClick={() => {
                                 _addToWishlist()
-                                togglePopup()}}
+                                togglePopup()
+                                setTimeout(function(){ setShowPopUp(false) }, 650)}}
                         >
                             <i className="fas fa-heart"></i>
                         </button>

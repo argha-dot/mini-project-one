@@ -77,7 +77,7 @@ export default function Category(props) {
             <div className="cat-contents">
                 {
                     productList.map((index) => (
-                        index.category === key[categoryId] ? <ItemCategory toggle={() => setShowPopUp(!showPopup)} data={index} user={user} key={index._id}/>:null
+                        index.category === key[categoryId] ? <ItemCategory close={() => setShowPopUp(false)} toggle={() => setShowPopUp(!showPopup)} data={index} user={user} key={index._id}/>:null
                     ))
                 }
             </div>

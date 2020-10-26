@@ -92,7 +92,7 @@ function PlaceOrder() {
 
 export default function Buy(props){
 
-    const [curretnTab, setTab] = useState((props.tab) ? props.tab : "confirm");
+    const [curretnTab, setTab] = useState((props.tab) ? props.tab : "address");
     const tabs = [
         {
             name: "address",
