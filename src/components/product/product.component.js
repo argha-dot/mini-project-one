@@ -122,8 +122,8 @@ function ProductPage(props) {
                     <div className="shop-btn">
                         <ButtonGroup className="add-buy">
                             <Button onClick={() => {
-                                togglePopup()
-                                _addToCart()}}>
+                                _addToCart()
+                                togglePopup()}}>
                                 <div className="add-link"
                                     style={{ textDecoration: "none" }}
                                     >
