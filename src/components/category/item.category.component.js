@@ -44,13 +44,15 @@ export default function ItemCategory(props) {
                 <button className="add-to"
                     onClick={() => {
                         _addToCart()
-                        props.toggle()}}>
+                        props.toggle()
+                        setTimeout(function() { props.close() }, 650)}}>
                     Add To Cart
                 </button>
                 <button className="add-wishlist"
                     onClick={() => {
                         _addToWishlist()
-                        props.toggle()}}>
+                        props.toggle()
+                        setTimeout(function() { props.close() }, 650)}}>
                     <i className="fas fa-heart"></i>
                 </button>
             </div>

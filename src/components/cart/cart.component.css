@@ -56,6 +56,18 @@
     align-self: end;
 }
 
+.cart-item-buttons * {
+    background-color: #073638;
+    border: none;
+    margin-right: 0.15rem;
+    color: white;
+}
+
+.cart-item-buttons *:hover {
+    background-color: transparent;
+    color: white;
+}
+
 .cart-item-price {
     grid-area: price;
     font-size: 1rem;

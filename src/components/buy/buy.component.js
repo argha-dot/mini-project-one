@@ -2,44 +2,61 @@ import React, { useState } from "react";
 import { Form, Button, Col } from "react-bootstrap";
 import "./buy.component.css"
 
-function AddressBook() {
+var formStyle = { backgroundColor: "transparent",
+                                    color: "rgba(255, 255, 255, 0.2)",
+                                    border: "none",
+                                    borderRadius: "0px",
+                                    borderBottom: "1px solid rgba(255, 255, 255, 0.1)"}
+
+function AddressBook(props) {
     return (
         <div className="address">
+            {console.log(props)}
             <div className="select-address">
                 <h4>Select an Address</h4>
+                <br />
+                {
+                    (props.user ? props.user.address:[]).map((addr) => (
+                        <div>
+                            <input type="radio" className="add-addr-input" id="addr.name" name="address" value="addr.name" />
+                            <label for="addr.name">{addr.name}</label><br />
+                        </div>
+                    ))
+                }
             </div>
 
             <br />
 
             <div className="another-address">
                 <h4>Deliver to Another Address</h4>
+                <br />
                 <Form>
                     <Form.Group>
                         <Form.Label>Flat, House no., Building, Company, Apartment</Form.Label>
-                        <Form.Control placeholder="D-3 Some Appartment" />
+                        <Form.Control placeholder="E.g, D-3 Some Appartment" style={formStyle} />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Landmark</Form.Label>
-                        <Form.Control placeholder="Near AIIMS Flyover, Behind somewhere" />
+                        <Form.Control placeholder="E.g, Near AIIMS Flyover, Behind somewhere" style={formStyle} />
                     </Form.Group>
                     <Form.Row>
                         <Form.Group as={Col}>
                             <Form.Label>Sector, Village</Form.Label>
-                            <Form.Control placeholder="E.g, Vastrapur" />
+                            <Form.Control placeholder="E.g, Vastrapur" style={formStyle} />
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label>Pin Code</Form.Label>
-                            <Form.Control placeholder="6 digits [0-9] PIN Code" />
+                            <Form.Control placeholder="6 digits [0-9] PIN Code" style={formStyle} />
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
                         <Form.Group as={Col}>
                             <Form.Label>City</Form.Label>
-                            <Form.Control placeholder="E.g, Ahmedabad" />
+                            <Form.Control placeholder="E.g, Ahmedabad" style={formStyle} />
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label>State</Form.Label>
-                            <Form.Control placeholder="E.g, Gujrat" />
+                            <Form.Control placeholder="E.g, Gujrat" style={formStyle} />
                         </Form.Group>
                     </Form.Row>
                 </Form>
@@ -56,21 +73,21 @@ function DeliveryOptions() {
             <div>
                 <div className="payment">
                     <h5>Choose your Payment Method</h5>
-                    <input type="radio" id="card" name="pay" value="card" />
+                    <input type="radio" className="add-buy-input" id="card" name="pay" value="card" />
                     <label for="card">Credit Card / Debit Card</label><br />
-                    <input type="radio" id="bank" name="pay" value="bank" />
+                    <input type="radio" className="add-buy-input" id="bank" name="pay" value="bank" />
                     <label for="bank">Internet Banking</label><br />
-                    <input type="radio" id="cash" name="pay" value="cash" />
+                    <input type="radio" className="add-buy-input" id="cash" name="pay" value="cash" />
                     <label for="cash">Cash on Dewlivery</label>
                 </div>
                 <br />
                 <div className="arrival">
                     <h5>Choose A delivery speed</h5>
-                    <input type="radio" id="" name="delivery" value="" />
+                    <input type="radio" className="add-buy-input" id="" name="delivery" value="" />
                     <label for="">Sometime after 23rd Century</label><br />
-                    <input type="radio" id="" name="delivery" value="" />
+                    <input type="radio" className="add-buy-input" id="" name="delivery" value="" />
                     <label for="">Decembruary 1, 2018</label><br />
-                    <input type="radio" id="" name="delivery" value="" />
+                    <input type="radio" className="add-buy-input" id="" name="delivery" value="" />
                     <label for="">Use a Random number generator</label><br />
 
                 </div>
@@ -92,12 +109,12 @@ function PlaceOrder() {
 
 export default function Buy(props){
 
-    const [curretnTab, setTab] = useState((props.tab) ? props.tab : "confirm");
+    const [curretnTab, setTab] = useState((props.tab) ? props.tab : "address");
     const tabs = [
         {
             name: "address",
             label: "Select Address",
-            content: (<AddressBook />)
+            content: (<AddressBook user={props.location ? props.location.state.user : null} />)
         },
         {
             name: "delivery",

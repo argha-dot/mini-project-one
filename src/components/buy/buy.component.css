@@ -3,7 +3,6 @@
     margin-left: 20rem;
     margin-top: 5rem;
     margin-bottom: 3rem;
-    height: 80vh;
     color: rgba(255, 255, 255, 0.5);
 }
 
@@ -12,4 +11,22 @@
     color: darkslategray;
     text-align: start;
     margin-bottom: 3rem;
+}
+
+.buy-nav-btns {
+    border: none;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.35);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.2rem;
+    padding-right: 0.5rem;
+}
+
+.buy-active-tab {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: none;
+}
+
+.another-address h4 {
+    color: rgba(255, 255, 255, 0.5);
 }

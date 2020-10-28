@@ -54,14 +54,12 @@ export default function NavBar(props) {
     }
   }, []);
 
-  console.log("user from nav", props.user);
-
   useEffect(() => {
     axios({
       method: "GET",
       url: `http://localhost:5000/api/see_cart/${props.user ? props.user._id : ""}`
     })
-      .then(response => { setCartList(response.data.cart); console.log("nav.comp user", cartList);})
+      .then(response => { setCartList(response.data.cart);})
       .catch(err => console.log("error from nav.comp Error: ", err))
   })
 
