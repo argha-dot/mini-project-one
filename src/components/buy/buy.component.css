@@ -3,7 +3,6 @@
     margin-left: 20rem;
     margin-top: 5rem;
     margin-bottom: 3rem;
-    height: 80vh;
     color: rgba(255, 255, 255, 0.5);
 }
 
@@ -26,4 +25,8 @@
 .buy-active-tab {
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-bottom: none;
+}
+
+.another-address h4 {
+    color: rgba(255, 255, 255, 0.5);
 }

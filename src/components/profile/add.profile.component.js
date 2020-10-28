@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Axios from "axios"
 
 
@@ -15,13 +15,12 @@ export default function Address(props) {
     // console.log(user);
 
     function updateAddress() {
-        console.log("q")
         Axios({
             method: "POST",
-            url: `/api/update_user`,
-            data: { userId: user._id, contact: "", address: user.address }
+            url: `http://localhost:5000/api/update_user`,
+            data: { userId: user._id, contact: "", address: usrAdd }
         })
-            .then(response => console.log("Response from account overview: ", response))
+            .then(response => {setUser({...user, address: usrAdd}); console.log("Response from account overview: ", response)})
             .catch(err => console.log("Update contact error: ", err))
     }
 
@@ -29,7 +28,7 @@ export default function Address(props) {
         <div className="addr-main">
             <h3 className="addr-title">Addresses</h3>
             <div className="addr-container">
-                {(usrAdd ? usrAdd:[]).map((addr) => {
+                {(user ? user.address:[]).map((addr) => {
                     return(
                         <div key={addr.name} className="addr-content">
                             <div className="addr-bar">
@@ -50,11 +49,15 @@ export default function Address(props) {
                                 <input className="addr-title-add" placeholder="Title" onChange={(e) => {setnewAdd({...newAdd, name: e.target.value}); console.log(newAdd);}} contentEditable="true"></input>
                                 <div className="addr-btns-add">
                                     <button onClick={() => setAdd(false)} className="addr-button-add"><i className="far fa-trash-alt"></i></button>
-                                    <button className="addr-button-add">✔</button>
-                                    {/* onClick={() => { setUsrAdd(usrAdd) }} */}
+                                    <button className="addr-button-add"
+                                    onClick={() => setUsrAdd(usrAdd => [...usrAdd, newAdd])}
+                                    >✔</button>
+                                    <button className="addr-button-something-else"
+                                    onClick={() => updateAddress() }
+                                    >💾</button>
                                 </div>
                             </div>
-                            <input placeholder="Address" onChange={(e) => { setnewAdd({ ...newAdd, address: e.target.value })}} className="addr-addr-add"></input>
+                            <input placeholder="Address" onChange={(e) => { setnewAdd({ ...newAdd, address: e.target.value }); }} className="addr-addr-add"></input>
                         </div>
                     )
                 }

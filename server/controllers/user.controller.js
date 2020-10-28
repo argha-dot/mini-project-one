@@ -7,8 +7,8 @@ module.exports = {
 
     update_user_info(req, res) {
         const {userId, address, contact} = req.body;
-        User.findOneAndUpdate({_id: userId}, {$set: {contact: contact, address: address}}).exec(err, user => {
-            if(err) {
+        User.findOneAndUpdate({_id: userId}, {$set: {contact: contact, address: address}}).exec((err, user) => {
+            if (err) {
                 return res.status(400).json({
                     error: "Error from updating user info"
                 })
